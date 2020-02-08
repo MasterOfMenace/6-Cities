@@ -12,7 +12,8 @@ it(`Правильное отображение компонента Main`, () =
         `Canal View Prinsengracht`,
         `Nice, cozy, warm big bed apartment`,
         `SandalWood and RollingStone place`
-      ]}/>)
+      ]}
+      titleClickHandler={()=>{}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

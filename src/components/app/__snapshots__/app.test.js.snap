@@ -259,6 +259,7 @@ exports[`Правильное отображение компонента App 1`
               >
                 <a
                   href="#"
+                  onClick={[Function]}
                 >
                   Beautiful & luxurious apartment at great location
                 </a>
@@ -360,6 +361,7 @@ exports[`Правильное отображение компонента App 1`
               >
                 <a
                   href="#"
+                  onClick={[Function]}
                 >
                   Wood and stone place
                 </a>
@@ -461,6 +463,7 @@ exports[`Правильное отображение компонента App 1`
               >
                 <a
                   href="#"
+                  onClick={[Function]}
                 >
                   Canal View Prinsengracht
                 </a>
@@ -562,6 +565,7 @@ exports[`Правильное отображение компонента App 1`
               >
                 <a
                   href="#"
+                  onClick={[Function]}
                 >
                   Nice, cozy, warm big bed apartment
                 </a>
@@ -663,6 +667,7 @@ exports[`Правильное отображение компонента App 1`
               >
                 <a
                   href="#"
+                  onClick={[Function]}
                 >
                   SandalWood and RollingStone place
                 </a>
