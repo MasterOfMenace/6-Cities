@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Main from '../main/main.jsx';
 
+const titleClickHandler = () => {};
+
 const App = (props) => {
   const {offerCount, placesName} = props;
   return (
     <Main
       offerCount={offerCount}
-      placesName={placesName}/>
+      placesName={placesName}
+      titleClickHandler={titleClickHandler}/>
   );
 };
 
