@@ -14,7 +14,8 @@ it(`Правильное отображение компонента OfferCard`,
     .create(<OfferCard
       offer={mockOffer}
       onMouseOver={()=>{}}
-      onMouseLeave={()=>{}}/>)
+      onMouseLeave={()=>{}}
+      titleClickHandler={()=>{}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

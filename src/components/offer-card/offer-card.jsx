@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const OfferCard = ({offer, onMouseOver, onMouseLeave}) => {
+const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler}) => {
   return (
     <article className="cities__place-card place-card"
       onMouseOver={onMouseOver}
@@ -34,7 +34,7 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#"
+          <a href="#" onClick={titleClickHandler}
           >{offer.name}</a>
         </h2>
         <p className="place-card__type">{offer.type}</p>
@@ -44,6 +44,7 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave}) => {
 };
 
 OfferCard.propTypes = {
+  titleClickHandler: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   offer: PropTypes.shape({

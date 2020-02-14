@@ -97,6 +97,7 @@ exports[`Правильное отображение компонента Offers
       >
         <a
           href="#"
+          onClick={[Function]}
         >
           Offer1
         </a>
@@ -201,6 +202,7 @@ exports[`Правильное отображение компонента Offers
       >
         <a
           href="#"
+          onClick={[Function]}
         >
           Offer2
         </a>
@@ -305,6 +307,7 @@ exports[`Правильное отображение компонента Offers
       >
         <a
           href="#"
+          onClick={[Function]}
         >
           Offer3
         </a>
@@ -409,6 +412,7 @@ exports[`Правильное отображение компонента Offers
       >
         <a
           href="#"
+          onClick={[Function]}
         >
           Offer4
         </a>

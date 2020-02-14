@@ -19,6 +19,7 @@ it(`При наведении курсора на карточку предло�
   const offer = mockOffer;
   const onMouseOver = jest.fn();
   const onMouseLeave = jest.fn();
+  const titleClickHandler = jest.fn();
   const hoveredOffer = {
     name: `Room in hotel`,
     picture: `img/apartment-01.jpg`,
@@ -30,7 +31,8 @@ it(`При наведении курсора на карточку предло�
       <OfferCard
         offer={offer}
         onMouseOver={onMouseOver}
-        onMouseLeave={onMouseLeave}/>
+        onMouseLeave={onMouseLeave}
+        titleClickHandler={titleClickHandler}/>
   );
 
   const card = offerCard.find(`.place-card`);
@@ -41,3 +43,22 @@ it(`При наведении курсора на карточку предло�
   expect(onMouseOver.mock.calls[0][0].target).toMatchObject(hoveredOffer);
 });
 
+it(`При клике на заголовок предложения срабатывает колбэк`, () => {
+  const offer = mockOffer;
+  const onMouseOver = jest.fn();
+  const onMouseLeave = jest.fn();
+  const titleClickHandler = jest.fn();
+
+  const offerCard = shallow(
+      <OfferCard
+        offer={offer}
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+        titleClickHandler={titleClickHandler}/>
+  );
+
+  const offerTitleLink = offerCard.find(`.place-card__name a`);
+  offerTitleLink.simulate(`click`);
+
+  expect(titleClickHandler).toHaveBeenCalledTimes(1);
+});

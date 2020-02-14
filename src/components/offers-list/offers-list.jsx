@@ -30,7 +30,8 @@ class OffersList extends React.PureComponent {
               this.setState({
                 offer: null
               });
-            }}/>
+            }}
+            titleClickHandler={()=>{}}/>
         ))}
       </div>
     );

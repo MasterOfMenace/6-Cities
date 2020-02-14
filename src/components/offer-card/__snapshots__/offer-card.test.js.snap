@@ -94,6 +94,7 @@ exports[`Правильное отображение компонента OfferC
     >
       <a
         href="#"
+        onClick={[Function]}
       >
         Room in hotel
       </a>
