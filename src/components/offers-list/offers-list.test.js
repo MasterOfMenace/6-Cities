@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import OffersList from './offers-list';
 
-const offers = [
+const mockOffers = [
   {
     name: `Offer1`,
     picture: `img/apartment-01.jpg`,
@@ -29,11 +29,10 @@ const offers = [
   },
 ];
 
-it(`Правильное отображение компонента App`, () => {
+it(`Правильное отображение компонента OffersList`, () => {
   const tree = renderer
-    .create(<App
-      offerCount={1500}
-      offers={offers}/>)
+    .create(<OffersList
+      offers={mockOffers}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
