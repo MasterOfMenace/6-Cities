@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import Main from '../main/main.jsx';
 
 const App = (props) => {
-  const {offerCount, offers, titleClickHandler} = props;
+  const {offerCount, offers} = props;
   return (
     <Main
       offerCount={offerCount}
       offers={offers}
-      titleClickHandler={titleClickHandler}/>
+      titleClickHandler={()=>{}}/>
   );
 };
 
 App.propTypes = {
   offerCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
-  titleClickHandler: PropTypes.func.isRequired
+  offers: PropTypes.array.isRequired
 };
 
 export default App;

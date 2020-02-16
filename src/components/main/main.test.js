@@ -33,7 +33,8 @@ it(`Правильное отображение компонента Main`, () =
   const tree = renderer
     .create(<Main
       offerCount={1500}
-      offers={offers}/>)
+      offers={offers}
+      titleClickHandler={()=>{}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -32,7 +32,8 @@ const mockOffers = [
 it(`Правильное отображение компонента OffersList`, () => {
   const tree = renderer
     .create(<OffersList
-      offers={mockOffers}/>)
+      offers={mockOffers}
+      titleClickHandler={()=>{}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
