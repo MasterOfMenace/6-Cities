@@ -21,9 +21,8 @@ class OffersList extends React.PureComponent {
             key={index}
             offer={offer}
             onMouseOver={() => {
-              const hoveredOffer = offer;
               this.setState({
-                offer: hoveredOffer
+                offer: index
               });
             }}
             onMouseLeave={() => {

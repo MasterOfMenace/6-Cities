@@ -1,8 +1,10 @@
-const createPrice = () => {
-  const minPrice = 10;
-  const maxPrice = 10000;
+const Price = {
+  MIN: 10,
+  MAX: 10000
+};
 
-  return Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
+const createPrice = () => {
+  return Math.floor(Math.random() * (Price.MAX - Price.MIN + 1)) + Price.MIN;
 };
 
 export default [
