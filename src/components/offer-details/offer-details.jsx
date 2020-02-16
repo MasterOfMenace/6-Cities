@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const OfferDetails = () => {
+const OfferDetails = ({offer}) => {
   return (
     <main className="page__main page__main--property">
       <section className="property">
@@ -33,7 +34,7 @@ const OfferDetails = () => {
             </div>
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                Beautiful &amp; luxurious studio at great location
+                {offer.name}
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
@@ -51,7 +52,7 @@ const OfferDetails = () => {
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                Apartment
+                {offer.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
                 3 Bedrooms
@@ -61,7 +62,7 @@ const OfferDetails = () => {
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;120</b>
+              <b className="property__price-value">&euro;{offer.price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -299,6 +300,15 @@ const OfferDetails = () => {
       </div>
     </main>
   );
+};
+
+OfferDetails.propTypes = {
+  offer: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default OfferDetails;

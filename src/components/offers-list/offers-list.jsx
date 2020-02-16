@@ -12,7 +12,7 @@ class OffersList extends React.PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, titleClickHandler} = this.props;
 
     return (
       <div className="cities__places-list places__list tabs__content">
@@ -30,7 +30,7 @@ class OffersList extends React.PureComponent {
                 offer: null
               });
             }}
-            titleClickHandler={()=>{}}/>
+            titleClickHandler={titleClickHandler}/>
         ))}
       </div>
     );
@@ -38,7 +38,8 @@ class OffersList extends React.PureComponent {
 }
 
 OffersList.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  titleClickHandler: PropTypes.func.isRequired
 };
 
 export default OffersList;

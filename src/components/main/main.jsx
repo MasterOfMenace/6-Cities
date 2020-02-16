@@ -4,7 +4,7 @@ import OffersList from '../offers-list/offers-list.jsx';
 
 
 const Main = (props) => {
-  const {offerCount, offers} = props;
+  const {offerCount, offers, titleClickHandler} = props;
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -72,7 +72,9 @@ const Main = (props) => {
               </select> */}
 
             </form>
-            <OffersList offers={offers}/>
+            <OffersList
+              offers={offers}
+              titleClickHandler={titleClickHandler}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -86,6 +88,7 @@ const Main = (props) => {
 Main.propTypes = {
   offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
+  titleClickHandler: PropTypes.func.isRequired
 };
 
 export default Main;
