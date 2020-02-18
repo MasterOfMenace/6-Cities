@@ -34,7 +34,7 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={titleClickHandler}
+          <a href="#" onClick={() => titleClickHandler(offer.id)}
           >{offer.name}</a>
         </h2>
         <p className="place-card__type">{offer.type}</p>
@@ -48,6 +48,7 @@ OfferCard.propTypes = {
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,

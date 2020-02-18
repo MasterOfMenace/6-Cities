@@ -22,7 +22,7 @@ class OffersList extends React.PureComponent {
             offer={offer}
             onMouseOver={() => {
               this.setState({
-                offer: index
+                offer: offer.id
               });
             }}
             onMouseLeave={() => {
@@ -38,7 +38,13 @@ class OffersList extends React.PureComponent {
 }
 
 OffersList.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired
+  })).isRequired,
   titleClickHandler: PropTypes.func.isRequired
 };
 

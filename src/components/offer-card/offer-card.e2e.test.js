@@ -8,6 +8,7 @@ Enzyme.configure({
 });
 
 const mockOffer = {
+  id: 1,
   name: `Room in hotel`,
   picture: `img/apartment-01.jpg`,
   price: 100,
@@ -20,12 +21,6 @@ it(`При наведении курсора на карточку предло�
   const onMouseOver = jest.fn();
   const onMouseLeave = jest.fn();
   const titleClickHandler = jest.fn();
-  const hoveredOffer = {
-    name: `Room in hotel`,
-    picture: `img/apartment-01.jpg`,
-    price: 100,
-    type: `Private room`
-  };
 
   const offerCard = shallow(
       <OfferCard
@@ -36,11 +31,11 @@ it(`При наведении курсора на карточку предло�
   );
 
   const card = offerCard.find(`.place-card`);
-  card.simulate(`mouseover`, {target: offer});
+  card.simulate(`mouseover`, {id: offer.id});
 
   expect(onMouseOver).toHaveBeenCalledTimes(1);
 
-  expect(onMouseOver.mock.calls[0][0].target).toMatchObject(hoveredOffer);
+  expect(onMouseOver.mock.calls[0][0].id).toBe(offer.id);
 });
 
 it(`При клике на заголовок предложения срабатывает колбэк`, () => {
