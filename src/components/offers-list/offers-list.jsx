@@ -12,7 +12,7 @@ class OffersList extends React.PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, titleClickHandler} = this.props;
 
     return (
       <div className="cities__places-list places__list tabs__content">
@@ -21,9 +21,8 @@ class OffersList extends React.PureComponent {
             key={index}
             offer={offer}
             onMouseOver={() => {
-              const hoveredOffer = offer;
               this.setState({
-                offer: hoveredOffer
+                offer: offer.id
               });
             }}
             onMouseLeave={() => {
@@ -31,7 +30,7 @@ class OffersList extends React.PureComponent {
                 offer: null
               });
             }}
-            titleClickHandler={()=>{}}/>
+            titleClickHandler={titleClickHandler}/>
         ))}
       </div>
     );
@@ -39,7 +38,14 @@ class OffersList extends React.PureComponent {
 }
 
 OffersList.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired
+  })).isRequired,
+  titleClickHandler: PropTypes.func.isRequired
 };
 
 export default OffersList;

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list.jsx';
 
 
-const Main = (props) => {
-  const {offerCount, offers} = props;
+const Main = ({offerCount, offers, titleClickHandler}) => {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -72,7 +71,9 @@ const Main = (props) => {
               </select> */}
 
             </form>
-            <OffersList offers={offers}/>
+            <OffersList
+              offers={offers}
+              titleClickHandler={titleClickHandler}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -85,7 +86,14 @@ const Main = (props) => {
 
 Main.propTypes = {
   offerCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired
+  })).isRequired,
+  titleClickHandler: PropTypes.func.isRequired
 };
 
 export default Main;
