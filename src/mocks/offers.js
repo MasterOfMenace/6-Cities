@@ -13,27 +13,31 @@ export default [
     name: `Room in hotel`,
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
-    type: `Private room`
+    type: `Private room`,
+    location: [52.3909553943508, 4.85309666406198]
   },
   {
     id: 2,
     name: `Wood and stone place`,
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
-    type: `Apartment`
+    type: `Apartment`,
+    location: [52.369553943508, 4.85309666406198]
   },
   {
     id: 3,
     name: `Cozy hostel in the city center`,
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
-    type: `Hostel`
+    type: `Hostel`,
+    location: [52.3909553943508, 4.929309666406198]
   },
   {
     id: 4,
     name: `Apartment with beautiful city view`,
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
-    type: `Apartment`
+    type: `Apartment`,
+    location: [52.3809553943508, 4.939309666406198]
   },
 ];

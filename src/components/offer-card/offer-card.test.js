@@ -7,7 +7,8 @@ const mockOffer = {
   name: `Room in hotel`,
   picture: `img/apartment-01.jpg`,
   price: 100,
-  type: `Private room`
+  type: `Private room`,
+  location: [52.369553943508, 4.85309666406198]
 };
 
 it(`Правильное отображение компонента OfferCard`, () => {
