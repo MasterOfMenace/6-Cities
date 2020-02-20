@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
+import Map from '../map/map.jsx';
 
-const OfferDetails = ({offer}) => {
-  const reviews = offer.reviews;
+const OfferDetails = ({offers, id}) => {
+  const currentOffer = offers.find((offer) => offer.id === id);
+  const neighbourhoodOffers = offers.filter((offer) => offer.id !== id);
+  const neighbourhoodOffersLocations = neighbourhoodOffers.map((offer) => offer.location);
+  const reviews = currentOffer.reviews;
+
   return (
     <main className="page__main page__main--property">
       <section className="property">
@@ -36,7 +41,7 @@ const OfferDetails = ({offer}) => {
             </div>
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {offer.name}
+                {currentOffer.name}
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
@@ -54,7 +59,7 @@ const OfferDetails = ({offer}) => {
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {offer.type}
+                {currentOffer.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
                 3 Bedrooms
@@ -64,7 +69,7 @@ const OfferDetails = ({offer}) => {
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;{offer.price}</b>
+              <b className="property__price-value">&euro;{currentOffer.price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -121,10 +126,12 @@ const OfferDetails = ({offer}) => {
                 </p>
               </div>
             </div>
-            {<ReviewsList reviews={reviews}/>}
+            <ReviewsList reviews={reviews}/>
           </div>
         </div>
-        <section className="property__map map"></section>
+        <section className="property__map map">
+          <Map offersLocations={neighbourhoodOffersLocations}/>
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
@@ -233,7 +240,9 @@ const OfferDetails = ({offer}) => {
 };
 
 OfferDetails.propTypes = {
-  offer: PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
@@ -245,7 +254,7 @@ OfferDetails.propTypes = {
       text: PropTypes.string.isRequired,
       time: PropTypes.objectOf(Date)
     })).isRequired
-  }).isRequired
+  })).isRequired
 };
 
 export default OfferDetails;

@@ -35,10 +35,10 @@ class App extends React.PureComponent {
     }
 
     if (id) {
-      const currentOffer = offers.find((offer) => offer.id === id);
       return (
         <OfferDetails
-          offer={currentOffer}
+          offers={offers}
+          id={id}
         />
       );
     }
@@ -56,7 +56,8 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-details">
             <OfferDetails
-              offer={offers[0]}
+              offers={offers}
+              id={1}
             />
           </Route>
         </Switch>
