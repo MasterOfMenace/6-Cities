@@ -307,7 +307,8 @@ OfferDetails.propTypes = {
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired
   }).isRequired
 };
 

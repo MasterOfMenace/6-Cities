@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list.jsx';
+import Map from '../map/map.jsx';
 
 
 const Main = ({offerCount, offers, titleClickHandler}) => {
+  const locations = offers.map((offer) => offer.location);
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -76,7 +78,9 @@ const Main = ({offerCount, offers, titleClickHandler}) => {
               titleClickHandler={titleClickHandler}/>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section className="cities__map map">
+              <Map offersLocations={locations}/>
+            </section>
           </div>
         </div>
       </div>
@@ -91,7 +95,8 @@ Main.propTypes = {
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired
   })).isRequired,
   titleClickHandler: PropTypes.func.isRequired
 };
