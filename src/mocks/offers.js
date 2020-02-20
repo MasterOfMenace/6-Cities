@@ -14,7 +14,15 @@ export default [
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
     type: `Private room`,
-    location: [52.3909553943508, 4.85309666406198]
+    location: [52.3909553943508, 4.85309666406198],
+    reviews: [
+      {
+        author: `Johnny`,
+        avatar: `img/avatar-max.jpg`,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        time: new Date()
+      }
+    ]
   },
   {
     id: 2,
@@ -22,7 +30,15 @@ export default [
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
     type: `Apartment`,
-    location: [52.369553943508, 4.85309666406198]
+    location: [52.369553943508, 4.85309666406198],
+    reviews: [
+      {
+        author: `Michael`,
+        avatar: `img/avatar-max.jpg`,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        time: new Date()
+      }
+    ]
   },
   {
     id: 3,
@@ -30,7 +46,15 @@ export default [
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
     type: `Hostel`,
-    location: [52.3909553943508, 4.929309666406198]
+    location: [52.3909553943508, 4.929309666406198],
+    reviews: [
+      {
+        author: `Peter`,
+        avatar: `img/avatar-max.jpg`,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        time: new Date()
+      }
+    ]
   },
   {
     id: 4,
@@ -38,6 +62,14 @@ export default [
     picture: `img/apartment-01.jpg`,
     price: createPrice(),
     type: `Apartment`,
-    location: [52.3809553943508, 4.939309666406198]
+    location: [52.3809553943508, 4.939309666406198],
+    reviews: [
+      {
+        author: `Max`,
+        avatar: `img/avatar-max.jpg`,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        time: new Date()
+      }
+    ]
   },
 ];

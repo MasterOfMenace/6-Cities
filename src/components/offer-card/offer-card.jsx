@@ -53,7 +53,13 @@ OfferCard.propTypes = {
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.shape({
+      author: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      time: PropTypes.objectOf(Date)
+    })).isRequired
   }).isRequired
 };
 
