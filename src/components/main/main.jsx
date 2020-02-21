@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
-
+import {OfferRenderType} from '../../const.js';
 
 const Main = ({offerCount, offers, titleClickHandler}) => {
   const locations = offers.map((offer) => offer.location);
@@ -75,11 +75,13 @@ const Main = ({offerCount, offers, titleClickHandler}) => {
             </form>
             <OffersList
               offers={offers}
-              titleClickHandler={titleClickHandler}/>
+              titleClickHandler={titleClickHandler}
+              type={OfferRenderType.MAIN}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map offersLocations={locations}/>
+              <Map
+                offersLocations={locations}/>
             </section>
           </div>
         </div>

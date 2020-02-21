@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {OfferRenderType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
 
 class OffersList extends React.PureComponent {
@@ -12,10 +13,12 @@ class OffersList extends React.PureComponent {
   }
 
   render() {
-    const {offers, titleClickHandler} = this.props;
+    const {offers, titleClickHandler, type} = this.props;
+
+    const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={className}>
         {offers.map((offer, index) => (
           <OfferCard
             key={index}
@@ -30,7 +33,8 @@ class OffersList extends React.PureComponent {
                 offer: null
               });
             }}
-            titleClickHandler={titleClickHandler}/>
+            titleClickHandler={titleClickHandler}
+            type={type}/>
         ))}
       </div>
     );
@@ -38,6 +42,7 @@ class OffersList extends React.PureComponent {
 }
 
 OffersList.propTypes = {
+  type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,

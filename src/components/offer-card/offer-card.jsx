@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {OfferRenderType} from '../../const.js';
 
-const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler}) => {
+const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler, type}) => {
+  const className = type === OfferRenderType.MAIN ? `cities__place` : `near-places`;
+
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${className}-card place-card`}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={offer.picture} width="260" height="200" alt="Place image"/>
         </a>
@@ -44,6 +47,7 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler}) => {
 };
 
 OfferCard.propTypes = {
+  type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
   titleClickHandler: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,

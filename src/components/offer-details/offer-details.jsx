@@ -130,7 +130,9 @@ const OfferDetails = ({offers, id}) => {
           </div>
         </div>
         <section className="property__map map">
-          <Map offersLocations={neighbourhoodOffersLocations}/>
+          <Map
+            offersLocations={neighbourhoodOffersLocations}
+            currentOfferLocation={currentOffer.location}/>
         </section>
       </section>
       <div className="container">

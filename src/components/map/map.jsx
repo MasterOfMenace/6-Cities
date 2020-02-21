@@ -13,6 +13,7 @@ class Map extends React.PureComponent {
 
   componentDidMount() {
     const {offersLocations} = this.props;
+    const {currentOfferLocation} = this.props;
 
     const zoom = 12;
 
@@ -31,10 +32,23 @@ class Map extends React.PureComponent {
     .addTo(this._map);
 
     this._addOffersIcons(offersLocations);
+    this._addCurrentOfferIcon(currentOfferLocation);
   }
 
   componentWillUnmount() {
     this._map.remove();
+  }
+
+  _addCurrentOfferIcon(location) {
+    if (!location) {
+      return;
+    }
+    const icon = leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
+      iconSize: [30, 30]
+    });
+
+    leaflet.marker(location, {icon}).addTo(this._map);
   }
 
   _addOffersIcons(locations) {
@@ -56,7 +70,8 @@ class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  offersLocations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
+  offersLocations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  currentOfferLocation: PropTypes.arrayOf(PropTypes.number)
 };
 
 export default Map;
