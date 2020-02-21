@@ -8,6 +8,7 @@ class Map extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this._markers = [];
     this._mapContainer = React.createRef();
   }
 
@@ -48,7 +49,7 @@ class Map extends React.PureComponent {
       iconSize: [30, 30]
     });
 
-    leaflet.marker(location, {icon}).addTo(this._map);
+    this._markers.push(leaflet.marker(location, {icon}).addTo(this._map));
   }
 
   _addOffersIcons(locations) {
@@ -58,7 +59,8 @@ class Map extends React.PureComponent {
     });
 
     locations.forEach((location) => {
-      leaflet.marker(location, {icon}).addTo(this._map);
+      this._markers
+      .push(leaflet.marker(location, {icon}).addTo(this._map));
     });
   }
 
@@ -66,6 +68,15 @@ class Map extends React.PureComponent {
     return (
       <div id="map" style={{height: `100%`}} ref={this._mapContainer}></div>
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentOfferLocation !== prevProps.currentOfferLocation) {
+      this._markers = [];
+      const {offersLocations, currentOfferLocation} = this.props;
+      this._addOffersIcons(offersLocations);
+      this._addCurrentOfferIcon(currentOfferLocation);
+    }
   }
 }
 

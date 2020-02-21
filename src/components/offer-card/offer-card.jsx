@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import {OfferRenderType} from '../../const.js';
 
 const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler, type}) => {
-  const className = type === OfferRenderType.MAIN ? `cities__place` : `near-places`;
+  const isMain = type === OfferRenderType.MAIN;
 
   return (
-    <article className={`${className}-card place-card`}
+    <article className={`${isMain ? `cities__place-card` : `near-places__card`} place-card`}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
-      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${isMain ? `cities__image-wrapper` : `near-places__image-wrapper`} place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={offer.picture} width="260" height="200" alt="Place image"/>
         </a>

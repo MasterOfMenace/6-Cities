@@ -39,6 +39,7 @@ class App extends React.PureComponent {
         <OfferDetails
           offers={offers}
           id={id}
+          titleClickHandler={this.titleClickHandler}
         />
       );
     }
@@ -58,6 +59,7 @@ class App extends React.PureComponent {
             <OfferDetails
               offers={offers}
               id={1}
+              titleClickHandler={this.titleClickHandler}
             />
           </Route>
         </Switch>
