@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import OffersList from './offers-list';
+import {OfferRenderType} from '../../const.js';
 
 const mockOffers = [
   {
@@ -93,9 +94,21 @@ const mockOffers = [
   },
 ];
 
-it(`Правильное отображение компонента OffersList`, () => {
+it(`Правильное отображение компонента OffersList с OfferRenderType.MAIN`, () => {
   const tree = renderer
     .create(<OffersList
+      type={OfferRenderType.MAIN}
+      offers={mockOffers}
+      titleClickHandler={()=>{}}/>)
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`Правильное отображение компонента OffersList с OfferRenderType.NEIGHBORHOOD`, () => {
+  const tree = renderer
+    .create(<OffersList
+      type={OfferRenderType.NEIGHBORHOOD}
       offers={mockOffers}
       titleClickHandler={()=>{}}/>)
     .toJSON();

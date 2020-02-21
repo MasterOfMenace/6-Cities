@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import OfferCard from './offer-card.jsx';
+import {OfferRenderType} from '../../const.js';
 
 const mockOffer = {
   id: 1,
@@ -25,9 +26,23 @@ const mockOffer = {
   ]
 };
 
-it(`Правильное отображение компонента OfferCard`, () => {
+it(`Правильное отображение компонента OfferCard с OfferRenderType.MAIN`, () => {
   const tree = renderer
     .create(<OfferCard
+      type={OfferRenderType.MAIN}
+      offer={mockOffer}
+      onMouseOver={()=>{}}
+      onMouseLeave={()=>{}}
+      titleClickHandler={()=>{}}/>)
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`Правильное отображение компонента OfferCard с OfferRenderType.NEIGHBORHOOD`, () => {
+  const tree = renderer
+    .create(<OfferCard
+      type={OfferRenderType.NEIGHBORHOOD}
       offer={mockOffer}
       onMouseOver={()=>{}}
       onMouseLeave={()=>{}}

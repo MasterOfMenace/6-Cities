@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import OfferCard from './offer-card.jsx';
+import {OfferRenderType} from '../../const.js';
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -39,6 +40,7 @@ it(`При наведении курсора на карточку предло�
 
   const offerCard = shallow(
       <OfferCard
+        type={OfferRenderType.MAIN}
         offer={offer}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
@@ -61,6 +63,7 @@ it(`При клике на заголовок предложения сраба�
 
   const offerCard = shallow(
       <OfferCard
+        type={OfferRenderType.MAIN}
         offer={offer}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
