@@ -6,7 +6,7 @@ const mockReview = {
   author: `author`,
   avatar: `author-avatar`,
   text: `Review text`,
-  time: new Date()
+  time: new Date().toISOString()
 };
 
 it(`Правильное отображение компонента Review`, () => {

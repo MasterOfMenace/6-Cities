@@ -70,9 +70,9 @@ exports[`Правильное отображение компонента Review
         </p>
         <time
           className="reviews__time"
-          dateTime="2019-04-24"
+          dateTime="2020-2-21"
         >
-          April 2019
+          February 2020
         </time>
       </div>
     </li>
@@ -129,9 +129,9 @@ exports[`Правильное отображение компонента Review
         </p>
         <time
           className="reviews__time"
-          dateTime="2019-04-24"
+          dateTime="2020-2-21"
         >
-          April 2019
+          February 2020
         </time>
       </div>
     </li>

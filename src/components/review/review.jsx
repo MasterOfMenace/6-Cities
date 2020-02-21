@@ -1,8 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const MonthNames = [
+  `January`,
+  `February`,
+  `Mart`,
+  `April`,
+  `May`,
+  `June`,
+  `July`,
+  `August`,
+  `September`,
+  `October`,
+  `November`,
+  `December`
+];
+
+const formatDate = (date) => {
+  const month = MonthNames[date.getMonth()];
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+};
+
 const Review = (props) => {
   const {review} = props;
+
+  const date = new Date(review.time);
 
   return (
     <li className="reviews__item">
@@ -24,7 +47,7 @@ const Review = (props) => {
         <p className="reviews__text">
           {review.text}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={date.toLocaleDateString()}>{formatDate(date)}</time>
       </div>
     </li>
   );
@@ -35,7 +58,7 @@ Review.propTypes = {
     author: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    time: PropTypes.objectOf(Date)
+    time: PropTypes.string.isRequired
   })
 };
 

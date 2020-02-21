@@ -81,7 +81,7 @@ App.propTypes = {
       author: PropTypes.string.isRequired,
       avatar: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
-      time: PropTypes.objectOf(Date)
+      time: PropTypes.string.isRequired
     })).isRequired
   })).isRequired
 };

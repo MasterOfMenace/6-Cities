@@ -5,11 +5,13 @@ import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {OfferRenderType} from '../../const.js';
 
+const MAX_REVIEWS_COUNT = 10;
+
 const OfferDetails = ({offers, id, titleClickHandler}) => {
   const currentOffer = offers.find((offer) => offer.id === id);
   const neighbourhoodOffers = offers.filter((offer) => offer.id !== id);
   const neighbourhoodOffersLocations = neighbourhoodOffers.map((offer) => offer.location);
-  const reviews = currentOffer.reviews;
+  const reviews = currentOffer.reviews.slice(0, MAX_REVIEWS_COUNT);
 
   return (
     <main className="page__main page__main--property">
@@ -164,7 +166,7 @@ OfferDetails.propTypes = {
       author: PropTypes.string.isRequired,
       avatar: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
-      time: PropTypes.objectOf(Date)
+      time: PropTypes.string.isRequired
     })).isRequired
   })).isRequired
 };

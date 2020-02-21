@@ -20,13 +20,13 @@ const mockOffer = {
       author: `author-1`,
       avatar: `author-avatar-1`,
       text: `Review text`,
-      time: new Date()
+      time: new Date().toISOString()
     },
     {
       author: `author-2`,
       avatar: `author-avatar-2`,
       text: `Review text`,
-      time: new Date()
+      time: new Date().toISOString()
     }
   ]
 };
