@@ -1,20 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const MonthNames = [
-  `January`,
-  `February`,
-  `Mart`,
-  `April`,
-  `May`,
-  `June`,
-  `July`,
-  `August`,
-  `September`,
-  `October`,
-  `November`,
-  `December`
-];
+import {MonthNames} from '../../const.js';
 
 const formatDate = (date) => {
   const month = MonthNames[date.getMonth()];
@@ -47,7 +33,7 @@ const Review = (props) => {
         <p className="reviews__text">
           {review.text}
         </p>
-        <time className="reviews__time" dateTime={date.toLocaleDateString()}>{formatDate(date)}</time>
+        <time className="reviews__time" dateTime={date.toDateString()}>{formatDate(date)}</time>
       </div>
     </li>
   );

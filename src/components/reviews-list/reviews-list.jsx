@@ -2,15 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Review from '../review/review.jsx';
 
+const sortReviews = (reviews) => {
+  return reviews.slice().sort((a, b) => {
+    const aDate = Date.parse(a.time);
+    const bDate = Date.parse(b.time);
+    return aDate - bDate;
+  });
+};
+
 const ReviewsList = (props) => {
   const {reviews} = props;
   const reviewsAmount = reviews.length;
+  const sorted = sortReviews(reviews);
 
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsAmount}</span></h2>
       <ul className="reviews__list">
-        {reviews.map((review, index) => (
+        {sorted.map((review, index) => (
           <Review key={index} review={review} />
         ))}
       </ul>

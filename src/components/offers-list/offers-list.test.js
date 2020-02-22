@@ -3,6 +3,11 @@ import renderer from 'react-test-renderer';
 import OffersList from './offers-list';
 import {OfferRenderType} from '../../const.js';
 
+const Dates = [
+  `10 July 2019`,
+  `25 April 2018`
+];
+
 const mockOffers = [
   {
     id: 1,
@@ -16,13 +21,13 @@ const mockOffers = [
         author: `author-1`,
         avatar: `author-avatar-1`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[0]).toISOString()
       },
       {
         author: `author-2`,
         avatar: `author-avatar-2`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[1]).toISOString()
       }
     ]
   },
@@ -38,13 +43,13 @@ const mockOffers = [
         author: `author-1`,
         avatar: `author-avatar-1`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[0]).toISOString()
       },
       {
         author: `author-2`,
         avatar: `author-avatar-2`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[1]).toISOString()
       }
     ]
   },
@@ -60,13 +65,13 @@ const mockOffers = [
         author: `author-1`,
         avatar: `author-avatar-1`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[0]).toISOString()
       },
       {
         author: `author-2`,
         avatar: `author-avatar-2`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[1]).toISOString()
       }
     ]
   },
@@ -82,13 +87,13 @@ const mockOffers = [
         author: `author-1`,
         avatar: `author-avatar-1`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[0]).toISOString()
       },
       {
         author: `author-2`,
         avatar: `author-avatar-2`,
         text: `Review text`,
-        time: new Date().toISOString()
+        time: new Date(Dates[1]).toISOString()
       }
     ]
   },

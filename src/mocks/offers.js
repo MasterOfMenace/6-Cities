@@ -1,3 +1,5 @@
+import {MonthNames} from '../const.js';
+
 const Price = {
   MIN: 10,
   MAX: 10000
@@ -6,6 +8,16 @@ const Price = {
 const ReviewsCount = {
   MIN: 0,
   MAX: 12
+};
+
+const Years = {
+  MIN: 2017,
+  MAX: 2020
+};
+
+const Days = {
+  MIN: 1,
+  MAX: 28
 };
 
 const Authors = [`Michael`, `Johnny`, `Derek`, `Peter`, `Anna`, `Dave`, `Susan`, `Maria`, `Helen`, `Jesse`];
@@ -18,6 +30,10 @@ const createAuthor = () => {
   return Authors[getRandomValue(0, Authors.length - 1)];
 };
 
+const getRandomDate = () => {
+  return new Date(`${getRandomValue(Days.MIN, Days.MAX)} ${MonthNames[getRandomValue(0, MonthNames.length - 1)]} ${getRandomValue(Years.MIN, Years.MAX)}`);
+};
+
 const createReviews = (count) => {
   const reviews = Array(count);
   reviews.fill({}).forEach((element, index, array) => {
@@ -25,7 +41,7 @@ const createReviews = (count) => {
       author: createAuthor(),
       avatar: `img/avatar-max.jpg`,
       text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-      time: new Date().toISOString()
+      time: getRandomDate().toISOString()
     });
   }
   );

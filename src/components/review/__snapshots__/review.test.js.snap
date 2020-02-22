@@ -54,9 +54,9 @@ exports[`Правильное отображение компонента Review
     </p>
     <time
       className="reviews__time"
-      dateTime="2020-2-22"
+      dateTime="Wed Jul 10 2019"
     >
-      February 2020
+      July 2019
     </time>
   </div>
 </li>

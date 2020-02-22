@@ -304,65 +304,6 @@ exports[`Правильное отображение компонента OfferD
                     alt="Reviews avatar"
                     className="reviews__avatar user__avatar"
                     height="54"
-                    src="author-avatar-1"
-                    width="54"
-                  />
-                </div>
-                <span
-                  className="reviews__user-name"
-                >
-                  author-1
-                </span>
-              </div>
-              <div
-                className="reviews__info"
-              >
-                <div
-                  className="reviews__rating rating"
-                >
-                  <div
-                    className="reviews__stars rating__stars"
-                  >
-                    <span
-                      style={
-                        Object {
-                          "width": "80%",
-                        }
-                      }
-                    />
-                    <span
-                      className="visually-hidden"
-                    >
-                      Rating
-                    </span>
-                  </div>
-                </div>
-                <p
-                  className="reviews__text"
-                >
-                  Review text
-                </p>
-                <time
-                  className="reviews__time"
-                  dateTime="2020-2-22"
-                >
-                  February 2020
-                </time>
-              </div>
-            </li>
-            <li
-              className="reviews__item"
-            >
-              <div
-                className="reviews__user user"
-              >
-                <div
-                  className="reviews__avatar-wrapper user__avatar-wrapper"
-                >
-                  <img
-                    alt="Reviews avatar"
-                    className="reviews__avatar user__avatar"
-                    height="54"
                     src="author-avatar-2"
                     width="54"
                   />
@@ -403,9 +344,68 @@ exports[`Правильное отображение компонента OfferD
                 </p>
                 <time
                   className="reviews__time"
-                  dateTime="2020-2-22"
+                  dateTime="Wed Apr 25 2018"
                 >
-                  February 2020
+                  April 2018
+                </time>
+              </div>
+            </li>
+            <li
+              className="reviews__item"
+            >
+              <div
+                className="reviews__user user"
+              >
+                <div
+                  className="reviews__avatar-wrapper user__avatar-wrapper"
+                >
+                  <img
+                    alt="Reviews avatar"
+                    className="reviews__avatar user__avatar"
+                    height="54"
+                    src="author-avatar-1"
+                    width="54"
+                  />
+                </div>
+                <span
+                  className="reviews__user-name"
+                >
+                  author-1
+                </span>
+              </div>
+              <div
+                className="reviews__info"
+              >
+                <div
+                  className="reviews__rating rating"
+                >
+                  <div
+                    className="reviews__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "80%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <p
+                  className="reviews__text"
+                >
+                  Review text
+                </p>
+                <time
+                  className="reviews__time"
+                  dateTime="Wed Jul 10 2019"
+                >
+                  July 2019
                 </time>
               </div>
             </li>
