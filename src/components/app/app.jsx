@@ -35,10 +35,11 @@ class App extends React.PureComponent {
     }
 
     if (id) {
-      const currentOffer = offers.find((offer) => offer.id === id);
       return (
         <OfferDetails
-          offer={currentOffer}
+          offers={offers}
+          id={id}
+          titleClickHandler={this.titleClickHandler}
         />
       );
     }
@@ -56,7 +57,9 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-details">
             <OfferDetails
-              offer={offers[0]}
+              offers={offers}
+              id={1}
+              titleClickHandler={this.titleClickHandler}
             />
           </Route>
         </Switch>
@@ -73,7 +76,13 @@ App.propTypes = {
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.shape({
+      author: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      time: PropTypes.string.isRequired
+    })).isRequired
   })).isRequired
 };
 

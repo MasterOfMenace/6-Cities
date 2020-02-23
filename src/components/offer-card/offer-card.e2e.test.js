@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import OfferCard from './offer-card.jsx';
+import {OfferRenderType} from '../../const.js';
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -13,7 +14,21 @@ const mockOffer = {
   picture: `img/apartment-01.jpg`,
   price: 100,
   type: `Private room`,
-  location: [52.369553943508, 4.85309666406198]
+  location: [52.369553943508, 4.85309666406198],
+  reviews: [
+    {
+      author: `author-1`,
+      avatar: `author-avatar-1`,
+      text: `Review text`,
+      time: new Date().toISOString()
+    },
+    {
+      author: `author-2`,
+      avatar: `author-avatar-2`,
+      text: `Review text`,
+      time: new Date().toISOString()
+    }
+  ]
 };
 
 
@@ -25,6 +40,7 @@ it(`При наведении курсора на карточку предло�
 
   const offerCard = shallow(
       <OfferCard
+        type={OfferRenderType.MAIN}
         offer={offer}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
@@ -47,6 +63,7 @@ it(`При клике на заголовок предложения сраба�
 
   const offerCard = shallow(
       <OfferCard
+        type={OfferRenderType.MAIN}
         offer={offer}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}

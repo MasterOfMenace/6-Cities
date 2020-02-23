@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {OfferRenderType} from '../../const.js';
 
-const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler}) => {
+const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler, type}) => {
+  const isMain = type === OfferRenderType.MAIN;
+
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${isMain ? `cities__place-card` : `near-places__card`} place-card`}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${isMain ? `cities__image-wrapper` : `near-places__image-wrapper`} place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={offer.picture} width="260" height="200" alt="Place image"/>
         </a>
@@ -44,6 +47,7 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler}) => {
 };
 
 OfferCard.propTypes = {
+  type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
   titleClickHandler: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
@@ -53,7 +57,13 @@ OfferCard.propTypes = {
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.shape({
+      author: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      time: PropTypes.string.isRequired
+    })).isRequired
   }).isRequired
 };
 
