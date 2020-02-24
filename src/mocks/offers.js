@@ -22,6 +22,8 @@ const Days = {
 
 const Authors = [`Michael`, `Johnny`, `Derek`, `Peter`, `Anna`, `Dave`, `Susan`, `Maria`, `Helen`, `Jesse`];
 
+export const Cities = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+
 const getRandomValue = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -51,6 +53,9 @@ const createReviews = (count) => {
 export default [
   {
     id: 1,
+    city: {
+      name: Cities[0],
+    },
     name: `Room in hotel`,
     picture: `img/apartment-01.jpg`,
     price: getRandomValue(Price.MIN, Price.MAX),
@@ -60,6 +65,9 @@ export default [
   },
   {
     id: 2,
+    city: {
+      name: Cities[0],
+    },
     name: `Wood and stone place`,
     picture: `img/apartment-01.jpg`,
     price: getRandomValue(Price.MIN, Price.MAX),
@@ -69,6 +77,9 @@ export default [
   },
   {
     id: 3,
+    city: {
+      name: Cities[1],
+    },
     name: `Cozy hostel in the city center`,
     picture: `img/apartment-01.jpg`,
     price: getRandomValue(Price.MIN, Price.MAX),
@@ -78,6 +89,105 @@ export default [
   },
   {
     id: 4,
+    city: {
+      name: Cities[1],
+    },
+    name: `Apartment with beautiful city view`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Apartment`,
+    location: [52.3809553943508, 4.939309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 5,
+    city: {
+      name: Cities[2],
+    },
+    name: `Apartment with beautiful city view`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Apartment`,
+    location: [52.3809553943508, 4.939309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 6,
+    city: {
+      name: Cities[2],
+    },
+    name: `Apartment with beautiful city view`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Apartment`,
+    location: [52.3809553943508, 4.939309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 7,
+    city: {
+      name: Cities[3],
+    },
+    name: `Room in hotel`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Private room`,
+    location: [52.3909553943508, 4.85309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 8,
+    city: {
+      name: Cities[3],
+    },
+    name: `Wood and stone place`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Apartment`,
+    location: [52.369553943508, 4.85309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 9,
+    city: {
+      name: Cities[4],
+    },
+    name: `Cozy hostel in the city center`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Hostel`,
+    location: [52.3909553943508, 4.929309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 10,
+    city: {
+      name: Cities[4],
+    },
+    name: `Apartment with beautiful city view`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Apartment`,
+    location: [52.3809553943508, 4.939309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 11,
+    city: {
+      name: Cities[5],
+    },
+    name: `Apartment with beautiful city view`,
+    picture: `img/apartment-01.jpg`,
+    price: getRandomValue(Price.MIN, Price.MAX),
+    type: `Apartment`,
+    location: [52.3809553943508, 4.939309666406198],
+    reviews: createReviews(getRandomValue(ReviewsCount.MIN, ReviewsCount.MAX))
+  },
+  {
+    id: 12,
+    city: {
+      name: Cities[5],
+    },
     name: `Apartment with beautiful city view`,
     picture: `img/apartment-01.jpg`,
     price: getRandomValue(Price.MIN, Price.MAX),

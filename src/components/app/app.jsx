@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
 
@@ -21,14 +22,15 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {offerCount, offers} = this.props;
+    const {currentOffers} = this.props;
+    const offersCount = currentOffers.length;
     const {id} = this.state;
 
     if (!id) {
       return (
         <Main
-          offerCount={offerCount}
-          offers={offers}
+          offerCount={offersCount}
+          offers={currentOffers}
           titleClickHandler={this.titleClickHandler}
         />
       );
@@ -37,7 +39,7 @@ class App extends React.PureComponent {
     if (id) {
       return (
         <OfferDetails
-          offers={offers}
+          offers={currentOffers}
           id={id}
           titleClickHandler={this.titleClickHandler}
         />
@@ -48,7 +50,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {currentOffers} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -57,7 +59,7 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-details">
             <OfferDetails
-              offers={offers}
+              offers={currentOffers}
               id={1}
               titleClickHandler={this.titleClickHandler}
             />
@@ -69,8 +71,8 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  offerCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
+  // offerCount: PropTypes.number.isRequired,
+  currentOffers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
@@ -86,4 +88,11 @@ App.propTypes = {
   })).isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  currentOffers: state.currentOffers
+});
+
+const mapDispatchToProps = () => ({});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
