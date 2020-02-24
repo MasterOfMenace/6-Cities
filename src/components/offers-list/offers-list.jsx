@@ -1,50 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {OfferRenderType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
+import {ActionCreator} from '../../reducer.js';
 
-class OffersList extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}) => {
+  const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
 
-    this.state = {
-      offer: null
-    };
-  }
-
-  render() {
-    const {offers, titleClickHandler, type} = this.props;
-
-    const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
-
-    return (
-      <div className={className}>
-        {offers.map((offer, index) => (
-          <OfferCard
-            key={index}
-            offer={offer}
-            onMouseOver={() => {
-              this.setState({
-                offer: offer.id
-              });
-            }}
-            onMouseLeave={() => {
-              this.setState({
-                offer: null
-              });
-            }}
-            titleClickHandler={titleClickHandler}
-            type={type}/>
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={className}>
+      {offers.map((offer, index) => (
+        <OfferCard
+          key={index}
+          offer={offer}
+          onMouseOver={onMouseOver}
+          onMouseLeave={onMouseLeave}
+          titleClickHandler={titleClickHandler}
+          type={type}/>
+      ))}
+    </div>
+  );
+};
 
 OffersList.propTypes = {
   type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
+  onMouseOver: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
+    city: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
@@ -60,4 +45,15 @@ OffersList.propTypes = {
   titleClickHandler: PropTypes.func.isRequired
 };
 
-export default OffersList;
+const mapDispatchToProps = (dispatch) => ({
+  onMouseOver(offer) {
+    dispatch(ActionCreator.selectOffer(offer));
+  },
+
+  onMouseLeave() {
+    dispatch(ActionCreator.unselectOffer());
+  }
+});
+
+export {OffersList};
+export default connect(null, mapDispatchToProps)(OffersList);
