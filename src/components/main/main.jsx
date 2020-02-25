@@ -4,7 +4,7 @@ import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import {OfferRenderType} from '../../const.js';
 
-const Main = ({offerCount, offers, titleClickHandler}) => {
+const Main = ({offerCount, offers}) => {
   const locations = offers.map((offer) => offer.location);
   return (
     <div className="page page--gray page--main">
@@ -98,7 +98,7 @@ const Main = ({offerCount, offers, titleClickHandler}) => {
               </form>
               <OffersList
                 offers={offers}
-                titleClickHandler={titleClickHandler}
+                // titleClickHandler={titleClickHandler}
                 type={OfferRenderType.MAIN}/>
             </section>
             <div className="cities__right-section">
@@ -130,7 +130,6 @@ Main.propTypes = {
       time: PropTypes.string.isRequired
     })).isRequired
   })).isRequired,
-  titleClickHandler: PropTypes.func.isRequired
 };
 
 export default Main;

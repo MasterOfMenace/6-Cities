@@ -1,6 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
+import {App} from './app.jsx';
+
+const mockStore = configureStore([]);
+
+const store = mockStore({});
 
 const Dates = [
   `10 July 2019`,
@@ -10,6 +16,9 @@ const Dates = [
 const offers = [
   {
     id: 1,
+    city: {
+      name: `City`,
+    },
     name: `Offer1`,
     picture: `img/apartment-01.jpg`,
     price: 100,
@@ -32,6 +41,9 @@ const offers = [
   },
   {
     id: 2,
+    city: {
+      name: `City`,
+    },
     name: `Offer2`,
     picture: `img/apartment-01.jpg`,
     price: 200,
@@ -54,6 +66,9 @@ const offers = [
   },
   {
     id: 3,
+    city: {
+      name: `City`,
+    },
     name: `Offer3`,
     picture: `img/apartment-01.jpg`,
     price: 300,
@@ -76,6 +91,9 @@ const offers = [
   },
   {
     id: 4,
+    city: {
+      name: `City`,
+    },
     name: `Offer4`,
     picture: `img/apartment-01.jpg`,
     price: 400,
@@ -99,14 +117,16 @@ const offers = [
 ];
 
 it(`Правильное отображение компонента App`, () => {
-  const tree = renderer
-    .create(<App
-      offerCount={1500}
-      offers={offers}/>,
-    {
-      createNodeMock: () => document.createElement(`div`)
-    })
-    .toJSON();
+  const tree = renderer.create(
+      <Provider store={store}>
+        <App
+          currentOffers={offers}
+          selectedOffer={null}/>
+      </Provider>,
+      {
+        createNodeMock: () => document.createElement(`div`)
+      })
+      .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

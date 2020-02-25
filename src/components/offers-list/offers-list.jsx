@@ -14,8 +14,12 @@ const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}
         <OfferCard
           key={index}
           offer={offer}
-          onMouseOver={onMouseOver}
-          onMouseLeave={onMouseLeave}
+          onMouseOver={()=>{
+            onMouseOver(offer);
+          }}
+          onMouseLeave={()=>{
+            onMouseLeave();
+          }}
           titleClickHandler={titleClickHandler}
           type={type}/>
       ))}
@@ -47,11 +51,15 @@ OffersList.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onMouseOver(offer) {
-    dispatch(ActionCreator.selectOffer(offer));
+    dispatch(ActionCreator.hoverOffer(offer));
   },
 
   onMouseLeave() {
-    dispatch(ActionCreator.unselectOffer());
+    dispatch(ActionCreator.blurOffer());
+  },
+
+  titleClickHandler() {
+    dispatch(ActionCreator.selectOffer());
   }
 });
 

@@ -5,6 +5,7 @@ const getCurrentOffers = (city) => offers.filter((offer) => offer.city.name === 
 const initialState = {
   city: Cities[0],
   currentOffers: getCurrentOffers(Cities[0]),
+  hoveredOffer: null,
   selectedOffer: null,
 };
 
@@ -12,7 +13,8 @@ export const ActionType = {
   CHANGE_CITY: `change_city`,
   GET_OFFERS: `get_offers`,
   SELECT_OFFER: `select_offer`,
-  UNSELECT_OFFER: `unselect_offer`,
+  HOVER_OFFER: `hover_offer`,
+  BLUR_OFFER: `blur_offer`,
 };
 
 export const ActionCreator = {
@@ -25,14 +27,18 @@ export const ActionCreator = {
     type: ActionType.GET_OFFERS
   }),
 
-  selectOffer: (offer) => ({
-    type: ActionType.SELECT_OFFER,
+  hoverOffer: (offer) => ({
+    type: ActionType.HOVER_OFFER,
     payload: offer.id
   }),
 
-  unselectOffer: () => ({
-    type: ActionType.UNSELECT_OFFER,
+  blurOffer: () => ({
+    type: ActionType.BLUR_OFFER,
   }),
+
+  selectOffer: () => ({
+    type: ActionType.SELECT_OFFER
+  })
 };
 
 export const reducer = (state = initialState, action) => {
@@ -54,17 +60,23 @@ export const reducer = (state = initialState, action) => {
         currentOffers
       });
 
+    case ActionType.HOVER_OFFER:
+      const hoveredOffer = action.payload;
+      return Object.assign({}, state, {
+        hoveredOffer
+      });
+
+    case ActionType.BLUR_OFFER:
+
+      return Object.assign({}, state, {
+        hoveredOffer: null
+      });
+
     case ActionType.SELECT_OFFER:
-      const selectedOffer = action.payload;
+      const selectedOffer = state.hoveredOffer;
 
       return Object.assign({}, state, {
         selectedOffer
-      });
-
-    case ActionType.UNSELECT_OFFER:
-
-      return Object.assign({}, state, {
-        selectedOffer: null
       });
   }
 

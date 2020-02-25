@@ -7,7 +7,7 @@ import {OfferRenderType} from '../../const.js';
 
 const MAX_REVIEWS_COUNT = 10;
 
-const OfferDetails = ({offers, id, titleClickHandler}) => {
+const OfferDetails = ({offers, id}) => {
   const currentOffer = offers.find((offer) => offer.id === id);
   const neighbourhoodOffers = offers.filter((offer) => offer.id !== id);
   const neighbourhoodOffersLocations = neighbourhoodOffers.map((offer) => offer.location);
@@ -167,7 +167,6 @@ const OfferDetails = ({offers, id, titleClickHandler}) => {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
               offers={neighbourhoodOffers}
-              titleClickHandler={titleClickHandler}
               type={OfferRenderType.NEIGHBORHOOD}/>
           </section>
         </div>
@@ -177,7 +176,6 @@ const OfferDetails = ({offers, id, titleClickHandler}) => {
 };
 
 OfferDetails.propTypes = {
-  titleClickHandler: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
