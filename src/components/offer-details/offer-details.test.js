@@ -12,11 +12,17 @@ const Dates = [
   `25 April 2018`
 ];
 
+const city = {
+  name: `City`,
+  location: [52.38333, 4.9]
+};
+
 const mockOffers = [
   {
     id: 1,
     city: {
       name: `City`,
+      location: [52.38333, 4.9]
     },
     name: `Offer1`,
     picture: `img/apartment-01.jpg`,
@@ -42,6 +48,7 @@ const mockOffers = [
     id: 2,
     city: {
       name: `City`,
+      location: [52.38333, 4.9]
     },
     name: `Offer2`,
     picture: `img/apartment-01.jpg`,
@@ -67,6 +74,7 @@ const mockOffers = [
     id: 3,
     city: {
       name: `City`,
+      location: [52.38333, 4.9]
     },
     name: `Offer3`,
     picture: `img/apartment-01.jpg`,
@@ -92,6 +100,7 @@ const mockOffers = [
     id: 4,
     city: {
       name: `City`,
+      location: [52.38333, 4.9]
     },
     name: `Offer4`,
     picture: `img/apartment-01.jpg`,
@@ -121,7 +130,8 @@ it(`Правильное отображение компонента OfferDetail
       <Provider store={store}>
         <OfferDetails
           offers={mockOffers}
-          id={mockId}/>
+          id={mockId}
+          city={city}/>
       </Provider>,
       {
         createNodeMock: () => document.createElement(`div`)

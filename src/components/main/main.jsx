@@ -76,7 +76,6 @@ const Main = ({offerCount, currentOffers, offers, city, cityChangeHandler}) => {
               </form>
               <OffersList
                 offers={currentOffers}
-                // titleClickHandler={titleClickHandler}
                 type={OfferRenderType.MAIN}/>
             </section>
             <div className="cities__right-section">

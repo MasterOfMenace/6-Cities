@@ -1,6 +1,6 @@
 import offers, {Cities} from './mocks/offers.js';
 
-const getCurrentOffers = (city) => offers.filter((offer) => offer.city.name === city.name);
+export const getCurrentOffers = (city) => offers.filter((offer) => offer.city.name === city.name);
 
 const initialState = {
   city: Cities[0],
