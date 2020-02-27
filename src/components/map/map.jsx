@@ -2,8 +2,6 @@ import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
-const CITY_COORDS = [52.38333, 4.9];
-
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -13,24 +11,11 @@ class Map extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {offersLocations} = this.props;
+    const {offersLocations, cityLocation} = this.props;
     const {currentOfferLocation} = this.props;
-
     const zoom = 12;
 
-    this._map = leaflet.map(this._mapContainer.current, {
-      center: CITY_COORDS,
-      zoom,
-      zoomControl: false,
-      marker: true
-    });
-    this._map.setView(CITY_COORDS, zoom);
-
-    leaflet
-    .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-    })
-    .addTo(this._map);
+    this._createMap(cityLocation, offersLocations, zoom);
 
     this._addOffersIcons(offersLocations);
     this._addCurrentOfferIcon(currentOfferLocation);
@@ -38,6 +23,27 @@ class Map extends React.PureComponent {
 
   componentWillUnmount() {
     this._map.remove();
+    this._removeMarkers();
+  }
+
+  _createMap(cityLocation, offersLocations, zoom) {
+    this._map = leaflet.map(this._mapContainer.current, {
+      center: cityLocation,
+      zoom,
+      zoomControl: false,
+      marker: true
+    });
+    this._map.setView(cityLocation, zoom);
+
+    leaflet
+    .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+    })
+    .addTo(this._map);
+  }
+
+  _removeMarkers() {
+    this._markers = [];
   }
 
   _addCurrentOfferIcon(location) {
@@ -72,15 +78,25 @@ class Map extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props.currentOfferLocation !== prevProps.currentOfferLocation) {
-      this._markers = [];
       const {offersLocations, currentOfferLocation} = this.props;
+      this._removeMarkers();
       this._addOffersIcons(offersLocations);
       this._addCurrentOfferIcon(currentOfferLocation);
+    }
+
+    if (this.props.cityLocation !== prevProps.cityLocation) {
+      const {offersLocations, cityLocation} = this.props;
+      const zoom = 12;
+      this._removeMarkers();
+      this._map.remove();
+      this._createMap(cityLocation, offersLocations, zoom);
+      this._addOffersIcons(offersLocations);
     }
   }
 }
 
 Map.propTypes = {
+  cityLocation: PropTypes.array.isRequired,
   offersLocations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   currentOfferLocation: PropTypes.arrayOf(PropTypes.number)
 };

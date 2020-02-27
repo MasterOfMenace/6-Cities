@@ -4,10 +4,11 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
+import {ActionCreator} from '../../reducer.js';
 
 class App extends React.PureComponent {
   _renderApp() {
-    const {currentOffers, selectedOffer} = this.props;
+    const {offers, currentOffers, selectedOffer, city, cityChangeHandler} = this.props;
 
     const offersCount = currentOffers.length;
 
@@ -15,7 +16,10 @@ class App extends React.PureComponent {
       return (
         <Main
           offerCount={offersCount}
-          offers={currentOffers}
+          currentOffers={currentOffers}
+          offers={offers}
+          city={city}
+          cityChangeHandler={cityChangeHandler}
         />
       );
     }
@@ -25,6 +29,7 @@ class App extends React.PureComponent {
         <OfferDetails
           offers={currentOffers}
           id={selectedOffer}
+          city={city}
         />
       );
     }
@@ -33,7 +38,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {currentOffers} = this.props;
+    const {currentOffers, city} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -44,6 +49,7 @@ class App extends React.PureComponent {
             <OfferDetails
               offers={currentOffers}
               id={currentOffers[0].id}
+              city={city}
             />
           </Route>
         </Switch>
@@ -53,7 +59,10 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
+  city: PropTypes.object.isRequired,
+  cityChangeHandler: PropTypes.func.isRequired,
   selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  offers: PropTypes.array.isRequired,
   currentOffers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -71,9 +80,18 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  offers: state.offers,
   currentOffers: state.currentOffers,
-  selectedOffer: state.selectedOffer
+  selectedOffer: state.selectedOffer,
+  city: state.city
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  cityChangeHandler(city) {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffers());
+  }
 });
 
 export {App};
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

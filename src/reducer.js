@@ -1,9 +1,10 @@
 import offers, {Cities} from './mocks/offers.js';
 
-const getCurrentOffers = (city) => offers.filter((offer) => offer.city.name === city);
+const getCurrentOffers = (city) => offers.filter((offer) => offer.city.name === city.name);
 
 const initialState = {
   city: Cities[0],
+  offers,
   currentOffers: getCurrentOffers(Cities[0]),
   hoveredOffer: null,
   selectedOffer: null,
@@ -44,9 +45,10 @@ export const ActionCreator = {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      const city = action.payload;
+      const cityName = action.payload;
+      const city = Cities.find((it) => it.name === cityName);
 
-      if (city !== state.city) {
+      if (cityName !== state.city.name) {
         return Object.assign({}, state, {
           city
         });

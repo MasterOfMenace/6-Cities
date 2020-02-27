@@ -7,7 +7,7 @@ import {OfferRenderType} from '../../const.js';
 
 const MAX_REVIEWS_COUNT = 10;
 
-const OfferDetails = ({offers, id}) => {
+const OfferDetails = ({offers, id, city}) => {
   const currentOffer = offers.find((offer) => offer.id === id);
   const neighbourhoodOffers = offers.filter((offer) => offer.id !== id);
   const neighbourhoodOffersLocations = neighbourhoodOffers.map((offer) => offer.location);
@@ -159,7 +159,8 @@ const OfferDetails = ({offers, id}) => {
           <section className="property__map map">
             <Map
               offersLocations={neighbourhoodOffersLocations}
-              currentOfferLocation={currentOffer.location}/>
+              currentOfferLocation={currentOffer.location}
+              cityLocation={city.location}/>
           </section>
         </section>
         <div className="container">
@@ -176,6 +177,7 @@ const OfferDetails = ({offers, id}) => {
 };
 
 OfferDetails.propTypes = {
+  city: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
