@@ -10,6 +10,9 @@ Enzyme.configure({
 
 const mockOffer = {
   id: 1,
+  city: {
+    name: `City`,
+  },
   name: `Room in hotel`,
   picture: `img/apartment-01.jpg`,
   price: 100,

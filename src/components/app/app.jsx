@@ -1,45 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
+import {ActionCreator} from '../../reducer.js';
 
 class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      id: null
-    };
-    this.titleClickHandler = this.titleClickHandler.bind(this);
-  }
-
-  titleClickHandler(id) {
-    this.setState({
-      id
-    });
-  }
-
   _renderApp() {
-    const {offerCount, offers} = this.props;
-    const {id} = this.state;
+    const {offers, currentOffers, selectedOffer, city, cityChangeHandler} = this.props;
 
-    if (!id) {
+    const offersCount = currentOffers.length;
+
+    if (!selectedOffer) {
       return (
         <Main
-          offerCount={offerCount}
+          offerCount={offersCount}
+          currentOffers={currentOffers}
           offers={offers}
-          titleClickHandler={this.titleClickHandler}
+          city={city}
+          cityChangeHandler={cityChangeHandler}
         />
       );
     }
 
-    if (id) {
+    if (selectedOffer) {
       return (
         <OfferDetails
-          offers={offers}
-          id={id}
-          titleClickHandler={this.titleClickHandler}
+          offers={currentOffers}
+          id={selectedOffer}
+          city={city}
         />
       );
     }
@@ -48,7 +38,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {currentOffers, city} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -57,9 +47,9 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-details">
             <OfferDetails
-              offers={offers}
-              id={1}
-              titleClickHandler={this.titleClickHandler}
+              offers={currentOffers}
+              id={currentOffers[0].id}
+              city={city}
             />
           </Route>
         </Switch>
@@ -69,8 +59,11 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  offerCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
+  city: PropTypes.object.isRequired,
+  cityChangeHandler: PropTypes.func.isRequired,
+  selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  offers: PropTypes.array.isRequired,
+  currentOffers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
@@ -86,4 +79,19 @@ App.propTypes = {
   })).isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  currentOffers: state.currentOffers,
+  selectedOffer: state.selectedOffer,
+  city: state.city
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  cityChangeHandler(city) {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffers());
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

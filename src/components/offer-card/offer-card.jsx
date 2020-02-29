@@ -53,6 +53,7 @@ OfferCard.propTypes = {
   onMouseLeave: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    city: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,

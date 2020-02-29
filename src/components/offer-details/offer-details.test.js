@@ -1,15 +1,29 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
 import OfferDetails from './offer-details.jsx';
+
+const mockStore = configureStore([]);
+const store = mockStore({});
 
 const Dates = [
   `10 July 2019`,
   `25 April 2018`
 ];
 
+const city = {
+  name: `City`,
+  location: [52.38333, 4.9]
+};
+
 const mockOffers = [
   {
     id: 1,
+    city: {
+      name: `City`,
+      location: [52.38333, 4.9]
+    },
     name: `Offer1`,
     picture: `img/apartment-01.jpg`,
     price: 100,
@@ -32,6 +46,10 @@ const mockOffers = [
   },
   {
     id: 2,
+    city: {
+      name: `City`,
+      location: [52.38333, 4.9]
+    },
     name: `Offer2`,
     picture: `img/apartment-01.jpg`,
     price: 200,
@@ -54,6 +72,10 @@ const mockOffers = [
   },
   {
     id: 3,
+    city: {
+      name: `City`,
+      location: [52.38333, 4.9]
+    },
     name: `Offer3`,
     picture: `img/apartment-01.jpg`,
     price: 300,
@@ -76,6 +98,10 @@ const mockOffers = [
   },
   {
     id: 4,
+    city: {
+      name: `City`,
+      location: [52.38333, 4.9]
+    },
     name: `Offer4`,
     picture: `img/apartment-01.jpg`,
     price: 400,
@@ -100,14 +126,16 @@ const mockOffers = [
 const mockId = 1;
 
 it(`Правильное отображение компонента OfferDetails`, () => {
-  const tree = renderer
-    .create(<OfferDetails
-      offers={mockOffers}
-      id={mockId}
-      titleClickHandler={()=>{}}/>,
-    {
-      createNodeMock: () => document.createElement(`div`)
-    })
+  const tree = renderer.create(
+      <Provider store={store}>
+        <OfferDetails
+          offers={mockOffers}
+          id={mockId}
+          city={city}/>
+      </Provider>,
+      {
+        createNodeMock: () => document.createElement(`div`)
+      })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import OffersList from './offers-list';
+import {OffersList} from './offers-list';
 import {OfferRenderType} from '../../const.js';
 
 const Dates = [
@@ -11,6 +11,9 @@ const Dates = [
 const mockOffers = [
   {
     id: 1,
+    city: {
+      name: `City`,
+    },
     name: `Offer1`,
     picture: `img/apartment-01.jpg`,
     price: 100,
@@ -33,6 +36,9 @@ const mockOffers = [
   },
   {
     id: 2,
+    city: {
+      name: `City`,
+    },
     name: `Offer2`,
     picture: `img/apartment-01.jpg`,
     price: 200,
@@ -55,6 +61,9 @@ const mockOffers = [
   },
   {
     id: 3,
+    city: {
+      name: `City`,
+    },
     name: `Offer3`,
     picture: `img/apartment-01.jpg`,
     price: 300,
@@ -77,6 +86,9 @@ const mockOffers = [
   },
   {
     id: 4,
+    city: {
+      name: `City`,
+    },
     name: `Offer4`,
     picture: `img/apartment-01.jpg`,
     price: 400,
@@ -104,6 +116,8 @@ it(`Правильное отображение компонента OffersList 
     .create(<OffersList
       type={OfferRenderType.MAIN}
       offers={mockOffers}
+      onMouseOver={()=>{}}
+      onMouseLeave={()=>{}}
       titleClickHandler={()=>{}}/>)
     .toJSON();
 
@@ -115,6 +129,8 @@ it(`Правильное отображение компонента OffersList 
     .create(<OffersList
       type={OfferRenderType.NEIGHBORHOOD}
       offers={mockOffers}
+      onMouseOver={()=>{}}
+      onMouseLeave={()=>{}}
       titleClickHandler={()=>{}}/>)
     .toJSON();
 
