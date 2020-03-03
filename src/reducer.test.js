@@ -1,4 +1,4 @@
-import {reducer, ActionCreator, ActionType, getCurrentOffers} from './reducer.js';
+import {reducer, ActionCreator, ActionType} from './reducer.js';
 import offers, {Cities} from './mocks/offers.js';
 
 
@@ -7,7 +7,6 @@ describe(`Корректная работа reducer`, () => {
     expect(reducer(void 0, {})).toEqual({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: null,
       selectedOffer: null,
     });
@@ -17,7 +16,6 @@ describe(`Корректная работа reducer`, () => {
     expect(reducer({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: null,
       selectedOffer: null,
     }, {
@@ -26,25 +24,6 @@ describe(`Корректная работа reducer`, () => {
     })).toEqual({
       city: Cities[1],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
-      hoveredOffer: null,
-      selectedOffer: null,
-    });
-  });
-
-  it(`Reducer должен изменять currentOffers в соответствии с городом`, () => {
-    expect(reducer({
-      city: Cities[1],
-      offers,
-      currentOffers: getCurrentOffers(Cities[0]),
-      hoveredOffer: null,
-      selectedOffer: null,
-    }, {
-      type: ActionType.GET_OFFERS
-    })).toEqual({
-      city: Cities[1],
-      offers,
-      currentOffers: getCurrentOffers(Cities[1]),
       hoveredOffer: null,
       selectedOffer: null,
     });
@@ -54,7 +33,6 @@ describe(`Корректная работа reducer`, () => {
     expect(reducer({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: null,
       selectedOffer: null,
     }, {
@@ -63,7 +41,6 @@ describe(`Корректная работа reducer`, () => {
     })).toEqual({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: 2,
       selectedOffer: null,
     });
@@ -73,7 +50,6 @@ describe(`Корректная работа reducer`, () => {
     expect(reducer({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: 2,
       selectedOffer: null,
     }, {
@@ -81,7 +57,6 @@ describe(`Корректная работа reducer`, () => {
     })).toEqual({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: null,
       selectedOffer: null,
     });
@@ -91,7 +66,6 @@ describe(`Корректная работа reducer`, () => {
     expect(reducer({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: 2,
       selectedOffer: null,
     }, {
@@ -99,7 +73,6 @@ describe(`Корректная работа reducer`, () => {
     })).toEqual({
       city: Cities[0],
       offers,
-      currentOffers: getCurrentOffers(Cities[0]),
       hoveredOffer: 2,
       selectedOffer: 2,
     });
@@ -112,13 +85,6 @@ describe(`Корректная работа ActionCreator`, () => {
       .toEqual({
         type: ActionType.CHANGE_CITY,
         payload: `Paris`
-      });
-  });
-
-  it(`ActionCreator.getOffers возвращает корректный action`, () => {
-    expect(ActionCreator.getOffers())
-      .toEqual({
-        type: ActionType.GET_OFFERS,
       });
   });
 
