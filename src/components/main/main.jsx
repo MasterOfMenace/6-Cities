@@ -4,6 +4,7 @@ import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import {OfferRenderType} from '../../const.js';
 import CitiesList from '../cities-list/cities-list.jsx';
+import {getCurrentOffers} from '../../utils.js';
 
 const getCities = (offers) => {
   const cities = offers.map((offer) => offer.city.name);
@@ -11,7 +12,9 @@ const getCities = (offers) => {
   return Array.from(set);
 };
 
-const Main = ({offerCount, currentOffers, offers, city, cityChangeHandler}) => {
+const Main = ({offers, city, cityChangeHandler}) => {
+  const currentOffers = getCurrentOffers(offers, city);
+  const offersCount = currentOffers.length;
   const locations = currentOffers.map((offer) => offer.location);
   const cities = getCities(offers);
   return (
@@ -50,7 +53,7 @@ const Main = ({offerCount, currentOffers, offers, city, cityChangeHandler}) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerCount} places to stay in {city.name}</b>
+              <b className="places__found">{offersCount} places to stay in {city.name}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -95,8 +98,6 @@ const Main = ({offerCount, currentOffers, offers, city, cityChangeHandler}) => {
 Main.propTypes = {
   city: PropTypes.object.isRequired,
   cityChangeHandler: PropTypes.func.isRequired,
-  offerCount: PropTypes.number.isRequired,
-  currentOffers: PropTypes.array.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,

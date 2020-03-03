@@ -4,12 +4,14 @@ import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {OfferRenderType} from '../../const.js';
+import {getCurrentOffers} from '../../utils.js';
 
 const MAX_REVIEWS_COUNT = 10;
 
 const OfferDetails = ({offers, id, city}) => {
-  const currentOffer = offers.find((offer) => offer.id === id);
-  const neighbourhoodOffers = offers.filter((offer) => offer.id !== id);
+  const currentOffers = getCurrentOffers(offers, city);
+  const currentOffer = currentOffers.find((offer) => offer.id === id);
+  const neighbourhoodOffers = currentOffers.filter((offer) => offer.id !== id);
   const neighbourhoodOffersLocations = neighbourhoodOffers.map((offer) => offer.location);
   const reviews = currentOffer.reviews.slice(0, MAX_REVIEWS_COUNT);
 
