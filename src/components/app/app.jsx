@@ -9,7 +9,7 @@ import {getCurrentOffers} from '../../utils.js';
 
 class App extends React.PureComponent {
   _renderApp() {
-    const {offers, selectedOffer, city, cityChangeHandler} = this.props;
+    const {offers, selectedOffer, city, cityChangeHandler, sortType} = this.props;
 
     if (!selectedOffer) {
       return (
@@ -17,6 +17,7 @@ class App extends React.PureComponent {
           offers={offers}
           city={city}
           cityChangeHandler={cityChangeHandler}
+          sortType={sortType}
         />
       );
     }
@@ -61,10 +62,12 @@ App.propTypes = {
   cityChangeHandler: PropTypes.func.isRequired,
   selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.array.isRequired,
+  sortType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  sortType: state.currentSortType,
   selectedOffer: state.selectedOffer,
   city: state.city
 });

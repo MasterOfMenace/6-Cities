@@ -4,13 +4,16 @@ import {connect} from 'react-redux';
 import {OfferRenderType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
 import {ActionCreator} from '../../reducer.js';
+import {sortOffers} from '../../utils.js';
 
-const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}) => {
+const OffersList = ({offers, titleClickHandler, type, sortType, onMouseOver, onMouseLeave}) => {
   const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
+
+  const sortedOffers = sortOffers(offers, sortType);
 
   return (
     <div className={className}>
-      {offers.map((offer, index) => (
+      {sortedOffers.map((offer, index) => (
         <OfferCard
           key={index}
           offer={offer}
@@ -28,6 +31,7 @@ const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}
 };
 
 OffersList.propTypes = {
+  sortType: PropTypes.string.isRequired,
   type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,

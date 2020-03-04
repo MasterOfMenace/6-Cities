@@ -13,7 +13,7 @@ const getCities = (offers) => {
   return Array.from(set);
 };
 
-const Main = ({offers, city, cityChangeHandler}) => {
+const Main = ({offers, city, cityChangeHandler, sortType}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const offersCount = currentOffers.length;
   const locations = currentOffers.map((offer) => offer.location);
@@ -58,7 +58,8 @@ const Main = ({offers, city, cityChangeHandler}) => {
               <SortList />
               <OffersList
                 offers={currentOffers}
-                type={OfferRenderType.MAIN}/>
+                type={OfferRenderType.MAIN}
+                sortType={sortType}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -75,6 +76,7 @@ const Main = ({offers, city, cityChangeHandler}) => {
 };
 
 Main.propTypes = {
+  sortType: PropTypes.string.isRequired,
   city: PropTypes.object.isRequired,
   cityChangeHandler: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({

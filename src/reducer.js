@@ -2,6 +2,7 @@ import offers, {Cities} from './mocks/offers.js';
 
 const initialState = {
   city: Cities[0],
+  currentSortType: `Popular`,
   offers,
   hoveredOffer: null,
   selectedOffer: null,
@@ -9,7 +10,7 @@ const initialState = {
 
 export const ActionType = {
   CHANGE_CITY: `change_city`,
-  GET_OFFERS: `get_offers`,
+  CHANGE_SORT_TYPE: `change_sort_type`,
   SELECT_OFFER: `select_offer`,
   HOVER_OFFER: `hover_offer`,
   BLUR_OFFER: `blur_offer`,
@@ -19,6 +20,11 @@ export const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city
+  }),
+
+  changeSortType: (sortType) => ({
+    type: ActionType.CHANGE_SORT_TYPE,
+    payload: sortType
   }),
 
   hoverOffer: (offer) => ({
@@ -47,6 +53,11 @@ export const reducer = (state = initialState, action) => {
         });
       }
       break;
+
+    case ActionType.CHANGE_SORT_TYPE:
+      return Object.assign({}, state, {
+        currentSortType: action.payload
+      });
 
     case ActionType.HOVER_OFFER:
       const hoveredOffer = action.payload;

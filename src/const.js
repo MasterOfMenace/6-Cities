@@ -21,6 +21,6 @@ export const MonthNames = [
 export const SortTypes = [
   `Popular`,
   `Price: low to high`,
-  `Price: hight to low`,
+  `Price: high to low`,
   `Top rated first`
 ];

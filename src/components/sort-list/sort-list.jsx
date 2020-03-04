@@ -1,6 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {SortTypes} from '../../const.js';
+import {ActionCreator} from '../../reducer.js';
 
 class SortList extends React.PureComponent {
   constructor(props) {
@@ -8,12 +10,12 @@ class SortList extends React.PureComponent {
 
     this.state = {
       isOpen: false,
-      current: `Popular`
     };
   }
 
   render() {
-    const {isOpen, current} = this.state;
+    const {isOpen} = this.state;
+    const {current, onSortTypeClickHandler} = this.props;
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -32,10 +34,12 @@ class SortList extends React.PureComponent {
               key={index}
               className={`places__option ${it === current ? `places__option--active` : ``}`}
               tabIndex="0"
-              onClick={() => this.setState({
-                current: it,
-                isOpen: !this.state.isOpen
-              })}>
+              onClick={() => {
+                onSortTypeClickHandler(it);
+                this.setState({
+                  isOpen: !this.state.isOpen
+                });
+              }}>
               {it}
             </li>
           ))}
@@ -45,4 +49,20 @@ class SortList extends React.PureComponent {
   }
 }
 
-export default SortList;
+SortList.propTypes = {
+  current: PropTypes.string.isRequired,
+  onSortTypeClickHandler: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  current: state.currentSortType
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSortTypeClickHandler(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
+  }
+});
+
+export {SortList};
+export default connect(mapStateToProps, mapDispatchToProps)(SortList);
