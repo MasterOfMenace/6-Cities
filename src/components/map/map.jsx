@@ -1,6 +1,7 @@
 import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -11,14 +12,19 @@ class Map extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {offersLocations, cityLocation} = this.props;
-    const {currentOfferLocation} = this.props;
+    const {offers, offersLocations, cityLocation} = this.props;
+    const {currentOfferId} = this.props;
     const zoom = 12;
 
     this._createMap(cityLocation, offersLocations, zoom);
 
     this._addOffersIcons(offersLocations);
-    this._addCurrentOfferIcon(currentOfferLocation);
+
+    if (currentOfferId) {
+      const currentOffer = offers.find((offer) => offer.id === currentOfferId);
+      const currentLocation = currentOffer.location;
+      this._addCurrentOfferIcon(currentLocation);
+    }
   }
 
   componentWillUnmount() {
@@ -77,13 +83,6 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.currentOfferLocation !== prevProps.currentOfferLocation) {
-      const {offersLocations, currentOfferLocation} = this.props;
-      this._removeMarkers();
-      this._addOffersIcons(offersLocations);
-      this._addCurrentOfferIcon(currentOfferLocation);
-    }
-
     if (this.props.cityLocation !== prevProps.cityLocation) {
       const {offersLocations, cityLocation} = this.props;
       const zoom = 12;
@@ -92,13 +91,31 @@ class Map extends React.PureComponent {
       this._createMap(cityLocation, offersLocations, zoom);
       this._addOffersIcons(offersLocations);
     }
+
+    if (this.props.currentOfferId !== prevProps.currentOfferId) {
+      const {offersLocations, currentOfferId, offers} = this.props;
+      this._removeMarkers();
+      this._addOffersIcons(offersLocations);
+      if (currentOfferId) {
+        const currentOffer = offers.find((offer) => offer.id === currentOfferId);
+        const currentLocation = currentOffer.location;
+        this._addCurrentOfferIcon(currentLocation);
+      }
+    }
   }
 }
 
 Map.propTypes = {
+  currentOfferId: PropTypes.number,
+  offers: PropTypes.array.isRequired,
   cityLocation: PropTypes.array.isRequired,
   offersLocations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   currentOfferLocation: PropTypes.arrayOf(PropTypes.number)
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  currentOfferId: state.hoveredOffer
+});
+
+export {Map};
+export default connect(mapStateToProps, null)(Map);

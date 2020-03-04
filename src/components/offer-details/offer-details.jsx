@@ -160,8 +160,8 @@ const OfferDetails = ({offers, id, city}) => {
           </div>
           <section className="property__map map">
             <Map
+              offers={currentOffers}
               offersLocations={neighbourhoodOffersLocations}
-              currentOfferLocation={currentOffer.location}
               cityLocation={city.location}/>
           </section>
         </section>

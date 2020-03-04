@@ -6,6 +6,9 @@ import SortList from '../sort-list/sort-list.jsx';
 import {OfferRenderType} from '../../const.js';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
+import withSort from '../../hocs/with-sort/with-sort.jsx';
+
+const OffersListWithSort = withSort(OffersList);
 
 const getCities = (offers) => {
   const cities = offers.map((offer) => offer.city.name);
@@ -13,7 +16,7 @@ const getCities = (offers) => {
   return Array.from(set);
 };
 
-const Main = ({offers, city, cityChangeHandler, sortType}) => {
+const Main = ({offers, city, cityChangeHandler}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const offersCount = currentOffers.length;
   const locations = currentOffers.map((offer) => offer.location);
@@ -56,14 +59,14 @@ const Main = ({offers, city, cityChangeHandler, sortType}) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in {city.name}</b>
               <SortList />
-              <OffersList
+              <OffersListWithSort
                 offers={currentOffers}
-                type={OfferRenderType.MAIN}
-                sortType={sortType}/>
+                type={OfferRenderType.MAIN}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
+                  offers={currentOffers}
                   offersLocations={locations}
                   cityLocation={city.location}/>
               </section>
@@ -76,7 +79,6 @@ const Main = ({offers, city, cityChangeHandler, sortType}) => {
 };
 
 Main.propTypes = {
-  sortType: PropTypes.string.isRequired,
   city: PropTypes.object.isRequired,
   cityChangeHandler: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
