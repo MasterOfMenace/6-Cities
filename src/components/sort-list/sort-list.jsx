@@ -50,8 +50,8 @@ class SortList extends React.PureComponent {
 }
 
 SortList.propTypes = {
-  current: PropTypes.string.isRequired,
-  onSortTypeClickHandler: PropTypes.func.isRequired
+  current: PropTypes.string,
+  onSortTypeClickHandler: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

@@ -6,6 +6,7 @@ describe(`Корректная работа reducer`, () => {
   it(`Reducer без параметров возвращает initialState`, () => {
     expect(reducer(void 0, {})).toEqual({
       city: Cities[0],
+      currentSortType: `Popular`,
       offers,
       hoveredOffer: null,
       selectedOffer: null,
