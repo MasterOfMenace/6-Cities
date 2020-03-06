@@ -5,18 +5,15 @@ import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
 import {ActionCreator} from '../../reducer.js';
+import {getCurrentOffers} from '../../utils.js';
 
 class App extends React.PureComponent {
   _renderApp() {
-    const {offers, currentOffers, selectedOffer, city, cityChangeHandler} = this.props;
-
-    const offersCount = currentOffers.length;
+    const {offers, selectedOffer, city, cityChangeHandler} = this.props;
 
     if (!selectedOffer) {
       return (
         <Main
-          offerCount={offersCount}
-          currentOffers={currentOffers}
           offers={offers}
           city={city}
           cityChangeHandler={cityChangeHandler}
@@ -27,7 +24,7 @@ class App extends React.PureComponent {
     if (selectedOffer) {
       return (
         <OfferDetails
-          offers={currentOffers}
+          offers={offers}
           id={selectedOffer}
           city={city}
         />
@@ -38,7 +35,8 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {currentOffers, city} = this.props;
+    const {offers, city} = this.props;
+    const currentOffers = getCurrentOffers(offers, city);
     return (
       <BrowserRouter>
         <Switch>
@@ -63,25 +61,10 @@ App.propTypes = {
   cityChangeHandler: PropTypes.func.isRequired,
   selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.array.isRequired,
-  currentOffers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      author: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired
-    })).isRequired
-  })).isRequired
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
-  currentOffers: state.currentOffers,
   selectedOffer: state.selectedOffer,
   city: state.city
 });
@@ -89,7 +72,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   cityChangeHandler(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers());
   }
 });
 

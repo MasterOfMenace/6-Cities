@@ -17,3 +17,10 @@ export const MonthNames = [
   `November`,
   `December`
 ];
+
+export const SortTypes = [
+  `Popular`,
+  `Price: low to high`,
+  `Price: high to low`,
+  `Top rated first`
+];

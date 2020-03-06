@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
+import {SortList} from '../sort-list/sort-list.jsx';
 import {OfferRenderType} from '../../const.js';
 import CitiesList from '../cities-list/cities-list.jsx';
+import {getCurrentOffers} from '../../utils.js';
+import withSort from '../../hocs/with-sort/with-sort.jsx';
+
+const OffersListWithSort = withSort(OffersList);
 
 const getCities = (offers) => {
   const cities = offers.map((offer) => offer.city.name);
@@ -11,7 +16,9 @@ const getCities = (offers) => {
   return Array.from(set);
 };
 
-const Main = ({offerCount, currentOffers, offers, city, cityChangeHandler}) => {
+const Main = ({offers, city, cityChangeHandler}) => {
+  const currentOffers = getCurrentOffers(offers, city);
+  const offersCount = currentOffers.length;
   const locations = currentOffers.map((offer) => offer.location);
   const cities = getCities(offers);
   return (
@@ -50,37 +57,16 @@ const Main = ({offerCount, currentOffers, offers, city, cityChangeHandler}) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerCount} places to stay in {city.name}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-
-                {/* <select className="places__sorting-type" id="places-sorting">
-                  <option className="places__option" value="popular" selected="">Popular</option>
-                  <option className="places__option" value="to-high">Price: low to high</option>
-                  <option className="places__option" value="to-low">Price: high to low</option>
-                  <option className="places__option" value="top-rated">Top rated first</option>
-                </select> */}
-
-              </form>
-              <OffersList
+              <b className="places__found">{offersCount} places to stay in {city.name}</b>
+              <SortList />
+              <OffersListWithSort
                 offers={currentOffers}
                 type={OfferRenderType.MAIN}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
+                  offers={currentOffers}
                   offersLocations={locations}
                   cityLocation={city.location}/>
               </section>
@@ -95,8 +81,6 @@ const Main = ({offerCount, currentOffers, offers, city, cityChangeHandler}) => {
 Main.propTypes = {
   city: PropTypes.object.isRequired,
   cityChangeHandler: PropTypes.func.isRequired,
-  offerCount: PropTypes.number.isRequired,
-  currentOffers: PropTypes.array.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
