@@ -7,8 +7,10 @@ import {OfferRenderType} from '../../const.js';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
 import withSort from '../../hocs/with-sort/with-sort.jsx';
+import withOpen from '../../hocs/with-open/with-open.jsx';
 
 const OffersListWithSort = withSort(OffersList);
+const SortListWithOpen = withOpen(SortList);
 
 const getCities = (offers) => {
   const cities = offers.map((offer) => offer.city.name);
@@ -58,7 +60,7 @@ const Main = ({offers, city, cityChangeHandler}) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in {city.name}</b>
-              <SortList />
+              <SortListWithOpen />
               <OffersListWithSort
                 offers={currentOffers}
                 type={OfferRenderType.MAIN}/>

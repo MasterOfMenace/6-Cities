@@ -8,23 +8,6 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
-it(`При клике на span с типом сортировки открывается выпадающий список`, () => {
-  const current = `Popular`;
-  const onSortTypeClickHandler = jest.fn();
-
-  const sortList = shallow(
-      <SortList
-        current={current}
-        onSortTypeClickHandler={onSortTypeClickHandler}
-      />
-  );
-
-  const openSortSpan = sortList.find(`.places__sorting-type`);
-  openSortSpan.simulate(`click`);
-
-  expect(sortList.state().isOpen).toBe(true);
-});
-
 it(`При выборе типа сортировки в коллбэк передается тип сортировки`, () => {
   const current = `Popular`;
   const onSortTypeClickHandler = jest.fn();
@@ -32,6 +15,8 @@ it(`При выборе типа сортировки в коллбэк пере
   const sortList = shallow(
       <SortList
         current={current}
+        isOpen={true}
+        openClickHandler={()=>{}}
         onSortTypeClickHandler={onSortTypeClickHandler}
       />
   );

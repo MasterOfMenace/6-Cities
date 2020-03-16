@@ -5,24 +5,13 @@ import {SortTypes} from '../../const.js';
 import {ActionCreator} from '../../reducer.js';
 
 class SortList extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpen: false,
-    };
-  }
-
   render() {
-    const {isOpen} = this.state;
-    const {current, onSortTypeClickHandler} = this.props;
+    const {current, onSortTypeClickHandler, isOpen, openClickHandler} = this.props;
 
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
-        <span className="places__sorting-type" tabIndex="0" onClick={() => this.setState({
-          isOpen: !this.state.isOpen
-        })}>
+        <span className="places__sorting-type" tabIndex="0" onClick={() => openClickHandler()}>
           {current}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
@@ -35,10 +24,8 @@ class SortList extends React.PureComponent {
               className={`places__option ${it === current ? `places__option--active` : ``}`}
               tabIndex="0"
               onClick={() => {
+                openClickHandler();
                 onSortTypeClickHandler(it);
-                this.setState({
-                  isOpen: !this.state.isOpen
-                });
               }}>
               {it}
             </li>
@@ -51,6 +38,8 @@ class SortList extends React.PureComponent {
 
 SortList.propTypes = {
   current: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  openClickHandler: PropTypes.func.isRequired,
   onSortTypeClickHandler: PropTypes.func.isRequired
 };
 

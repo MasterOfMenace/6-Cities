@@ -14,7 +14,9 @@ it(`Корректное отображение компонента SortList`, 
   const tree = renderer
     .create(
         <Provider store={store}>
-          <SortList/>
+          <SortList
+            isOpen={false}
+            openClickHandler={()=>{}}/>
         </Provider>
     )
     .toJSON();
