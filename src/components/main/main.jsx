@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OffersList from '../offers-list/offers-list.jsx';
-import Map from '../map/map.jsx';
-import SortList from '../sort-list/sort-list.jsx';
-import {OfferRenderType} from '../../const.js';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
-import withSort from '../../hocs/with-sort/with-sort.jsx';
-import withOpen from '../../hocs/with-open/with-open.jsx';
-
-const OffersListWithSort = withSort(OffersList);
-const SortListWithOpen = withOpen(SortList);
+import Places from '../places/places.jsx';
+import PlacesEmpty from '../places-empty/places-empty.jsx';
 
 const getCities = (offers) => {
   const cities = offers.map((offer) => offer.city.name);
@@ -20,9 +13,8 @@ const getCities = (offers) => {
 
 const Main = ({offers, city, cityChangeHandler}) => {
   const currentOffers = getCurrentOffers(offers, city);
-  const offersCount = currentOffers.length;
-  const locations = currentOffers.map((offer) => offer.location);
   const cities = getCities(offers);
+  const isEmpty = currentOffers.length === 0 ? true : false;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -47,7 +39,7 @@ const Main = ({offers, city, cityChangeHandler}) => {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${isEmpty ? `page__main--index-empty` : ``}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <CitiesList
@@ -56,24 +48,15 @@ const Main = ({offers, city, cityChangeHandler}) => {
             cityChangeHandler={cityChangeHandler}/>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in {city.name}</b>
-              <SortListWithOpen />
-              <OffersListWithSort
-                offers={currentOffers}
-                type={OfferRenderType.MAIN}/>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  offers={currentOffers}
-                  offersLocations={locations}
-                  cityLocation={city.location}/>
-              </section>
-            </div>
-          </div>
+          {isEmpty ?
+            <PlacesEmpty
+              city={city}
+            />
+            :
+            <Places
+              offers={offers}
+              city={city}
+            />}
         </div>
       </main>
     </div>
