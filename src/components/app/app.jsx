@@ -9,7 +9,12 @@ import {getCurrentOffers} from '../../utils.js';
 
 class App extends React.PureComponent {
   _renderApp() {
-    const {offers, selectedOffer, city, cityChangeHandler} = this.props;
+    const {
+      offers,
+      selectedOffer,
+      city,
+      cityChangeHandler
+    } = this.props;
 
     if (!selectedOffer) {
       return (
@@ -43,13 +48,13 @@ class App extends React.PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/dev-details">
+          {/* <Route exact path="/dev-details">
             <OfferDetails
               offers={currentOffers}
               id={currentOffers[0].id}
               city={city}
             />
-          </Route>
+          </Route> */}
         </Switch>
       </BrowserRouter>
     );
@@ -57,7 +62,7 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  city: PropTypes.object.isRequired,
+  city: PropTypes.object,
   cityChangeHandler: PropTypes.func.isRequired,
   selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.array.isRequired,

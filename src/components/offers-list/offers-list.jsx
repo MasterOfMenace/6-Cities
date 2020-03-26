@@ -31,21 +31,22 @@ OffersList.propTypes = {
   type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    city: PropTypes.object.isRequired,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      author: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired
-    })).isRequired
-  })).isRequired,
+  // offers: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.number.isRequired,
+  //   city: PropTypes.object.isRequired,
+  //   name: PropTypes.string.isRequired,
+  //   picture: PropTypes.string.isRequired,
+  //   price: PropTypes.number.isRequired,
+  //   type: PropTypes.string.isRequired,
+  //   location: PropTypes.arrayOf(PropTypes.number).isRequired,
+  //   reviews: PropTypes.arrayOf(PropTypes.shape({
+  //     author: PropTypes.string.isRequired,
+  //     avatar: PropTypes.string.isRequired,
+  //     text: PropTypes.string.isRequired,
+  //     time: PropTypes.string.isRequired
+  //   })).isRequired
+  // })).isRequired,
+  offers: PropTypes.array,
   titleClickHandler: PropTypes.func.isRequired
 };
 

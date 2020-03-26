@@ -14,7 +14,7 @@ const getCities = (offers) => {
 const Main = ({offers, city, cityChangeHandler}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const cities = getCities(offers);
-  const isEmpty = currentOffers.length === 0 ? true : false;
+  const isEmpty = currentOffers.length === 0;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -64,22 +64,23 @@ const Main = ({offers, city, cityChangeHandler}) => {
 };
 
 Main.propTypes = {
-  city: PropTypes.object.isRequired,
+  city: PropTypes.object,
   cityChangeHandler: PropTypes.func.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      author: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired
-    })).isRequired
-  })).isRequired,
+  offers: PropTypes.array,
+  // offers: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.number.isRequired,
+  //   name: PropTypes.string.isRequired,
+  //   picture: PropTypes.string.isRequired,
+  //   price: PropTypes.number.isRequired,
+  //   type: PropTypes.string.isRequired,
+  //   location: PropTypes.arrayOf(PropTypes.number).isRequired,
+  //   reviews: PropTypes.arrayOf(PropTypes.shape({
+  //     author: PropTypes.string.isRequired,
+  //     avatar: PropTypes.string.isRequired,
+  //     text: PropTypes.string.isRequired,
+  //     time: PropTypes.string.isRequired
+  //   })).isRequired
+  // })).isRequired,
 };
 
 export default Main;

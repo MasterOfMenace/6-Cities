@@ -15,7 +15,10 @@ const Places = (props) => {
   const {offers, city} = props;
   const currentOffers = getCurrentOffers(offers, city);
   const offersCount = currentOffers.length;
-  const locations = currentOffers.map((offer) => offer.location);
+  const locations = currentOffers.map((offer) => {
+    const location = offer.location;
+    return [location.latitude, location.longitude];
+  });
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -31,7 +34,7 @@ const Places = (props) => {
           <Map
             offers={currentOffers}
             offersLocations={locations}
-            cityLocation={city.location}/>
+            city={city}/>
         </section>
       </div>
     </div>
@@ -39,20 +42,21 @@ const Places = (props) => {
 };
 
 Places.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      author: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired
-    })).isRequired
-  })).isRequired,
+  // offers: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.number.isRequired,
+  //   name: PropTypes.string.isRequired,
+  //   picture: PropTypes.string.isRequired,
+  //   price: PropTypes.number.isRequired,
+  //   type: PropTypes.string.isRequired,
+  //   location: PropTypes.arrayOf(PropTypes.number).isRequired,
+  //   reviews: PropTypes.arrayOf(PropTypes.shape({
+  //     author: PropTypes.string.isRequired,
+  //     avatar: PropTypes.string.isRequired,
+  //     text: PropTypes.string.isRequired,
+  //     time: PropTypes.string.isRequired
+  //   })).isRequired
+  // })).isRequired,
+  offers: PropTypes.array,
   city: PropTypes.object.isRequired
 };
 
