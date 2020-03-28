@@ -1,5 +1,3 @@
-import {getCities} from '../data/selectors.js';
-
 const initialState = {
   city: {},
   currentSortType: `Popular`,
@@ -46,15 +44,6 @@ export const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         city: action.payload
       });
-      // const cityName = action.payload;
-      // const city = state.cities.find((it) => it.name === cityName);
-
-      // if (!state.city || cityName !== state.city.name) {
-      //   return Object.assign({}, state, {
-      //     city
-      //   });
-      // }
-      // break;
 
     case ActionType.CHANGE_SORT_TYPE:
       return Object.assign({}, state, {

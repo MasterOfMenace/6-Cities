@@ -1,5 +1,5 @@
 import {Adapter} from '../../adapter/adapter.js';
-import {ActionCreator as AppActionCreator} from '../app/app.js';
+import {ActionCreator as AppActionCreator} from '../app-reducer/app-reducer.js';
 
 const initialState = {
   offers: [],

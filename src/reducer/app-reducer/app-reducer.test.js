@@ -1,13 +1,11 @@
-import {reducer, ActionCreator, ActionType} from './reducer.js';
-import offers, {Cities} from './mocks/offers.js';
-
+import {reducer, ActionType, ActionCreator} from './app-reducer.js';
+import offers, {Cities} from '../mocks/offers.js';
 
 describe(`Корректная работа reducer`, () => {
   it(`Reducer без параметров возвращает initialState`, () => {
     expect(reducer(void 0, {})).toEqual({
-      city: Cities[0],
+      city: {},
       currentSortType: `Popular`,
-      offers,
       hoveredOffer: null,
       selectedOffer: null,
     });
@@ -15,16 +13,16 @@ describe(`Корректная работа reducer`, () => {
 
   it(`Reducer должен изменять город в соответствии с переданным значением`, () => {
     expect(reducer({
-      city: Cities[0],
-      offers,
+      city: {},
+      currentSortType: `Popular`,
       hoveredOffer: null,
       selectedOffer: null,
     }, {
       type: ActionType.CHANGE_CITY,
-      payload: `Paris`
+      payload: Cities[1]
     })).toEqual({
       city: Cities[1],
-      offers,
+      currentSortType: `Popular`,
       hoveredOffer: null,
       selectedOffer: null,
     });
@@ -33,7 +31,7 @@ describe(`Корректная работа reducer`, () => {
   it(`Reducer должен изменять id hoveredOffer в соответствии с переданным значением id`, () => {
     expect(reducer({
       city: Cities[0],
-      offers,
+      currentSortType: `Popular`,
       hoveredOffer: null,
       selectedOffer: null,
     }, {
@@ -41,7 +39,7 @@ describe(`Корректная работа reducer`, () => {
       payload: 2
     })).toEqual({
       city: Cities[0],
-      offers,
+      currentSortType: `Popular`,
       hoveredOffer: 2,
       selectedOffer: null,
     });
@@ -50,14 +48,14 @@ describe(`Корректная работа reducer`, () => {
   it(`Reducer должен изменять id hoveredOffer на null`, () => {
     expect(reducer({
       city: Cities[0],
-      offers,
+      currentSortType: `Popular`,
       hoveredOffer: 2,
       selectedOffer: null,
     }, {
       type: ActionType.BLUR_OFFER
     })).toEqual({
       city: Cities[0],
-      offers,
+      currentSortType: `Popular`,
       hoveredOffer: null,
       selectedOffer: null,
     });
@@ -66,14 +64,14 @@ describe(`Корректная работа reducer`, () => {
   it(`Reducer должен изменять id selectdOffer в соответствии со значением id hoveredOffer`, () => {
     expect(reducer({
       city: Cities[0],
-      offers,
+      currentSortType: `Popular`,
       hoveredOffer: 2,
       selectedOffer: null,
     }, {
       type: ActionType.SELECT_OFFER,
     })).toEqual({
       city: Cities[0],
-      offers,
+      currentSortType: `Popular`,
       hoveredOffer: 2,
       selectedOffer: 2,
     });
@@ -82,10 +80,10 @@ describe(`Корректная работа reducer`, () => {
 
 describe(`Корректная работа ActionCreator`, () => {
   it(`ActionCreator.changeCity возвращает корректный action`, () => {
-    expect(ActionCreator.changeCity(`Paris`))
+    expect(ActionCreator.changeCity(Cities[1]))
       .toEqual({
         type: ActionType.CHANGE_CITY,
-        payload: `Paris`
+        payload: Cities[1]
       });
   });
 
