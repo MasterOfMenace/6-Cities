@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {OfferRenderType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
-import {ActionCreator} from '../../reducer.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
 
 const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}) => {
   const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
@@ -52,15 +52,15 @@ OffersList.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onMouseOver(offer) {
-    dispatch(ActionCreator.hoverOffer(offer));
+    dispatch(AppActionCreator.hoverOffer(offer));
   },
 
   onMouseLeave() {
-    dispatch(ActionCreator.blurOffer());
+    dispatch(AppActionCreator.blurOffer());
   },
 
   titleClickHandler() {
-    dispatch(ActionCreator.selectOffer());
+    dispatch(AppActionCreator.selectOffer());
   }
 });
 

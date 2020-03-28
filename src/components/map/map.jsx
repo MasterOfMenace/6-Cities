@@ -2,6 +2,7 @@ import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {getHoveredOffer} from '../../reducer/app/selectors.js';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -118,7 +119,7 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentOfferId: state.hoveredOffer
+  currentOfferId: getHoveredOffer(state)
 });
 
 export {Map};

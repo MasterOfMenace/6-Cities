@@ -7,10 +7,10 @@ const CitiesList = ({cities, currentCity, cityChangeHandler}) => {
       <ul className="locations__list tabs__list">
         {cities.map((city, index) => (
           <li key={index} className="locations__item">
-            <a className={`locations__item-link tabs__item ${city === currentCity.name ? `tabs__item--active` : ``}`} href="#" onClick={() => {
+            <a className={`locations__item-link tabs__item ${city.name === currentCity.name ? `tabs__item--active` : ``}`} href="#" onClick={() => {
               cityChangeHandler(city);
             }}>
-              <span>{city}</span>
+              <span>{city.name}</span>
             </a>
           </li>
         ))}

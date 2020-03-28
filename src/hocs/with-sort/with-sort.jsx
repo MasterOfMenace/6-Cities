@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {sortOffers} from '../../utils';
+import {getCurrentSortType} from '../../reducer/app/selectors.js';
 
 const withSort = (Component) => {
   const WithSort = (props) => {
@@ -16,7 +17,7 @@ const withSort = (Component) => {
   };
 
   const mapStateToProps = (state) => ({
-    sortType: state.currentSortType
+    sortType: getCurrentSortType(state)
   });
 
   return connect(mapStateToProps, null)(WithSort);
