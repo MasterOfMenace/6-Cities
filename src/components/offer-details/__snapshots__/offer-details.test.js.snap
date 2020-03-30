@@ -678,7 +678,6 @@ exports[`Правильное отображение компонента OfferD
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -750,9 +749,7 @@ exports[`Правильное отображение компонента OfferD
                 <a
                   href="#"
                   onClick={[Function]}
-                >
-                  Offer2
-                </a>
+                />
               </h2>
               <p
                 className="place-card__type"
@@ -783,7 +780,6 @@ exports[`Правильное отображение компонента OfferD
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -855,9 +851,7 @@ exports[`Правильное отображение компонента OfferD
                 <a
                   href="#"
                   onClick={[Function]}
-                >
-                  Offer3
-                </a>
+                />
               </h2>
               <p
                 className="place-card__type"
@@ -888,7 +882,6 @@ exports[`Правильное отображение компонента OfferD
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -960,9 +953,7 @@ exports[`Правильное отображение компонента OfferD
                 <a
                   href="#"
                   onClick={[Function]}
-                >
-                  Offer4
-                </a>
+                />
               </h2>
               <p
                 className="place-card__type"

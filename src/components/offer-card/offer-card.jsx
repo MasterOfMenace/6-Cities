@@ -14,7 +14,7 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler, type}) 
       </div>
       <div className={`${isMain ? `cities__image-wrapper` : `near-places__image-wrapper`} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.preview_image} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">
@@ -52,21 +52,6 @@ OfferCard.propTypes = {
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   offer: PropTypes.object,
-  // offer: PropTypes.shape({
-  //   id: PropTypes.number.isRequired,
-  //   city: PropTypes.object.isRequired,
-  //   name: PropTypes.string.isRequired,
-  //   picture: PropTypes.string.isRequired,
-  //   price: PropTypes.number.isRequired,
-  //   type: PropTypes.string.isRequired,
-  //   location: PropTypes.arrayOf(PropTypes.number).isRequired,
-  //   reviews: PropTypes.arrayOf(PropTypes.shape({
-  //     author: PropTypes.string.isRequired,
-  //     avatar: PropTypes.string.isRequired,
-  //     text: PropTypes.string.isRequired,
-  //     time: PropTypes.string.isRequired
-  //   })).isRequired
-  // }).isRequired
 };
 
 export default OfferCard;

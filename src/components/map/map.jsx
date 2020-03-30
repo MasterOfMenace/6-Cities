@@ -2,7 +2,7 @@ import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getHoveredOffer} from '../../reducer/app/selectors.js';
+import {getHoveredOffer} from '../../reducer/app-reducer/selectors.js';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -24,7 +24,7 @@ class Map extends React.PureComponent {
 
     if (currentOfferId) {
       const currentOffer = offers.find((offer) => offer.id === currentOfferId);
-      const currentLocation = [currentOffer.location.latitude, currentOffer.location.longitude];
+      const currentLocation = currentOffer.location;
       this._addCurrentOfferIcon(currentLocation);
     }
   }
@@ -87,7 +87,6 @@ class Map extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (this.props.city !== prevProps.city) {
       const {offersLocations, city} = this.props;
-      // const zoom = 12;
       const centerCoords = city.location;
       const zoom = city.zoom;
       this._removeMarkers();
@@ -102,8 +101,7 @@ class Map extends React.PureComponent {
       this._addOffersIcons(offersLocations);
       if (currentOfferId) {
         const currentOffer = offers.find((offer) => offer.id === currentOfferId);
-        // const currentLocation = currentOffer.location;
-        const currentLocation = [currentOffer.location.latitude, currentOffer.location.longitude];
+        const currentLocation = currentOffer.location;
         this._addCurrentOfferIcon(currentLocation);
       }
     }

@@ -15,10 +15,7 @@ const Places = (props) => {
   const {offers, city} = props;
   const currentOffers = getCurrentOffers(offers, city);
   const offersCount = currentOffers.length;
-  const locations = currentOffers.map((offer) => {
-    const location = offer.location;
-    return [location.latitude, location.longitude];
-  });
+  const locations = currentOffers.map((offer) => offer.location);
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">

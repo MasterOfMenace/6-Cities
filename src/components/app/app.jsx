@@ -4,9 +4,9 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
-import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
 import {getOffers, getCities} from '../../reducer/data/selectors.js';
-import {getSelectedOffer, getCity} from '../../reducer/app/selectors.js';
+import {getSelectedOffer, getCity} from '../../reducer/app-reducer/selectors.js';
 
 class App extends React.PureComponent {
   _renderApp() {

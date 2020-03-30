@@ -2,10 +2,15 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import NameSpace from '../../reducer/name-space.js';
 import OfferDetails from './offer-details.jsx';
 
 const mockStore = configureStore([]);
-const store = mockStore({});
+const store = mockStore({
+  [NameSpace.APP]: {
+    hoveredOffer: null
+  }
+});
 
 const Dates = [
   `10 July 2019`,
@@ -14,7 +19,8 @@ const Dates = [
 
 const city = {
   name: `City`,
-  location: [52.38333, 4.9]
+  location: [52.38333, 4.9],
+  zoom: 12
 };
 
 const mockOffers = [
@@ -123,6 +129,7 @@ const mockOffers = [
     ]
   },
 ];
+
 const mockId = 1;
 
 it(`Правильное отображение компонента OfferDetails`, () => {

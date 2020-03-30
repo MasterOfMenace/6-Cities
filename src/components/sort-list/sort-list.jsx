@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {SortTypes} from '../../const.js';
-import {ActionCreator as AppActionCreator} from '../../reducer/app/app.js';
-import {getCurrentSortType} from '../../reducer/app/selectors.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
+import {getCurrentSortType} from '../../reducer/app-reducer/selectors.js';
 
 class SortList extends React.PureComponent {
   render() {

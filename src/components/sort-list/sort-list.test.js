@@ -3,12 +3,15 @@ import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import SortList from './sort-list.jsx';
+import NameSpace from '../../reducer/name-space.js';
 
 const mockStore = configureStore([]);
 
 it(`Корректное отображение компонента SortList`, () => {
   const store = mockStore({
-    currentSortType: `Popular`,
+    [NameSpace.APP]: {
+      currentSortType: `Popular`
+    }
   });
 
   const tree = renderer

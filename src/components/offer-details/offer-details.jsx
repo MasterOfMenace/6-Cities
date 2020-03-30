@@ -162,7 +162,7 @@ const OfferDetails = ({offers, id, city}) => {
             <Map
               offers={currentOffers}
               offersLocations={neighbourhoodOffersLocations}
-              cityLocation={city.location}/>
+              city={city}/>
           </section>
         </section>
         <div className="container">

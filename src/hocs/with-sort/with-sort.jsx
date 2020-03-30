@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {sortOffers} from '../../utils';
-import {getCurrentSortType} from '../../reducer/app/selectors.js';
+import {getCurrentSortType} from '../../reducer/app-reducer/selectors.js';
 
 const withSort = (Component) => {
   const WithSort = (props) => {
