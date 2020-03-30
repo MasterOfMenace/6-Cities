@@ -162,7 +162,7 @@ const OfferDetails = ({offers, id, city}) => {
             <Map
               offers={currentOffers}
               offersLocations={neighbourhoodOffersLocations}
-              cityLocation={city.location}/>
+              city={city}/>
           </section>
         </section>
         <div className="container">
@@ -179,22 +179,9 @@ const OfferDetails = ({offers, id, city}) => {
 };
 
 OfferDetails.propTypes = {
-  city: PropTypes.object.isRequired,
-  id: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      author: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired
-    })).isRequired
-  })).isRequired
+  city: PropTypes.object,
+  id: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  offers: PropTypes.array
 };
 
 export default OfferDetails;

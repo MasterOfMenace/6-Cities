@@ -3,9 +3,9 @@ import renderer from 'react-test-renderer';
 import CitiesList from './cities-list.jsx';
 
 const MockCities = [
-  `City1`,
-  `City2`,
-  `City3`
+  {name: `City1`},
+  {name: `City2`},
+  {name: `City3`}
 ];
 
 const currentCity = {

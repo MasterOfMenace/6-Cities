@@ -1,9 +1,6 @@
-import offers, {Cities} from './mocks/offers.js';
-
 const initialState = {
-  city: Cities[0],
+  city: {},
   currentSortType: `Popular`,
-  offers,
   hoveredOffer: null,
   selectedOffer: null,
 };
@@ -38,21 +35,15 @@ export const ActionCreator = {
 
   selectOffer: () => ({
     type: ActionType.SELECT_OFFER
-  })
+  }),
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      const cityName = action.payload;
-      const city = Cities.find((it) => it.name === cityName);
-
-      if (cityName !== state.city.name) {
-        return Object.assign({}, state, {
-          city
-        });
-      }
-      break;
+      return Object.assign({}, state, {
+        city: action.payload
+      });
 
     case ActionType.CHANGE_SORT_TYPE:
       return Object.assign({}, state, {

@@ -2,7 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {SortTypes} from '../../const.js';
-import {ActionCreator} from '../../reducer.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
+import {getCurrentSortType} from '../../reducer/app-reducer/selectors.js';
 
 class SortList extends React.PureComponent {
   render() {
@@ -44,12 +45,12 @@ SortList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  current: state.currentSortType
+  current: getCurrentSortType(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onSortTypeClickHandler(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
+    dispatch(AppActionCreator.changeSortType(sortType));
   }
 });
 

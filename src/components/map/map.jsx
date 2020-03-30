@@ -2,6 +2,7 @@ import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {getHoveredOffer} from '../../reducer/app-reducer/selectors.js';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -12,11 +13,12 @@ class Map extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {offers, offersLocations, cityLocation} = this.props;
+    const {offers, offersLocations, city} = this.props;
     const {currentOfferId} = this.props;
-    const zoom = 12;
+    const centerCoords = city.location;
+    const zoom = city.zoom;
 
-    this._createMap(cityLocation, offersLocations, zoom);
+    this._createMap(centerCoords, offersLocations, zoom);
 
     this._addOffersIcons(offersLocations);
 
@@ -83,12 +85,13 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.cityLocation !== prevProps.cityLocation) {
-      const {offersLocations, cityLocation} = this.props;
-      const zoom = 12;
+    if (this.props.city !== prevProps.city) {
+      const {offersLocations, city} = this.props;
+      const centerCoords = city.location;
+      const zoom = city.zoom;
       this._removeMarkers();
       this._map.remove();
-      this._createMap(cityLocation, offersLocations, zoom);
+      this._createMap(centerCoords, offersLocations, zoom);
       this._addOffersIcons(offersLocations);
     }
 
@@ -108,13 +111,13 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   currentOfferId: PropTypes.number,
   offers: PropTypes.array.isRequired,
-  cityLocation: PropTypes.array.isRequired,
+  city: PropTypes.object,
   offersLocations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   currentOfferLocation: PropTypes.arrayOf(PropTypes.number)
 };
 
 const mapStateToProps = (state) => ({
-  currentOfferId: state.hoveredOffer
+  currentOfferId: getHoveredOffer(state)
 });
 
 export {Map};

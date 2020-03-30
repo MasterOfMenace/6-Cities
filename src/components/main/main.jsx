@@ -5,16 +5,9 @@ import {getCurrentOffers} from '../../utils.js';
 import Places from '../places/places.jsx';
 import PlacesEmpty from '../places-empty/places-empty.jsx';
 
-const getCities = (offers) => {
-  const cities = offers.map((offer) => offer.city.name);
-  const set = new Set(cities);
-  return Array.from(set);
-};
-
-const Main = ({offers, city, cityChangeHandler}) => {
+const Main = ({offers, city, cities, cityChangeHandler}) => {
   const currentOffers = getCurrentOffers(offers, city);
-  const cities = getCities(offers);
-  const isEmpty = currentOffers.length === 0 ? true : false;
+  const isEmpty = currentOffers.length === 0;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -64,22 +57,10 @@ const Main = ({offers, city, cityChangeHandler}) => {
 };
 
 Main.propTypes = {
-  city: PropTypes.object.isRequired,
+  city: PropTypes.object,
+  cities: PropTypes.array,
   cityChangeHandler: PropTypes.func.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    location: PropTypes.arrayOf(PropTypes.number).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      author: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired
-    })).isRequired
-  })).isRequired,
+  offers: PropTypes.array,
 };
 
 export default Main;

@@ -4,17 +4,25 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
-import {ActionCreator} from '../../reducer.js';
-import {getCurrentOffers} from '../../utils.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
+import {getOffers, getCities} from '../../reducer/data/selectors.js';
+import {getSelectedOffer, getCity} from '../../reducer/app-reducer/selectors.js';
 
 class App extends React.PureComponent {
   _renderApp() {
-    const {offers, selectedOffer, city, cityChangeHandler} = this.props;
+    const {
+      offers,
+      selectedOffer,
+      city,
+      cities,
+      cityChangeHandler
+    } = this.props;
 
     if (!selectedOffer) {
       return (
         <Main
           offers={offers}
+          cities={cities}
           city={city}
           cityChangeHandler={cityChangeHandler}
         />
@@ -36,7 +44,6 @@ class App extends React.PureComponent {
 
   render() {
     const {offers, city} = this.props;
-    const currentOffers = getCurrentOffers(offers, city);
     return (
       <BrowserRouter>
         <Switch>
@@ -45,8 +52,8 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/dev-details">
             <OfferDetails
-              offers={currentOffers}
-              id={currentOffers[0].id}
+              offers={offers}
+              id={offers[0]}
               city={city}
             />
           </Route>
@@ -57,21 +64,23 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  city: PropTypes.object.isRequired,
+  city: PropTypes.object,
+  cities: PropTypes.array,
   cityChangeHandler: PropTypes.func.isRequired,
   selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  selectedOffer: state.selectedOffer,
-  city: state.city
+  offers: getOffers(state),
+  cities: getCities(state),
+  selectedOffer: getSelectedOffer(state),
+  city: getCity(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   cityChangeHandler(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(AppActionCreator.changeCity(city));
   }
 });
 

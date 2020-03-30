@@ -13,8 +13,8 @@ const mockOffer = {
   city: {
     name: `City`,
   },
-  name: `Room in hotel`,
-  picture: `img/apartment-01.jpg`,
+  title: `Offer1`,
+  previewImage: `img/apartment-01.jpg`,
   price: 100,
   type: `Private room`,
   location: [52.369553943508, 4.85309666406198],

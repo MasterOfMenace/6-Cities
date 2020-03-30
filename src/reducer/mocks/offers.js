@@ -1,4 +1,4 @@
-import {MonthNames} from '../const.js';
+import {MonthNames} from '../../const.js';
 
 const Price = {
   MIN: 10,
