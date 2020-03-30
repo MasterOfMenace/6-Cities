@@ -22,7 +22,7 @@ describe(`Корректная работа reducer`, () => {
     });
   });
 
-  it(`Reducer должен обновить offers путем загрузки данных с сервера`, () => {
+  it(`Reducer должен обновить cities путем загрузки данных с сервера`, () => {
     expect(reducer({
       offers,
       cities: [],
