@@ -7,6 +7,9 @@ import OfferDetails from '../offer-details/offer-details.jsx';
 import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
 import {getOffers, getCities} from '../../reducer/data/selectors.js';
 import {getSelectedOffer, getCity} from '../../reducer/app-reducer/selectors.js';
+import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
+import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
+import SignIn from '../sign-in/sign-in.jsx';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -15,8 +18,17 @@ class App extends React.PureComponent {
       selectedOffer,
       city,
       cities,
-      cityChangeHandler
+      cityChangeHandler,
+      authorizationStatus,
+      userInfo,
+      login
     } = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      return (
+        <SignIn onSubmit={login}/>
+      );
+    }
 
     if (!selectedOffer) {
       return (
@@ -25,6 +37,8 @@ class App extends React.PureComponent {
           cities={cities}
           city={city}
           cityChangeHandler={cityChangeHandler}
+          authStatus={authorizationStatus}
+          userInfo={userInfo}
         />
       );
     }
@@ -43,7 +57,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers, city} = this.props;
+    const {offers, city, login} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -55,6 +69,11 @@ class App extends React.PureComponent {
               offers={offers}
               id={offers[0]}
               city={city}
+            />
+          </Route>
+          <Route exact path="/sign-in">
+            <SignIn
+              onSubmit={login}
             />
           </Route>
         </Switch>
@@ -69,18 +88,27 @@ App.propTypes = {
   cityChangeHandler: PropTypes.func.isRequired,
   selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+  userInfo: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
   cities: getCities(state),
   selectedOffer: getSelectedOffer(state),
-  city: getCity(state)
+  city: getCity(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  userInfo: getUserInfo(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   cityChangeHandler(city) {
     dispatch(AppActionCreator.changeCity(city));
+  },
+
+  login(authData) {
+    dispatch(UserOperation.login(authData));
   }
 });
 
