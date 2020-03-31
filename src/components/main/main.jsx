@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
 import Places from '../places/places.jsx';
 import PlacesEmpty from '../places-empty/places-empty.jsx';
 
-const Main = ({offers, city, cities, cityChangeHandler, authStatus, userInfo}) => {
+const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const isEmpty = currentOffers.length === 0;
-  const isAuth = authStatus === AuthorizationStatus.AUTH;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -72,6 +70,7 @@ Main.propTypes = {
   offers: PropTypes.array,
   authStatus: PropTypes.string,
   userInfo: PropTypes.object,
+  isAuth: PropTypes.bool.isRequired
 };
 
 export default Main;

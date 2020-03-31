@@ -22,10 +22,22 @@ export const Adapter = {
       },
       id: offer.id,
       title: offer.title,
+      isFavorite: offer.is_favorite,
+      isPremium: offer.is_premium,
       previewImage: offer.preview_image,
+      images: offer.images,
+      description: offer.description,
+      goods: offer.goods,
       price: offer.price,
       type: offer.type,
+      maxAdults: offer.max_adults,
       location: [offer.location.latitude, offer.location.longitude],
+      host: {
+        avatarUrl: offer.host.avatar_url,
+        id: offer.host.id,
+        isPro: offer.host.is_pro,
+        name: offer.host.name,
+      }
     }));
   },
 
@@ -37,6 +49,21 @@ export const Adapter = {
       isPro: data.is_pro,
       name: data.name
     };
+  },
+
+  getReviews: (data) => {
+    return data.map((review) => ({
+      author: {
+        avatar: review.user.avatar_url,
+        id: review.user.id,
+        isPro: review.user.is_pro,
+        name: review.user.name
+      },
+      id: review.id,
+      rating: review.rating,
+      text: review.comment,
+      date: review.date
+    }));
   }
 };
 
@@ -85,6 +112,20 @@ export const Adapter = {
   "name": "Oliver.conner"
 }
 
+  Comments
+  {
+  "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+  "date": "2019-05-08T14:13:56.569Z",
+  "id": 1,
+  "rating": 4,
+  "user": {
+    "avatar_url": "img/1.png",
+    "id": 4,
+    "is_pro": false,
+    "name": "Max"
+  }
+
+
     Моя структура данных
     id: 1,
     city: {
@@ -94,15 +135,13 @@ export const Adapter = {
     }
     title: `Room in hotel`,
     previewImage: `img/apartment-01.jpg`,
+    images: ["img/1.png", "img/2.png"],
     price: 100,
     type: `Private room`,
     location: [52.3909553943508, 4.85309666406198],
-    reviews: {
-      author: createAuthor(),
-      avatar: `img/avatar-max.jpg`,
-      text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-      time: getRandomDate().toISOString()
-    }
+    description: "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    goods: ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
+  }
 
     AuthInfo
     {
@@ -111,4 +150,17 @@ export const Adapter = {
     id: 1,
     isPro: false,
     name: "Oliver.conner"
-  }*/
+  }
+
+  reviews: {
+      author: {
+        avatar: "img/1.png",
+        id: 4,
+        isPro: false,
+        name: "Max"
+      },
+      id: 1,
+      rating: 4,
+      text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+      date: "2019-05-08T14:13:56.569Z"
+    }*/

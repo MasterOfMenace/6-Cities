@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Review from '../review/review.jsx';
+import {getReviews} from '../../reducer/data/selectors.js';
+
+const MAX_REVIEWS_COUNT = 10;
 
 const sortReviews = (reviews) => {
   return reviews.slice().sort((a, b) => {
@@ -13,7 +17,7 @@ const sortReviews = (reviews) => {
 const ReviewsList = (props) => {
   const {reviews} = props;
   const reviewsAmount = reviews.length;
-  const sorted = sortReviews(reviews);
+  const sorted = sortReviews(reviews).slice(0, MAX_REVIEWS_COUNT);
 
   return (
     <section className="property__reviews reviews">
@@ -77,4 +81,9 @@ ReviewsList.propTypes = {
   reviews: PropTypes.array.isRequired
 };
 
-export default ReviewsList;
+const mapStateToProps = (state) => ({
+  reviews: getReviews(state)
+});
+
+export {ReviewsList};
+export default connect(mapStateToProps, null)(ReviewsList);

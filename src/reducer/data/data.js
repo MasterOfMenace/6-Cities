@@ -4,11 +4,13 @@ import {ActionCreator as AppActionCreator} from '../app-reducer/app-reducer.js';
 const initialState = {
   offers: [],
   cities: [],
+  reviews: []
 };
 
 export const ActionType = {
   LOAD_OFFERS: `load_offers`,
   GET_CITIES: `get_cities`,
+  LOAD_REVIEWS: `load_reviews`
 };
 
 export const ActionCreator = {
@@ -20,6 +22,11 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers
+  }),
+
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews
   })
 };
 
@@ -32,6 +39,14 @@ export const Operation = {
         const cities = Adapter.getCities(response.data);
         dispatch(ActionCreator.getCities(cities));
         dispatch(AppActionCreator.changeCity(cities[0]));
+      });
+  },
+
+  loadReviews: (id) => (dispatch, getState, api) => {
+    return api.get(`/comments/${id}`)
+      .then((response) => {
+        const reviews = Adapter.getReviews(response.data);
+        dispatch(ActionCreator.loadReviews(reviews));
       });
   }
 };
@@ -46,6 +61,11 @@ export const reducer = (state = initialState, action) => {
     case ActionType.GET_CITIES:
       return Object.assign({}, state, {
         cities: action.payload
+      });
+
+    case ActionType.LOAD_REVIEWS:
+      return Object.assign({}, state, {
+        reviews: action.payload
       });
   }
 

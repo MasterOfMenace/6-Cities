@@ -24,7 +24,9 @@ class App extends React.PureComponent {
       login
     } = this.props;
 
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+    const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+
+    if (!isAuth) {
       return (
         <SignIn onSubmit={login}/>
       );
@@ -37,7 +39,7 @@ class App extends React.PureComponent {
           cities={cities}
           city={city}
           cityChangeHandler={cityChangeHandler}
-          authStatus={authorizationStatus}
+          isAuth={isAuth}
           userInfo={userInfo}
         />
       );
@@ -49,6 +51,8 @@ class App extends React.PureComponent {
           offers={offers}
           id={selectedOffer}
           city={city}
+          isAuth={isAuth}
+          userInfo={userInfo}
         />
       );
     }
@@ -67,7 +71,7 @@ class App extends React.PureComponent {
           <Route exact path="/dev-details">
             <OfferDetails
               offers={offers}
-              id={offers[0]}
+              id={1}
               city={city}
             />
           </Route>
