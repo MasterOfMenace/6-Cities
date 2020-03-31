@@ -4,6 +4,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import NameSpace from '../../reducer/name-space.js';
 import Main from './main.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const Dates = [
   `10 July 2019`,
@@ -137,6 +138,14 @@ const city = {
   zoom: 12
 };
 
+const mockUserInfo = {
+  avatarUrl: `/img/1.png`,
+  email: `Oliver.conner@gmail.com`,
+  id: 1,
+  isPro: false,
+  name: `Oliver.conner`
+};
+
 const mockStore = configureStore([]);
 
 const store = mockStore({
@@ -149,6 +158,10 @@ const store = mockStore({
     currentSortType: `Popular`,
     hoveredOffer: null,
     selectedOffer: null
+  },
+  [NameSpace.USER]: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+    userInfo: mockUserInfo
   }
 });
 
@@ -159,8 +172,9 @@ it(`Правильное отображение компонента Main`, () =
           offers={offers}
           city={city}
           cities={cities}
-          // onSortTypeClickHandler={()=>{}}
-          cityChangeHandler={()=>{}}/>
+          cityChangeHandler={()=>{}}
+          authStatus={AuthorizationStatus.AUTH}
+          userInfo={mockUserInfo}/>
       </Provider>,
       {
         createNodeMock: () => document.createElement(`div`)

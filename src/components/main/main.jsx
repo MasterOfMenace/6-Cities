@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 import Places from '../places/places.jsx';
 import PlacesEmpty from '../places-empty/places-empty.jsx';
 
-const Main = ({offers, city, cities, cityChangeHandler}) => {
+const Main = ({offers, city, cities, cityChangeHandler, authStatus, userInfo}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const isEmpty = currentOffers.length === 0;
+  const isAuth = authStatus === AuthorizationStatus.AUTH;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -21,10 +23,17 @@ const Main = ({offers, city, cities, cityChangeHandler}) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a
+                    className="header__nav-link header__nav-link--profile"
+                    href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
+                      {isAuth ? <img
+                        className="user__avatar"
+                        src={userInfo.avatarUrl}
+                        alt="User avatar" width="20" height="20"
+                      /> : ``}
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {isAuth ? <span className="header__user-name user__name">{userInfo.email}</span> : <span className="header__login">Sign in</span>}
                   </a>
                 </li>
               </ul>
@@ -61,6 +70,8 @@ Main.propTypes = {
   cities: PropTypes.array,
   cityChangeHandler: PropTypes.func.isRequired,
   offers: PropTypes.array,
+  authStatus: PropTypes.string,
+  userInfo: PropTypes.object,
 };
 
 export default Main;

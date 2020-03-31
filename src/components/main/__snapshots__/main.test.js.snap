@@ -43,7 +43,15 @@ exports[`Правильное отображение компонента Main 1
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
-                />
+                >
+                  <img
+                    alt="User avatar"
+                    className="user__avatar"
+                    height="20"
+                    src="/img/1.png"
+                    width="20"
+                  />
+                </div>
                 <span
                   className="header__user-name user__name"
                 >

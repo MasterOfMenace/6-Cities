@@ -27,6 +27,16 @@ export const Adapter = {
       type: offer.type,
       location: [offer.location.latitude, offer.location.longitude],
     }));
+  },
+
+  getUserInfo: (data) => {
+    return {
+      avatarUrl: `https://htmlacademy-react-3.appspot.com/six-cities${data.avatar_url}`,
+      email: data.email,
+      id: data.id,
+      isPro: data.is_pro,
+      name: data.name
+    };
   }
 };
 
@@ -66,6 +76,15 @@ export const Adapter = {
   "title": "Beautiful & luxurious studio at great location",
   "type": "apartment"
 }
+  AuthInfo
+  {
+  "avatar_url": "img/1.png",
+  "email": "Oliver.conner@gmail.com",
+  "id": 1,
+  "is_pro": false,
+  "name": "Oliver.conner"
+}
+
     Моя структура данных
     id: 1,
     city: {
@@ -83,4 +102,13 @@ export const Adapter = {
       avatar: `img/avatar-max.jpg`,
       text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
       time: getRandomDate().toISOString()
-    }*/
+    }
+
+    AuthInfo
+    {
+    avatarUrl: "https://htmlacademy-react-3.appspot.com/six-cities/static/img/1.png",
+    email: "Oliver.conner@gmail.com",
+    id: 1,
+    isPro: false,
+    name: "Oliver.conner"
+  }*/
