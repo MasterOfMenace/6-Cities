@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {OfferRenderType} from '../../const.js';
-import {getCurrentOffers} from '../../utils.js';
+import {getCurrentOffers, formatRating} from '../../utils.js';
+import {getNeighbors, getReviews} from '../../reducer/data/selectors.js';
 
-const OfferDetails = ({offers, id, city, isAuth, userInfo}) => {
+const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const currentOffer = currentOffers.find((offer) => offer.id === id);
-  const neighbourhoodOffers = currentOffers.filter((offer) => offer.id !== id);
-  const neighbourhoodOffersLocations = neighbourhoodOffers.map((offer) => offer.location);
+  const neighborsLocations = neighbors.map((offer) => offer.location);
 
 
   const host = currentOffer.host;
@@ -81,20 +82,20 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo}) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `80%`}}></span>
+                  <span style={{width: `${formatRating(currentOffer.rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
                   {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {currentOffer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -134,14 +135,14 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo}) => {
                   </p>
                 </div>
               </div>
-              {/* <ReviewsList reviews={reviews}/> */}
-              <ReviewsList />
+              <ReviewsList reviews={reviews}/>
+              {/* <ReviewsList /> */}
             </div>
           </div>
           <section className="property__map map">
             <Map
               offers={currentOffers}
-              offersLocations={neighbourhoodOffersLocations}
+              offersLocations={neighborsLocations}
               city={city}/>
           </section>
         </section>
@@ -149,7 +150,7 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
-              offers={neighbourhoodOffers}
+              offers={neighbors}
               type={OfferRenderType.NEIGHBORHOOD}/>
           </section>
         </div>
@@ -163,6 +164,7 @@ OfferDetails.propTypes = {
   id: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.array,
   isAuth: PropTypes.bool.isRequired,
+  neighbors: PropTypes.array.isRequired,
   userInfo: PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
@@ -172,4 +174,10 @@ OfferDetails.propTypes = {
   })
 };
 
-export default OfferDetails;
+const mapStateToProps = (state) => ({
+  neighbors: getNeighbors(state),
+  reviews: getReviews(state)
+});
+
+export {OfferDetails};
+export default connect(mapStateToProps, null)(OfferDetails);

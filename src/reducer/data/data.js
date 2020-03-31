@@ -4,13 +4,15 @@ import {ActionCreator as AppActionCreator} from '../app-reducer/app-reducer.js';
 const initialState = {
   offers: [],
   cities: [],
-  reviews: []
+  reviews: [],
+  neighbors: []
 };
 
 export const ActionType = {
   LOAD_OFFERS: `load_offers`,
   GET_CITIES: `get_cities`,
-  LOAD_REVIEWS: `load_reviews`
+  LOAD_REVIEWS: `load_reviews`,
+  LOAD_NEIGHBORS: `load_neighbors`
 };
 
 export const ActionCreator = {
@@ -27,6 +29,11 @@ export const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews
+  }),
+
+  loadNeighbors: (neighbors) => ({
+    type: ActionType.LOAD_NEIGHBORS,
+    payload: neighbors
   })
 };
 
@@ -48,6 +55,14 @@ export const Operation = {
         const reviews = Adapter.getReviews(response.data);
         dispatch(ActionCreator.loadReviews(reviews));
       });
+  },
+
+  loadNeighbors: (id) => (dispatch, getState, api) => {
+    return api.get(`/hotels/${id}/nearby`)
+      .then((response) => {
+        const nearOffers = Adapter.getOffers(response.data);
+        dispatch(ActionCreator.loadNeighbors(nearOffers));
+      });
   }
 };
 
@@ -66,6 +81,11 @@ export const reducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return Object.assign({}, state, {
         reviews: action.payload
+      });
+
+    case ActionType.LOAD_NEIGHBORS:
+      return Object.assign({}, state, {
+        neighbors: action.payload
       });
   }
 

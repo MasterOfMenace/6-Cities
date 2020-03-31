@@ -29,8 +29,10 @@ export const Adapter = {
       description: offer.description,
       goods: offer.goods,
       price: offer.price,
+      rating: offer.rating,
       type: offer.type,
       maxAdults: offer.max_adults,
+      bedrooms: offer.bedrooms,
       location: [offer.location.latitude, offer.location.longitude],
       host: {
         avatarUrl: offer.host.avatar_url,

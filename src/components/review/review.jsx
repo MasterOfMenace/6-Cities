@@ -1,18 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MonthNames} from '../../const.js';
-
-const STAR_WIDTH = 20;
-
-const formatDate = (date) => {
-  const month = MonthNames[date.getMonth()];
-  const year = date.getFullYear();
-  return `${month} ${year}`;
-};
-
-const formatRating = (rating, starWidth = STAR_WIDTH) => {
-  return rating * starWidth;
-};
+import {formatDate, formatRating} from '../../utils.js';
 
 const Review = (props) => {
   const {review} = props;

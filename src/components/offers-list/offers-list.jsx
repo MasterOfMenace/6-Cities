@@ -48,6 +48,7 @@ const mapDispatchToProps = (dispatch) => ({
   titleClickHandler(id) {
     dispatch(AppActionCreator.selectOffer());
     dispatch(DataOperation.loadReviews(id));
+    dispatch(DataOperation.loadNeighbors(id));
   }
 });
 

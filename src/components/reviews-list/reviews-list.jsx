@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import Review from '../review/review.jsx';
-import {getReviews} from '../../reducer/data/selectors.js';
 
 const MAX_REVIEWS_COUNT = 10;
 
@@ -81,9 +79,4 @@ ReviewsList.propTypes = {
   reviews: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  reviews: getReviews(state)
-});
-
-export {ReviewsList};
-export default connect(mapStateToProps, null)(ReviewsList);
+export default ReviewsList;

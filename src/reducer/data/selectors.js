@@ -11,3 +11,7 @@ export const getCities = (state) => {
 export const getReviews = (state) => {
   return state[NameSpace.DATA].reviews;
 };
+
+export const getNeighbors = (state) => {
+  return state[NameSpace.DATA].neighbors;
+};
