@@ -7,8 +7,10 @@ import OffersList from '../offers-list/offers-list.jsx';
 import {OfferRenderType} from '../../const.js';
 import {getCurrentOffers, formatRating} from '../../utils.js';
 import {getNeighbors, getReviews} from '../../reducer/data/selectors.js';
+import ReviewForm from '../review-form/review-form.jsx';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
 
-const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews}) => {
+const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, onSubmit}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const currentOffer = currentOffers.find((offer) => offer.id === id);
   const neighborsLocations = neighbors.map((offer) => offer.location);
@@ -135,8 +137,11 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews}) 
                   </p>
                 </div>
               </div>
-              <ReviewsList reviews={reviews}/>
-              {/* <ReviewsList /> */}
+              <section className="property__reviews reviews">
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <ReviewsList reviews={reviews}/>
+                <ReviewForm onSubmit={onSubmit} id={id}/>
+              </section>
             </div>
           </div>
           <section className="property__map map">
@@ -171,7 +176,9 @@ OfferDetails.propTypes = {
     id: PropTypes.number.isRequired,
     isPro: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired
-  })
+  }),
+  reviews: PropTypes.array,
+  onSubmit: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -179,5 +186,11 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(id, form, data) {
+    dispatch(DataOperation.postReview(id, form, data));
+  }
+});
+
 export {OfferDetails};
-export default connect(mapStateToProps, null)(OfferDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);

@@ -12,7 +12,8 @@ export const ActionType = {
   LOAD_OFFERS: `load_offers`,
   GET_CITIES: `get_cities`,
   LOAD_REVIEWS: `load_reviews`,
-  LOAD_NEIGHBORS: `load_neighbors`
+  LOAD_NEIGHBORS: `load_neighbors`,
+  POST_REVIEW: `post_review`
 };
 
 export const ActionCreator = {
@@ -54,6 +55,18 @@ export const Operation = {
       .then((response) => {
         const reviews = Adapter.getReviews(response.data);
         dispatch(ActionCreator.loadReviews(reviews));
+      });
+  },
+
+  postReview: (id, form, reviewData) => (dispatch, getState, api) => {
+    return api.post(`/comments/${id}`, {
+      comment: reviewData.comment,
+      rating: reviewData.rating
+    })
+      .then((response) => {
+        const reviews = Adapter.getReviews(response.data);
+        dispatch(ActionCreator.loadReviews(reviews));
+        form.reset();
       });
   },
 
