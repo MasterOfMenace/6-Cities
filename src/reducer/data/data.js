@@ -13,7 +13,6 @@ export const ActionType = {
   GET_CITIES: `get_cities`,
   LOAD_REVIEWS: `load_reviews`,
   LOAD_NEIGHBORS: `load_neighbors`,
-  POST_REVIEW: `post_review`
 };
 
 export const ActionCreator = {
@@ -59,6 +58,7 @@ export const Operation = {
   },
 
   postReview: (id, form, reviewData) => (dispatch, getState, api) => {
+    dispatch(AppActionCreator.changeFormStatus(true));
     return api.post(`/comments/${id}`, {
       comment: reviewData.comment,
       rating: reviewData.rating
@@ -66,6 +66,7 @@ export const Operation = {
       .then((response) => {
         const reviews = Adapter.getReviews(response.data);
         dispatch(ActionCreator.loadReviews(reviews));
+        dispatch(AppActionCreator.changeFormStatus(false));
         form.reset();
       });
   },

@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {getFormStatus} from '../../reducer/app-reducer/selectors.js';
 
-export default class ReviewForm extends React.PureComponent {
+class ReviewForm extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.formRef = React.createRef();
     this.ratingContainerRef = React.createRef();
     this.commentTextRef = React.createRef();
+    this.submitButtonRef = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this._validateForm = this._validateForm.bind(this);
   }
 
   handleSubmit(evt) {
@@ -19,15 +23,54 @@ export default class ReviewForm extends React.PureComponent {
 
     onSubmit(id, this.formRef.current, {
       comment: this.commentTextRef.current.value,
-      rating: this._getRating()
+      rattting: this._getRating()
     });
   }
 
   _getRating() {
-    const rating = Array.from(this.ratingContainerRef.current.querySelectorAll(`.form__rating-input`))
-      .find((it) => it.checked)
-      .value;
+    const checked = Array.from(this.ratingContainerRef.current.querySelectorAll(`.form__rating-input`))
+    .find((it) => it.checked);
+
+    if (!checked) {
+      return null;
+    }
+    const rating = checked.value;
     return rating;
+  }
+
+  _validateForm() {
+    const commentText = this.commentTextRef.current.value;
+    const rating = this._getRating();
+
+    if (commentText.length < 50) {
+      this.submitButtonRef.current.disabled = true;
+      return;
+    }
+
+    if (!rating) {
+      this.submitButtonRef.current.disabled = true;
+      return;
+    }
+
+    this.submitButtonRef.current.disabled = false;
+  }
+
+  _toggleForm(isSending) {
+    const formElements = Array.from(this.formRef.current.elements);
+
+    formElements.forEach((it) => {
+      it.disabled = isSending;
+    });
+  }
+
+  componentDidMount() {
+    this._validateForm();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.formIsSending !== this.props.formIsSending) {
+      this._toggleForm(this.props.formIsSending);
+    }
   }
 
   render() {
@@ -38,6 +81,7 @@ export default class ReviewForm extends React.PureComponent {
         method="post"
         ref={this.formRef}
         onSubmit={this.handleSubmit}
+        onChange={this._validateForm}
       >
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div
@@ -96,6 +140,7 @@ export default class ReviewForm extends React.PureComponent {
             className="reviews__submit form__submit button"
             type="submit"
             disabled=""
+            ref={this.submitButtonRef}
           >
             Submit
           </button>
@@ -108,4 +153,12 @@ export default class ReviewForm extends React.PureComponent {
 ReviewForm.propTypes = {
   id: PropTypes.number,
   onSubmit: PropTypes.func,
+  formIsSending: PropTypes.bool,
 };
+
+const mapStateToPRops = (state) => ({
+  formIsSending: getFormStatus(state)
+});
+
+export {ReviewForm};
+export default connect(mapStateToPRops, null)(ReviewForm);

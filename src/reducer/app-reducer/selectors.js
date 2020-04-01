@@ -15,3 +15,7 @@ export const getHoveredOffer = (state) => {
 export const getSelectedOffer = (state) => {
   return state[NameSpace.APP].selectedOffer;
 };
+
+export const getFormStatus = (state) => {
+  return state[NameSpace.APP].formIsSending;
+};

@@ -3,6 +3,7 @@ const initialState = {
   currentSortType: `Popular`,
   hoveredOffer: null,
   selectedOffer: null,
+  formIsSending: false
 };
 
 export const ActionType = {
@@ -11,6 +12,7 @@ export const ActionType = {
   SELECT_OFFER: `select_offer`,
   HOVER_OFFER: `hover_offer`,
   BLUR_OFFER: `blur_offer`,
+  CHANGE_FORM_STATUS: `change_form_status`
 };
 
 export const ActionCreator = {
@@ -36,6 +38,11 @@ export const ActionCreator = {
   selectOffer: () => ({
     type: ActionType.SELECT_OFFER
   }),
+
+  changeFormStatus: (status) => ({
+    type: ActionType.CHANGE_FORM_STATUS,
+    payload: status
+  })
 };
 
 export const reducer = (state = initialState, action) => {
@@ -67,6 +74,11 @@ export const reducer = (state = initialState, action) => {
 
       return Object.assign({}, state, {
         selectedOffer
+      });
+
+    case ActionType.CHANGE_FORM_STATUS:
+      return Object.assign({}, state, {
+        formIsSending: action.payload
       });
   }
 
