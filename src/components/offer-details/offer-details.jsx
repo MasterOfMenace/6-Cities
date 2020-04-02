@@ -4,13 +4,16 @@ import {connect} from 'react-redux';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
+import ReviewForm from '../review-form/review-form.jsx';
+import ErrorPopup from '../error-popup/error-popup.jsx';
 import {OfferRenderType} from '../../const.js';
 import {getCurrentOffers, formatRating} from '../../utils.js';
-import {getNeighbors, getReviews} from '../../reducer/data/selectors.js';
-import ReviewForm from '../review-form/review-form.jsx';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {getNeighbors, getReviews} from '../../reducer/data/selectors.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
+import {getPopupStatus} from '../../reducer/app-reducer/selectors.js';
 
-const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, onSubmit}) => {
+const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, onSubmit, isPopupShow, onPopupButtonClick}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const currentOffer = currentOffers.find((offer) => offer.id === id);
   const neighborsLocations = neighbors.map((offer) => offer.location);
@@ -160,6 +163,7 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, o
           </section>
         </div>
       </main>
+      {isPopupShow ? <ErrorPopup onButtonClick={onPopupButtonClick}/> : null}
     </div>
   );
 };
@@ -178,17 +182,24 @@ OfferDetails.propTypes = {
     name: PropTypes.string.isRequired
   }),
   reviews: PropTypes.array,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  isPopupShow: PropTypes.bool,
+  onPopupButtonClick: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
   neighbors: getNeighbors(state),
-  reviews: getReviews(state)
+  reviews: getReviews(state),
+  isPopupShow: getPopupStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(id, form, data) {
     dispatch(DataOperation.postReview(id, form, data));
+  },
+
+  onPopupButtonClick() {
+    dispatch(AppActionCreator.changePopupStatus(false));
   }
 });
 

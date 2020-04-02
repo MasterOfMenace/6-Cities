@@ -19,3 +19,7 @@ export const getSelectedOffer = (state) => {
 export const getFormStatus = (state) => {
   return state[NameSpace.APP].formIsSending;
 };
+
+export const getPopupStatus = (state) => {
+  return state[NameSpace.APP].isPopupShow;
+};

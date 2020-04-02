@@ -5,16 +5,21 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import App from './components/app/app.jsx';
 import {Operation as DataOperation} from './reducer/data/data.js';
-import {Operation as UserOperation} from './reducer/user/user.js';
-import {AuthorizationStatus, ActionCreator} from './reducer/user/user.js';
+import {Operation as UserOperation, ActionCreator as UserActionCreator, AuthorizationStatus} from './reducer/user/user.js';
+import {ActionCreator as AppActionCreator} from './reducer/app-reducer/app-reducer.js';
 import reducer from './reducer/reducer.js';
 import {createApi} from './api.js';
 
 const onUnauthorized = () => {
-  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  store.dispatch(UserActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
 };
 
-const api = createApi(onUnauthorized);
+const onError = () => {
+  store.dispatch(AppActionCreator.changePopupStatus(true));
+  store.dispatch(AppActionCreator.changeFormStatus(false));
+};
+
+const api = createApi(onUnauthorized, onError);
 
 const store = createStore(
     reducer,

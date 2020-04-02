@@ -23,7 +23,7 @@ class ReviewForm extends React.PureComponent {
 
     onSubmit(id, this.formRef.current, {
       comment: this.commentTextRef.current.value,
-      rattting: this._getRating()
+      rating: this._getRating()
     });
   }
 

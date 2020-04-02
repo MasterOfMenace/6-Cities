@@ -4,8 +4,9 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
 import Places from '../places/places.jsx';
 import PlacesEmpty from '../places-empty/places-empty.jsx';
+import ErrorPopup from '../error-popup/error-popup.jsx';
 
-const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo}) => {
+const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo, isPopupShow}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const isEmpty = currentOffers.length === 0;
   return (
@@ -59,6 +60,7 @@ const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo}) => {
             />}
         </div>
       </main>
+      {isPopupShow ? <ErrorPopup onButtonClick={()=>{}}/> : null}
     </div>
   );
 };
@@ -70,7 +72,8 @@ Main.propTypes = {
   offers: PropTypes.array,
   authStatus: PropTypes.string,
   userInfo: PropTypes.object,
-  isAuth: PropTypes.bool.isRequired
+  isAuth: PropTypes.bool.isRequired,
+  isPopupShow: PropTypes.bool,
 };
 
 export default Main;
