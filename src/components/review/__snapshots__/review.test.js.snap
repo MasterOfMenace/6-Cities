@@ -36,7 +36,7 @@ exports[`Правильное отображение компонента Review
         <span
           style={
             Object {
-              "width": "80%",
+              "width": "60%",
             }
           }
         />
@@ -54,7 +54,7 @@ exports[`Правильное отображение компонента Review
     </p>
     <time
       className="reviews__time"
-      dateTime="Wed Jul 10 2019"
+      dateTime={2019-07-09T21:00:00.000Z}
     >
       July 2019
     </time>

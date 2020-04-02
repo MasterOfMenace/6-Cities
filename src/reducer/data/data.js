@@ -64,11 +64,6 @@ export const Operation = {
       rating: reviewData.rating
     })
       .then((response) => {
-        // if (response.status !== 200) {
-        //   dispatch(AppActionCreator.changePopupStatus(true));
-        //   dispatch(AppActionCreator.changeFormStatus(false));
-        //   return;
-        // }
         const reviews = Adapter.getReviews(response.data);
         dispatch(ActionCreator.loadReviews(reviews));
         dispatch(AppActionCreator.changeFormStatus(false));

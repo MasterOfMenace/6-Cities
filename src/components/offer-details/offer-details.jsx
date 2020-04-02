@@ -143,7 +143,7 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, o
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList reviews={reviews}/>
-                <ReviewForm onSubmit={onSubmit} id={id}/>
+                {isAuth ? <ReviewForm onSubmit={onSubmit} id={id}/> : null}
               </section>
             </div>
           </div>
@@ -180,11 +180,11 @@ OfferDetails.propTypes = {
     id: PropTypes.number.isRequired,
     isPro: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired
-  }),
-  reviews: PropTypes.array,
-  onSubmit: PropTypes.func,
-  isPopupShow: PropTypes.bool,
-  onPopupButtonClick: PropTypes.func
+  }).isRequired,
+  reviews: PropTypes.array.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isPopupShow: PropTypes.bool.isRequired,
+  onPopupButtonClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

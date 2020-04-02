@@ -157,7 +157,8 @@ const store = mockStore({
     city,
     currentSortType: `Popular`,
     hoveredOffer: null,
-    selectedOffer: null
+    selectedOffer: null,
+    isPopupShow: false
   },
   [NameSpace.USER]: {
     authorizationStatus: AuthorizationStatus.AUTH,
@@ -178,7 +179,8 @@ it(`Правильное отображение компонента App`, () =>
           cityChangeHandler={()=>{}}
           authorizationStatus={AuthorizationStatus.AUTH}
           userInfo={mockUserInfo}
-          login={()=>{}}/>
+          login={()=>{}}
+          isPopupShow={false}/>
       </Provider>,
       {
         createNodeMock: () => document.createElement(`div`)

@@ -66,14 +66,13 @@ const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo, isPopu
 };
 
 Main.propTypes = {
-  city: PropTypes.object,
-  cities: PropTypes.array,
+  city: PropTypes.object.isRequired,
+  cities: PropTypes.array.isRequired,
   cityChangeHandler: PropTypes.func.isRequired,
-  offers: PropTypes.array,
-  authStatus: PropTypes.string,
-  userInfo: PropTypes.object,
+  offers: PropTypes.array.isRequired,
+  userInfo: PropTypes.object.isRequired,
   isAuth: PropTypes.bool.isRequired,
-  isPopupShow: PropTypes.bool,
+  isPopupShow: PropTypes.bool.isRequired,
 };
 
 export default Main;
