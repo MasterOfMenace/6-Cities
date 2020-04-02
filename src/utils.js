@@ -1,3 +1,7 @@
+import {MonthNames} from './const.js';
+
+const STAR_WIDTH = 20;
+
 export const getCurrentOffers = (offers, city) => offers.filter((offer) => offer.city.name === city.name);
 
 export const sortOffers = (offers, sortType) => {
@@ -16,4 +20,14 @@ export const sortOffers = (offers, sortType) => {
   }
 
   return null;
+};
+
+export const formatDate = (date) => {
+  const month = MonthNames[date.getMonth()];
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+};
+
+export const formatRating = (rating, starWidth = STAR_WIDTH) => {
+  return rating * starWidth;
 };

@@ -11,27 +11,27 @@ Enzyme.configure({
 const mockOffer = {
   id: 1,
   city: {
-    name: `City`,
+    name: `City`
   },
   title: `Offer1`,
+  isFavorite: false,
+  isPremium: true,
   previewImage: `img/apartment-01.jpg`,
+  images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
+  description: `Description`,
+  goods: [`good1`, `good2`],
   price: 100,
+  rating: 4,
   type: `Private room`,
+  maxAdults: 2,
+  bedrooms: 1,
   location: [52.369553943508, 4.85309666406198],
-  reviews: [
-    {
-      author: `author-1`,
-      avatar: `author-avatar-1`,
-      text: `Review text`,
-      time: new Date().toISOString()
-    },
-    {
-      author: `author-2`,
-      avatar: `author-avatar-2`,
-      text: `Review text`,
-      time: new Date().toISOString()
-    }
-  ]
+  host: {
+    avatarUrl: `avatar`,
+    id: 1,
+    isPro: true,
+    name: `host-name`
+  }
 };
 
 

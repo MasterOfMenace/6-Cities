@@ -173,8 +173,10 @@ it(`Правильное отображение компонента Main`, () =
           city={city}
           cities={cities}
           cityChangeHandler={()=>{}}
+          isAuth={true}
           authStatus={AuthorizationStatus.AUTH}
-          userInfo={mockUserInfo}/>
+          userInfo={mockUserInfo}
+          isPopupShow={false}/>
       </Provider>,
       {
         createNodeMock: () => document.createElement(`div`)

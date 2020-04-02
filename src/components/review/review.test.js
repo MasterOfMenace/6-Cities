@@ -2,13 +2,19 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Review from './review.jsx';
 
-const DATE = `10 July 2019`;
+const DATE = `10 July 2019 00:00:00Z`;
 
 const mockReview = {
-  author: `author`,
-  avatar: `author-avatar`,
+  author: {
+    avatar: `author-avatar`,
+    id: 1,
+    isPro: false,
+    name: `author`
+  },
+  id: 1,
+  rating: 3,
   text: `Review text`,
-  time: new Date(DATE).toISOString()
+  date: new Date(DATE).toISOString()
 };
 
 it(`Правильное отображение компонента Review`, () => {

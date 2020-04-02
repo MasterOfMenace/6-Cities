@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Places from './places.jsx';
 import NameSpace from '../../reducer/name-space.js';
-import {Cities} from '../../reducer/mocks/offers.js';
+import {cities} from '../../reducer/test-mocks/offers.js';
 
 const Dates = [
   `10 July 2019`,
@@ -122,18 +122,10 @@ const city = {
 
 const mockStore = configureStore([]);
 
-// const store = mockStore({
-//   city,
-//   currentSortType: `Popular`,
-//   offers,
-//   hoveredOffer: null,
-//   selectedOffer: null,
-// });
-
 const store = mockStore({
   [NameSpace.DATA]: {
     offers,
-    cities: Cities
+    cities
   },
   [NameSpace.APP]: {
     city,

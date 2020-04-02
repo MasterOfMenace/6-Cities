@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
 import Places from '../places/places.jsx';
 import PlacesEmpty from '../places-empty/places-empty.jsx';
+import ErrorPopup from '../error-popup/error-popup.jsx';
 
-const Main = ({offers, city, cities, cityChangeHandler, authStatus, userInfo}) => {
+const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo, isPopupShow}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const isEmpty = currentOffers.length === 0;
-  const isAuth = authStatus === AuthorizationStatus.AUTH;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -61,17 +60,19 @@ const Main = ({offers, city, cities, cityChangeHandler, authStatus, userInfo}) =
             />}
         </div>
       </main>
+      {isPopupShow ? <ErrorPopup onButtonClick={()=>{}}/> : null}
     </div>
   );
 };
 
 Main.propTypes = {
-  city: PropTypes.object,
-  cities: PropTypes.array,
+  city: PropTypes.object.isRequired,
+  cities: PropTypes.array.isRequired,
   cityChangeHandler: PropTypes.func.isRequired,
-  offers: PropTypes.array,
-  authStatus: PropTypes.string,
-  userInfo: PropTypes.object,
+  offers: PropTypes.array.isRequired,
+  userInfo: PropTypes.object.isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  isPopupShow: PropTypes.bool.isRequired,
 };
 
 export default Main;

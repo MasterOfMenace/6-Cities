@@ -3,113 +3,111 @@ import renderer from 'react-test-renderer';
 import {OffersList} from './offers-list';
 import {OfferRenderType} from '../../const.js';
 
-const Dates = [
-  `10 July 2019`,
-  `25 April 2018`
-];
-
 const mockOffers = [
   {
     id: 1,
     city: {
-      name: `City`,
+      name: `City`
     },
-    name: `Offer1`,
-    picture: `img/apartment-01.jpg`,
+    title: `Offer1`,
+    isFavorite: false,
+    isPremium: true,
+    previewImage: `img/apartment-01.jpg`,
+    images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
+    description: `Description`,
+    goods: [`good1`, `good2`],
     price: 100,
+    rating: 4,
     type: `Private room`,
+    maxAdults: 2,
+    bedrooms: 1,
     location: [52.369553943508, 4.85309666406198],
-    reviews: [
-      {
-        author: `author-1`,
-        avatar: `author-avatar-1`,
-        text: `Review text`,
-        time: new Date(Dates[0]).toISOString()
-      },
-      {
-        author: `author-2`,
-        avatar: `author-avatar-2`,
-        text: `Review text`,
-        time: new Date(Dates[1]).toISOString()
-      }
-    ]
+    host: {
+      avatarUrl: `avatar`,
+      id: 1,
+      isPro: true,
+      name: `host-name`
+    }
   },
   {
     id: 2,
     city: {
-      name: `City`,
+      name: `City`
     },
-    name: `Offer2`,
-    picture: `img/apartment-01.jpg`,
+    title: `Offer2`,
+    isFavorite: false,
+    isPremium: true,
+    previewImage: `img/apartment-01.jpg`,
+    images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
+    description: `Description`,
+    goods: [`good1`, `good2`],
     price: 200,
+    rating: 4,
     type: `Apartment`,
+    maxAdults: 2,
+    bedrooms: 1,
     location: [52.369553943508, 4.85309666406198],
-    reviews: [
-      {
-        author: `author-1`,
-        avatar: `author-avatar-1`,
-        text: `Review text`,
-        time: new Date(Dates[0]).toISOString()
-      },
-      {
-        author: `author-2`,
-        avatar: `author-avatar-2`,
-        text: `Review text`,
-        time: new Date(Dates[1]).toISOString()
-      }
-    ]
+    host: {
+      avatarUrl: `avatar`,
+      id: 1,
+      isPro: true,
+      name: `host-name`
+    }
   },
   {
     id: 3,
     city: {
       name: `City`,
+      location: [52.38333, 4.9]
     },
-    name: `Offer3`,
-    picture: `img/apartment-01.jpg`,
+    title: `Offer3`,
+    isFavorite: false,
+    isPremium: true,
+    previewImage: `img/apartment-01.jpg`,
+    images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
+    description: `Description`,
+    goods: [`good1`, `good2`],
     price: 300,
+    rating: 4,
     type: `Hostel`,
+    maxAdults: 2,
+    bedrooms: 1,
     location: [52.369553943508, 4.85309666406198],
-    reviews: [
-      {
-        author: `author-1`,
-        avatar: `author-avatar-1`,
-        text: `Review text`,
-        time: new Date(Dates[0]).toISOString()
-      },
-      {
-        author: `author-2`,
-        avatar: `author-avatar-2`,
-        text: `Review text`,
-        time: new Date(Dates[1]).toISOString()
-      }
-    ]
+    host: {
+      avatarUrl: `avatar`,
+      id: 1,
+      isPro: true,
+      name: `host-name`
+    }
   },
   {
     id: 4,
     city: {
       name: `City`,
+      location: [52.38333, 4.9]
     },
-    name: `Offer4`,
-    picture: `img/apartment-01.jpg`,
+    title: `Offer4`,
+    isFavorite: false,
+    isPremium: true,
+    previewImage: `img/apartment-01.jpg`,
+    images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
+    description: `Description`,
+    goods: [`good1`, `good2`],
     price: 400,
+    rating: 4,
     type: `Apartment`,
+    maxAdults: 2,
+    bedrooms: 1,
     location: [52.369553943508, 4.85309666406198],
-    reviews: [
-      {
-        author: `author-1`,
-        avatar: `author-avatar-1`,
-        text: `Review text`,
-        time: new Date(Dates[0]).toISOString()
-      },
-      {
-        author: `author-2`,
-        avatar: `author-avatar-2`,
-        text: `Review text`,
-        time: new Date(Dates[1]).toISOString()
-      }
-    ]
+    host: {
+      avatarUrl: `avatar`,
+      id: 1,
+      isPro: true,
+      name: `host-name`
+    }
   },
 ];
+
 
 it(`Правильное отображение компонента OffersList с OfferRenderType.MAIN`, () => {
   const tree = renderer

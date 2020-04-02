@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
+import ReviewForm from '../review-form/review-form.jsx';
+import ErrorPopup from '../error-popup/error-popup.jsx';
 import {OfferRenderType} from '../../const.js';
-import {getCurrentOffers} from '../../utils.js';
+import {getCurrentOffers, formatRating} from '../../utils.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {getNeighbors, getReviews} from '../../reducer/data/selectors.js';
+import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
+import {getPopupStatus} from '../../reducer/app-reducer/selectors.js';
 
-const MAX_REVIEWS_COUNT = 10;
-
-const OfferDetails = ({offers, id, city}) => {
+const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, onSubmit, isPopupShow, onPopupButtonClick}) => {
   const currentOffers = getCurrentOffers(offers, city);
   const currentOffer = currentOffers.find((offer) => offer.id === id);
-  const neighbourhoodOffers = currentOffers.filter((offer) => offer.id !== id);
-  const neighbourhoodOffersLocations = neighbourhoodOffers.map((offer) => offer.location);
-  const reviews = currentOffer.reviews.slice(0, MAX_REVIEWS_COUNT);
+  const neighborsLocations = neighbors.map((offer) => offer.location);
+
+
+  const host = currentOffer.host;
+  const gallery = currentOffer.images;
 
   return (
     <div className="page">
@@ -28,10 +35,17 @@ const OfferDetails = ({offers, id, city}) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a
+                    className="header__nav-link header__nav-link--profile"
+                    href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
+                      {isAuth ? <img
+                        className="user__avatar"
+                        src={userInfo.avatarUrl}
+                        alt="User avatar" width="20" height="20"
+                      /> : ``}
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {isAuth ? <span className="header__user-name user__name">{userInfo.email}</span> : <span className="header__login">Sign in</span>}
                   </a>
                 </li>
               </ul>
@@ -43,36 +57,28 @@ const OfferDetails = ({offers, id, city}) => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
+              {gallery.map((src, index) => (
+                <div
+                  key={`offer-image-${index}`}
+                  className="property__image-wrapper"
+                >
+                  <img className="property__image" src={src} alt="Photo studio"/>
+                </div>
+              ))}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {currentOffer.isPremium
+                ?
+                <div className="property__mark">
+                  <span>Premium</span>
+                </div> : ``}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {currentOffer.name}
+                  {currentOffer.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button ${currentOffer.isFavorite ? `property__bookmark-button--active` : ``} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -81,20 +87,20 @@ const OfferDetails = ({offers, id, city}) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `80%`}}></span>
+                  <span style={{width: `${formatRating(currentOffer.rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
                   {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {currentOffer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -104,64 +110,47 @@ const OfferDetails = ({offers, id, city}) => {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
+                  {currentOffer.goods.map((good, index) => (
+                    <li
+                      key={`good-${index}`}
+                      className="property__inside-item">
+                      {good}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+                  <div
+                    className={
+                      `property__avatar-wrapper
+                      ${host.isPro ? `property__avatar-wrapper--pro` : ``}
+                      user__avatar-wrapper`
+                    }>
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {host.name}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {currentOffer.description}
                   </p>
                 </div>
               </div>
-              <ReviewsList reviews={reviews}/>
+              <section className="property__reviews reviews">
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <ReviewsList reviews={reviews}/>
+                {isAuth ? <ReviewForm onSubmit={onSubmit} id={id}/> : null}
+              </section>
             </div>
           </div>
           <section className="property__map map">
             <Map
               offers={currentOffers}
-              offersLocations={neighbourhoodOffersLocations}
+              offersLocations={neighborsLocations}
               city={city}/>
           </section>
         </section>
@@ -169,11 +158,12 @@ const OfferDetails = ({offers, id, city}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
-              offers={neighbourhoodOffers}
+              offers={neighbors}
               type={OfferRenderType.NEIGHBORHOOD}/>
           </section>
         </div>
       </main>
+      {isPopupShow ? <ErrorPopup onButtonClick={onPopupButtonClick}/> : null}
     </div>
   );
 };
@@ -181,7 +171,37 @@ const OfferDetails = ({offers, id, city}) => {
 OfferDetails.propTypes = {
   city: PropTypes.object,
   id: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-  offers: PropTypes.array
+  offers: PropTypes.array,
+  isAuth: PropTypes.bool.isRequired,
+  neighbors: PropTypes.array.isRequired,
+  userInfo: PropTypes.shape({
+    avatarUrl: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    isPro: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  reviews: PropTypes.array.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isPopupShow: PropTypes.bool.isRequired,
+  onPopupButtonClick: PropTypes.func.isRequired
 };
 
-export default OfferDetails;
+const mapStateToProps = (state) => ({
+  neighbors: getNeighbors(state),
+  reviews: getReviews(state),
+  isPopupShow: getPopupStatus(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(id, form, data) {
+    dispatch(DataOperation.postReview(id, form, data));
+  },
+
+  onPopupButtonClick() {
+    dispatch(AppActionCreator.changePopupStatus(false));
+  }
+});
+
+export {OfferDetails};
+export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);

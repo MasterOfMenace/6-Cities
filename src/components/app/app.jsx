@@ -4,12 +4,12 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
-import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
-import {getOffers, getCities} from '../../reducer/data/selectors.js';
-import {getSelectedOffer, getCity} from '../../reducer/app-reducer/selectors.js';
-import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
-import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import SignIn from '../sign-in/sign-in.jsx';
+import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
+import {getSelectedOffer, getCity, getPopupStatus} from '../../reducer/app-reducer/selectors.js';
+import {getOffers, getCities} from '../../reducer/data/selectors.js';
+import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
+import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -21,10 +21,13 @@ class App extends React.PureComponent {
       cityChangeHandler,
       authorizationStatus,
       userInfo,
-      login
+      login,
+      isPopupShow
     } = this.props;
 
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+    const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+
+    if (!isAuth) {
       return (
         <SignIn onSubmit={login}/>
       );
@@ -37,8 +40,9 @@ class App extends React.PureComponent {
           cities={cities}
           city={city}
           cityChangeHandler={cityChangeHandler}
-          authStatus={authorizationStatus}
+          isAuth={isAuth}
           userInfo={userInfo}
+          isPopupShow={isPopupShow}
         />
       );
     }
@@ -49,6 +53,8 @@ class App extends React.PureComponent {
           offers={offers}
           id={selectedOffer}
           city={city}
+          isAuth={isAuth}
+          userInfo={userInfo}
         />
       );
     }
@@ -67,7 +73,7 @@ class App extends React.PureComponent {
           <Route exact path="/dev-details">
             <OfferDetails
               offers={offers}
-              id={offers[0]}
+              id={1}
               city={city}
             />
           </Route>
@@ -91,6 +97,7 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   userInfo: PropTypes.object,
+  isPopupShow: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -99,7 +106,8 @@ const mapStateToProps = (state) => ({
   selectedOffer: getSelectedOffer(state),
   city: getCity(state),
   authorizationStatus: getAuthorizationStatus(state),
-  userInfo: getUserInfo(state)
+  userInfo: getUserInfo(state),
+  isPopupShow: getPopupStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

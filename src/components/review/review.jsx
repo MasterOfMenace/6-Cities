@@ -1,39 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MonthNames} from '../../const.js';
-
-const formatDate = (date) => {
-  const month = MonthNames[date.getMonth()];
-  const year = date.getFullYear();
-  return `${month} ${year}`;
-};
+import {formatDate, formatRating} from '../../utils.js';
 
 const Review = (props) => {
   const {review} = props;
 
-  const date = new Date(review.time);
+  const date = new Date(review.date);
+  const author = review.author;
 
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={author.avatar} width="54" height="54" alt="Reviews avatar"/>
         </div>
         <span className="reviews__user-name">
-          {review.author}
+          {author.name}
         </span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `80%`}}></span>
+            <span style={{width: `${formatRating(review.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
           {review.text}
         </p>
-        <time className="reviews__time" dateTime={date.toDateString()}>{formatDate(date)}</time>
+        <time className="reviews__time" dateTime={date}>{formatDate(date)}</time>
       </div>
     </li>
   );
@@ -41,10 +36,16 @@ const Review = (props) => {
 
 Review.propTypes = {
   review: PropTypes.shape({
-    author: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+    author: PropTypes.shape({
+      avatar: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }),
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired
+    date: PropTypes.string.isRequired
   })
 };
 

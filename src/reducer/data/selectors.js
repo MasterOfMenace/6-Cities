@@ -7,3 +7,11 @@ export const getOffers = (state) => {
 export const getCities = (state) => {
   return state[NameSpace.DATA].cities;
 };
+
+export const getReviews = (state) => {
+  return state[NameSpace.DATA].reviews;
+};
+
+export const getNeighbors = (state) => {
+  return state[NameSpace.DATA].neighbors;
+};

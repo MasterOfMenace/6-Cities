@@ -1,11 +1,13 @@
 import {reducer, ActionType} from './data.js';
-import offers, {Cities} from '../mocks/offers.js';
+import {offers, cities, reviews} from '../test-mocks/offers.js';
 
 describe(`Корректная работа reducer`, () => {
   it(`Reducer без параметров возвращает initialState`, () => {
     expect(reducer(void 0, {})).toEqual({
       offers: [],
       cities: [],
+      reviews: [],
+      neighbors: []
     });
   });
 
@@ -28,10 +30,32 @@ describe(`Корректная работа reducer`, () => {
       cities: [],
     }, {
       type: ActionType.GET_CITIES,
-      payload: Cities
+      payload: cities
     })). toEqual({
       offers,
-      cities: Cities
+      cities
+    });
+  });
+
+  it(`Reducer должен обновить reviews путем загрузки данных с сервера`, () => {
+    expect(reducer({
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews
+    })). toEqual({
+      reviews
+    });
+  });
+
+  it(`Reducer должен обновить neighbors путем загрузки данных с сервера`, () => {
+    expect(reducer({
+      neighbors: [],
+    }, {
+      type: ActionType.LOAD_NEIGHBORS,
+      payload: offers
+    })). toEqual({
+      neighbors: offers
     });
   });
 });

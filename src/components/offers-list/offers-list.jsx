@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {OfferRenderType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
 import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
 
 const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}) => {
   const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
@@ -44,8 +45,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(AppActionCreator.blurOffer());
   },
 
-  titleClickHandler() {
+  titleClickHandler(id) {
     dispatch(AppActionCreator.selectOffer());
+    dispatch(DataOperation.loadReviews(id));
+    dispatch(DataOperation.loadNeighbors(id));
   }
 });
 
