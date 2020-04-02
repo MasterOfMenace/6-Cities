@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Review from './review.jsx';
 
-const DATE = `10 July 2019`;
+const DATE = `10 July 2019 00:00:00Z`;
 
 const mockReview = {
   author: {

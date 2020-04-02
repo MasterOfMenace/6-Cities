@@ -3,8 +3,8 @@ import renderer from 'react-test-renderer';
 import ReviewsList from './reviews-list.jsx';
 
 const Dates = [
-  `10 July 2019`,
-  `25 April 2018`
+  `10 July 2019 00:00:00Z`,
+  `25 April 2018 00:00:00Z`
 ];
 
 const mockReviews = [

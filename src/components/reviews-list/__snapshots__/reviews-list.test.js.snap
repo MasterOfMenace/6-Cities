@@ -57,7 +57,7 @@ exports[`Правильное отображение компонента Review
       </p>
       <time
         className="reviews__time"
-        dateTime={2019-07-09T21:00:00.000Z}
+        dateTime={2019-07-10T00:00:00.000Z}
       >
         July 2019
       </time>
@@ -116,7 +116,7 @@ exports[`Правильное отображение компонента Review
       </p>
       <time
         className="reviews__time"
-        dateTime={2018-04-24T21:00:00.000Z}
+        dateTime={2018-04-25T00:00:00.000Z}
       >
         April 2018
       </time>
