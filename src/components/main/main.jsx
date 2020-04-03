@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getCurrentOffers} from '../../utils.js';
 import Places from '../places/places.jsx';
 import PlacesEmpty from '../places-empty/places-empty.jsx';
 import ErrorPopup from '../error-popup/error-popup.jsx';
 
-const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo, isPopupShow}) => {
+const Main = (props) => {
+  const {
+    offers,
+    city,
+    cities,
+    cityChangeHandler,
+    isAuth,
+    userInfo,
+    isPopupShow
+  } = props;
   const currentOffers = getCurrentOffers(offers, city);
   const isEmpty = currentOffers.length === 0;
   return (
@@ -22,9 +32,10 @@ const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo, isPopu
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href="#">
+                    to={isAuth ? `/favorites` : `/login`}
+                  >
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                       {isAuth ? <img
                         className="user__avatar"
@@ -33,7 +44,7 @@ const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo, isPopu
                       /> : ``}
                     </div>
                     {isAuth ? <span className="header__user-name user__name">{userInfo.email}</span> : <span className="header__login">Sign in</span>}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -57,6 +68,7 @@ const Main = ({offers, city, cities, cityChangeHandler, isAuth, userInfo, isPopu
             <Places
               offers={offers}
               city={city}
+              isAuth={isAuth}
             />}
         </div>
       </main>
@@ -70,7 +82,7 @@ Main.propTypes = {
   cities: PropTypes.array.isRequired,
   cityChangeHandler: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
-  userInfo: PropTypes.object.isRequired,
+  userInfo: PropTypes.object,
   isAuth: PropTypes.bool.isRequired,
   isPopupShow: PropTypes.bool.isRequired,
 };

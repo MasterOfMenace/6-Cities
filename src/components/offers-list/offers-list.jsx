@@ -6,7 +6,16 @@ import OfferCard from '../offer-card/offer-card.jsx';
 import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 
-const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}) => {
+const OffersList = (props) => {
+  const {
+    offers,
+    titleClickHandler,
+    type,
+    onMouseOver,
+    onMouseLeave,
+    onFavoriteButtonClick,
+    isAuth
+  } = props;
   const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
 
   return (
@@ -22,7 +31,9 @@ const OffersList = ({offers, titleClickHandler, type, onMouseOver, onMouseLeave}
             onMouseLeave();
           }}
           titleClickHandler={titleClickHandler}
-          type={type}/>
+          onFavoriteButtonClick={onFavoriteButtonClick}
+          type={type}
+          isAuth={isAuth}/>
       ))}
     </div>
   );
@@ -33,7 +44,9 @@ OffersList.propTypes = {
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   offers: PropTypes.array,
-  titleClickHandler: PropTypes.func.isRequired
+  titleClickHandler: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -49,6 +62,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(AppActionCreator.selectOffer());
     dispatch(DataOperation.loadReviews(id));
     dispatch(DataOperation.loadNeighbors(id));
+  },
+
+  onFavoriteButtonClick(id, status) {
+    dispatch(DataOperation.toggleFavorite(id, status));
   }
 });
 

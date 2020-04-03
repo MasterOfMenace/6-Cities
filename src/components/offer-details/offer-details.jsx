@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -13,7 +14,20 @@ import {getNeighbors, getReviews} from '../../reducer/data/selectors.js';
 import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
 import {getPopupStatus} from '../../reducer/app-reducer/selectors.js';
 
-const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, onSubmit, isPopupShow, onPopupButtonClick}) => {
+const OfferDetails = (props) => {
+  const {
+    offers,
+    id,
+    city,
+    isAuth,
+    userInfo,
+    neighbors,
+    reviews,
+    onSubmit,
+    isPopupShow,
+    onPopupButtonClick
+  } = props;
+
   const currentOffers = getCurrentOffers(offers, city);
   const currentOffer = currentOffers.find((offer) => offer.id === id);
   const neighborsLocations = neighbors.map((offer) => offer.location);
@@ -35,9 +49,9 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, o
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
+                  <Link
                     className="header__nav-link header__nav-link--profile"
-                    href="#">
+                    to={isAuth ? `/favorites` : `/login`}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                       {isAuth ? <img
                         className="user__avatar"
@@ -46,7 +60,7 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, o
                       /> : ``}
                     </div>
                     {isAuth ? <span className="header__user-name user__name">{userInfo.email}</span> : <span className="header__login">Sign in</span>}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -159,7 +173,8 @@ const OfferDetails = ({offers, id, city, isAuth, userInfo, neighbors, reviews, o
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
               offers={neighbors}
-              type={OfferRenderType.NEIGHBORHOOD}/>
+              type={OfferRenderType.NEIGHBORHOOD}
+              isAuth={isAuth}/>
           </section>
         </div>
       </main>

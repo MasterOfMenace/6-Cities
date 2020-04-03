@@ -51,6 +51,7 @@ exports[`Правильное отображение компонента OfferC
       </div>
       <button
         className="place-card__bookmark-button   button"
+        onClick={[Function]}
         type="button"
       >
         <svg
@@ -159,6 +160,7 @@ exports[`Правильное отображение компонента OfferC
       </div>
       <button
         className="place-card__bookmark-button   button"
+        onClick={[Function]}
         type="button"
       >
         <svg

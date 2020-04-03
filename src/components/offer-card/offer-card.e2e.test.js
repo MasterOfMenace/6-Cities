@@ -47,7 +47,8 @@ it(`При наведении курсора на карточку предло�
         offer={offer}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
-        titleClickHandler={titleClickHandler}/>
+        titleClickHandler={titleClickHandler}
+        onFavoriteButtonClick={()=>{}}/>
   );
 
   const card = offerCard.find(`.place-card`);
@@ -70,7 +71,9 @@ it(`При клике на заголовок предложения сраба�
         offer={offer}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
-        titleClickHandler={titleClickHandler}/>
+        isAuth={true}
+        titleClickHandler={titleClickHandler}
+        onFavoriteButtonClick={()=>{}}/>
   );
 
   const offerTitleLink = offerCard.find(`.place-card__name a`);

@@ -116,7 +116,9 @@ it(`Правильное отображение компонента OffersList 
       offers={mockOffers}
       onMouseOver={()=>{}}
       onMouseLeave={()=>{}}
-      titleClickHandler={()=>{}}/>)
+      titleClickHandler={()=>{}}
+      onFavoriteButtonClick={()=>{}}
+      isAuth={true}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -129,7 +131,9 @@ it(`Правильное отображение компонента OffersList 
       offers={mockOffers}
       onMouseOver={()=>{}}
       onMouseLeave={()=>{}}
-      titleClickHandler={()=>{}}/>)
+      titleClickHandler={()=>{}}
+      onFavoriteButtonClick={()=>{}}
+      isAuth={true}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
