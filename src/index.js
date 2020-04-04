@@ -21,7 +21,7 @@ const onError = () => {
 
 const api = createApi(onUnauthorized, onError);
 
-const store = createStore(
+export const store = createStore(
     reducer,
     compose(
         applyMiddleware(thunk.withExtraArgument(api)),
@@ -29,13 +29,15 @@ const store = createStore(
     )
 );
 
-store.dispatch(DataOperation.loadOffers());
 store.dispatch(UserOperation.checkAuth());
 store.dispatch(DataOperation.loadFavorites());
+store.dispatch(DataOperation.loadOffers())
+  .then(() => {
+    ReactDOM.render(
+        <Provider store={store}>
+          <App />
+        </Provider>,
+        document.querySelector(`#root`)
+    );
+  });
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.querySelector(`#root`)
-);

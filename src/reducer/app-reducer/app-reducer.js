@@ -2,7 +2,6 @@ const initialState = {
   city: {},
   currentSortType: `Popular`,
   hoveredOffer: null,
-  selectedOffer: null,
   formIsSending: false,
   isPopupShow: false
 };
@@ -35,10 +34,6 @@ export const ActionCreator = {
 
   blurOffer: () => ({
     type: ActionType.BLUR_OFFER,
-  }),
-
-  selectOffer: () => ({
-    type: ActionType.SELECT_OFFER
   }),
 
   changeFormStatus: (status) => ({
@@ -74,13 +69,6 @@ export const reducer = (state = initialState, action) => {
 
       return Object.assign({}, state, {
         hoveredOffer: null
-      });
-
-    case ActionType.SELECT_OFFER:
-      const selectedOffer = state.hoveredOffer;
-
-      return Object.assign({}, state, {
-        selectedOffer
       });
 
     case ActionType.CHANGE_FORM_STATUS:

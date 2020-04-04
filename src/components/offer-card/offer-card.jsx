@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import history from '../../history';
 import {OfferRenderType} from '../../const.js';
 import {formatRating} from '../../utils.js';
+import {Link} from 'react-router-dom';
 
 const OfferCard = (props) => {
   const {
     offer,
     onMouseOver,
     onMouseLeave,
-    titleClickHandler,
     onFavoriteButtonClick,
     type,
     isAuth
@@ -57,8 +57,11 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={() => titleClickHandler(offer.id)}
-          >{offer.title}</a>
+          <Link
+            to={`/offer/${offer.id}`}
+          >
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
@@ -68,7 +71,6 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
-  titleClickHandler: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,

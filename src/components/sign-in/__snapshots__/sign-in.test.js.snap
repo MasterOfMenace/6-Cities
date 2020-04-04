@@ -17,8 +17,7 @@ exports[`Правильное отображение компонента SignIn
           className="header__left"
         >
           <a
-            className="header__logo-link"
-            href="main.html"
+            className="header__logo-link header__logo-link--active"
           >
             <img
               alt="6 cities logo"
@@ -40,11 +39,14 @@ exports[`Правильное отображение компонента SignIn
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
-                />
+                >
+                  
+                </div>
                 <span
                   className="header__login"
                 >

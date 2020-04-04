@@ -9,7 +9,6 @@ import {Operation as DataOperation} from '../../reducer/data/data.js';
 const OffersList = (props) => {
   const {
     offers,
-    titleClickHandler,
     type,
     onMouseOver,
     onMouseLeave,
@@ -30,7 +29,6 @@ const OffersList = (props) => {
           onMouseLeave={()=>{
             onMouseLeave();
           }}
-          titleClickHandler={titleClickHandler}
           onFavoriteButtonClick={onFavoriteButtonClick}
           type={type}
           isAuth={isAuth}/>
@@ -44,7 +42,6 @@ OffersList.propTypes = {
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   offers: PropTypes.array,
-  titleClickHandler: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
   isAuth: PropTypes.bool.isRequired
 };
@@ -56,12 +53,6 @@ const mapDispatchToProps = (dispatch) => ({
 
   onMouseLeave() {
     dispatch(AppActionCreator.blurOffer());
-  },
-
-  titleClickHandler(id) {
-    dispatch(AppActionCreator.selectOffer());
-    dispatch(DataOperation.loadReviews(id));
-    dispatch(DataOperation.loadNeighbors(id));
   },
 
   onFavoriteButtonClick(id, status) {

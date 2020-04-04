@@ -6,11 +6,10 @@ import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
-import {getSelectedOffer, getCity, getPopupStatus} from '../../reducer/app-reducer/selectors.js';
+import {getCity, getPopupStatus} from '../../reducer/app-reducer/selectors.js';
 import {getOffers, getCities} from '../../reducer/data/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
-// import {Operation as DataOperation} from '../../reducer/data/data.js';
 import history from '../../history.js';
 import Favorites from '../favorites/favorites.jsx';
 
@@ -18,49 +17,31 @@ class App extends React.PureComponent {
   _renderApp() {
     const {
       offers,
-      selectedOffer,
       city,
       cities,
       cityChangeHandler,
       authorizationStatus,
       userInfo,
-      // login,
       isPopupShow
     } = this.props;
 
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
-    if (!selectedOffer) {
-      return (
-        <Main
-          offers={offers}
-          cities={cities}
-          city={city}
-          cityChangeHandler={cityChangeHandler}
-          isAuth={isAuth}
-          userInfo={userInfo}
-          isPopupShow={isPopupShow}
-        />
-      );
-    }
-
-    if (selectedOffer) {
-      return (
-        <OfferDetails
-          offers={offers}
-          id={selectedOffer}
-          city={city}
-          isAuth={isAuth}
-          userInfo={userInfo}
-        />
-      );
-    }
-
-    return null;
+    return (
+      <Main
+        offers={offers}
+        cities={cities}
+        city={city}
+        cityChangeHandler={cityChangeHandler}
+        isAuth={isAuth}
+        userInfo={userInfo}
+        isPopupShow={isPopupShow}
+      />
+    );
   }
 
   render() {
-    const {offers, city, login, authorizationStatus} = this.props;
+    const {login, authorizationStatus} = this.props;
 
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
@@ -78,13 +59,7 @@ class App extends React.PureComponent {
               : <Redirect to={`/`} />
             }
           </Route>
-          <Route exact path="/offer/:id">
-            <OfferDetails
-              offers={offers}
-              id={1}
-              city={city}
-            />
-          </Route>
+          <Route exact path="/offer/:id" component={OfferDetails}/>
           <Route exact path="/favorites">
             <Favorites />
           </Route>
@@ -98,7 +73,6 @@ App.propTypes = {
   city: PropTypes.object,
   cities: PropTypes.array,
   cityChangeHandler: PropTypes.func.isRequired,
-  selectedOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
@@ -109,7 +83,6 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
   cities: getCities(state),
-  selectedOffer: getSelectedOffer(state),
   city: getCity(state),
   authorizationStatus: getAuthorizationStatus(state),
   userInfo: getUserInfo(state),
@@ -123,7 +96,6 @@ const mapDispatchToProps = (dispatch) => ({
 
   login(authData) {
     dispatch(UserOperation.login(authData));
-    // dispatch(DataOperation.loadFavorites());
   }
 });
 

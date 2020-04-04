@@ -260,3 +260,38 @@ export const reviews = [
     date: `date`
   }
 ];
+
+export const neighbors = [
+  {
+    id: 4,
+    city: {
+      name: `City`,
+      location: [52.38333, 4.9]
+    },
+    name: `Offer4`,
+    previewImage: `img/apartment-01.jpg`,
+    images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
+    description: `Description`,
+    goods: [`good1`, `good2`],
+    price: 400,
+    rating: 4,
+    type: `Apartment`,
+    maxAdults: 2,
+    bedrooms: 1,
+    location: [52.369553943508, 4.85309666406198],
+    host: {
+      avatarUrl: `avatar`,
+      id: 1,
+      isPro: true,
+      name: `host-name`
+    }
+  }
+];
+
+export const userInfo = {
+  avatarUrl: `/img/1.png`,
+  email: `Oliver.conner@gmail.com`,
+  id: 1,
+  isPro: false,
+  name: `Oliver.conner`
+};

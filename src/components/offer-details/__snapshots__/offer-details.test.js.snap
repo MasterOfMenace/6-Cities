@@ -17,8 +17,7 @@ exports[`Правильное отображение компонента OfferD
           className="header__left"
         >
           <a
-            className="header__logo-link"
-            href="main.html"
+            className="header__logo-link header__logo-link--active"
           >
             <img
               alt="6 cities logo"
@@ -237,14 +236,14 @@ exports[`Правильное отображение компонента OfferD
             >
               <div
                 className="property__avatar-wrapper
-                      property__avatar-wrapper--pro
-                      user__avatar-wrapper"
+                        property__avatar-wrapper--pro
+                        user__avatar-wrapper"
               >
                 <img
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src="avatar"
+                  src="/avatar"
                   width="74"
                 />
               </div>
@@ -293,14 +292,14 @@ exports[`Правильное отображение компонента OfferD
                       alt="Reviews avatar"
                       className="reviews__avatar user__avatar"
                       height="54"
-                      src="author-avatar"
+                      src="author-avatar-1"
                       width="54"
                     />
                   </div>
                   <span
                     className="reviews__user-name"
                   >
-                    author
+                    author-1
                   </span>
                 </div>
                 <div
@@ -329,13 +328,13 @@ exports[`Правильное отображение компонента OfferD
                   <p
                     className="reviews__text"
                   >
-                    Review text
+                    Review text 1
                   </p>
                   <time
                     className="reviews__time"
-                    dateTime={2019-07-10T00:00:00.000Z}
+                    dateTime={Date { NaN }}
                   >
-                    July 2019
+                    undefined NaN
                   </time>
                 </div>
               </li>
@@ -352,14 +351,14 @@ exports[`Правильное отображение компонента OfferD
                       alt="Reviews avatar"
                       className="reviews__avatar user__avatar"
                       height="54"
-                      src="author-avatar"
+                      src="author-avatar-2"
                       width="54"
                     />
                   </div>
                   <span
                     className="reviews__user-name"
                   >
-                    author
+                    author-2
                   </span>
                 </div>
                 <div
@@ -374,7 +373,7 @@ exports[`Правильное отображение компонента OfferD
                       <span
                         style={
                           Object {
-                            "width": "60%",
+                            "width": "100%",
                           }
                         }
                       />
@@ -388,13 +387,13 @@ exports[`Правильное отображение компонента OfferD
                   <p
                     className="reviews__text"
                   >
-                    Review text
+                    Review text 2
                   </p>
                   <time
                     className="reviews__time"
-                    dateTime={2018-04-25T00:00:00.000Z}
+                    dateTime={Date { NaN }}
                   >
-                    April 2018
+                    undefined NaN
                   </time>
                 </div>
               </li>
@@ -680,7 +679,7 @@ exports[`Правильное отображение компонента OfferD
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  href="/offer/4"
                   onClick={[Function]}
                 />
               </h2>
