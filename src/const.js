@@ -1,6 +1,7 @@
 export const OfferRenderType = {
   MAIN: `main`,
-  NEIGHBORHOOD: `neighborhood`
+  NEIGHBORHOOD: `neighborhood`,
+  FAVORITES: `favorites`
 };
 
 export const MonthNames = [
