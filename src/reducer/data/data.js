@@ -13,6 +13,7 @@ export const ActionType = {
   GET_CITIES: `get_cities`,
   LOAD_REVIEWS: `load_reviews`,
   LOAD_NEIGHBORS: `load_neighbors`,
+  TOGGLE_FAVORITE: `toggle_favorite`,
 };
 
 export const ActionCreator = {
@@ -34,6 +35,11 @@ export const ActionCreator = {
   loadNeighbors: (neighbors) => ({
     type: ActionType.LOAD_NEIGHBORS,
     payload: neighbors
+  }),
+
+  toggleFavorite: (offer) => ({
+    type: ActionType.TOGGLE_FAVORITE,
+    payload: offer
   })
 };
 
@@ -77,6 +83,14 @@ export const Operation = {
         const nearOffers = Adapter.getOffers(response.data);
         dispatch(ActionCreator.loadNeighbors(nearOffers));
       });
+  },
+
+  toggleFavorite: (id, isFavorite) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${id}/${isFavorite ? 0 : 1}`)
+      .then((response) => {
+        const updatedOffer = Adapter.getOffer(response.data);
+        dispatch(ActionCreator.toggleFavorite(updatedOffer));
+      });
   }
 };
 
@@ -100,6 +114,14 @@ export const reducer = (state = initialState, action) => {
     case ActionType.LOAD_NEIGHBORS:
       return Object.assign({}, state, {
         neighbors: action.payload
+      });
+
+    case ActionType.TOGGLE_FAVORITE:
+      const updatedId = action.payload.id;
+      const newOffers = state.offers.map((offer) => offer.id === updatedId ? action.payload : offer);
+
+      return Object.assign({}, state, {
+        offers: newOffers
       });
   }
 

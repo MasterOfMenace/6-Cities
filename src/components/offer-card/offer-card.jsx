@@ -1,9 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import history from '../../history';
 import {OfferRenderType} from '../../const.js';
 import {formatRating} from '../../utils.js';
 
-const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler, type}) => {
+const OfferCard = (props) => {
+  const {
+    offer,
+    onMouseOver,
+    onMouseLeave,
+    titleClickHandler,
+    onFavoriteButtonClick,
+    type,
+    isAuth
+  } = props;
   const isMain = type === OfferRenderType.MAIN;
 
   return (
@@ -30,6 +40,9 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler, type}) 
           <button
             className={`place-card__bookmark-button  ${offer.isFavorite ? `place-card__bookmark-button--active` : ``} button`}
             type="button"
+            onClick={isAuth ? () => {
+              onFavoriteButtonClick(offer.id, offer.isFavorite);
+            } : () => history.push(`/login`)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -56,9 +69,11 @@ const OfferCard = ({offer, onMouseOver, onMouseLeave, titleClickHandler, type}) 
 OfferCard.propTypes = {
   type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
   titleClickHandler: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   offer: PropTypes.object,
+  isAuth: PropTypes.bool,
 };
 
 export default OfferCard;

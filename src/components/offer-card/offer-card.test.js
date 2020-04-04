@@ -36,7 +36,9 @@ it(`Правильное отображение компонента OfferCard �
       offer={mockOffer}
       onMouseOver={()=>{}}
       onMouseLeave={()=>{}}
-      titleClickHandler={()=>{}}/>)
+      titleClickHandler={()=>{}}
+      onFavoriteButtonClick={()=>{}}
+      isAuth={true}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -49,7 +51,9 @@ it(`Правильное отображение компонента OfferCard �
       offer={mockOffer}
       onMouseOver={()=>{}}
       onMouseLeave={()=>{}}
-      titleClickHandler={()=>{}}/>)
+      titleClickHandler={()=>{}}
+      onFavoriteButtonClick={()=>{}}
+      isAuth={true}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
@@ -10,6 +10,7 @@ import {getSelectedOffer, getCity, getPopupStatus} from '../../reducer/app-reduc
 import {getOffers, getCities} from '../../reducer/data/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
+import history from '../../history.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -21,17 +22,11 @@ class App extends React.PureComponent {
       cityChangeHandler,
       authorizationStatus,
       userInfo,
-      login,
+      // login,
       isPopupShow
     } = this.props;
 
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
-
-    if (!isAuth) {
-      return (
-        <SignIn onSubmit={login}/>
-      );
-    }
 
     if (!selectedOffer) {
       return (
@@ -63,27 +58,36 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers, city, login} = this.props;
+    const {offers, city, login, authorizationStatus} = this.props;
+
+    const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/dev-details">
+          <Route exact path="/login">
+            {!isAuth
+              ? <SignIn
+                onSubmit={login}
+              />
+              : <Redirect to={`/`} />
+            }
+          </Route>
+          <Route exact path="/offer/:id">
             <OfferDetails
               offers={offers}
               id={1}
               city={city}
             />
           </Route>
-          <Route exact path="/sign-in">
-            <SignIn
-              onSubmit={login}
-            />
+          <Route exact path="/favorites">
+
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

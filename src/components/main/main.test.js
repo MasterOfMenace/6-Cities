@@ -2,6 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 import NameSpace from '../../reducer/name-space.js';
 import Main from './main.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
@@ -168,15 +170,17 @@ const store = mockStore({
 it(`Правильное отображение компонента Main`, () => {
   const tree = renderer.create(
       <Provider store={store}>
-        <Main
-          offers={offers}
-          city={city}
-          cities={cities}
-          cityChangeHandler={()=>{}}
-          isAuth={true}
-          authStatus={AuthorizationStatus.AUTH}
-          userInfo={mockUserInfo}
-          isPopupShow={false}/>
+        <Router history={history}>
+          <Main
+            offers={offers}
+            city={city}
+            cities={cities}
+            cityChangeHandler={()=>{}}
+            isAuth={true}
+            authStatus={AuthorizationStatus.AUTH}
+            userInfo={mockUserInfo}
+            isPopupShow={false}/>
+        </Router>
       </Provider>,
       {
         createNodeMock: () => document.createElement(`div`)

@@ -1,4 +1,32 @@
 export const Adapter = {
+  getOffer: (data) => {
+    return {
+      city: {
+        name: data.city.name
+      },
+      id: data.id,
+      title: data.title,
+      isFavorite: data.is_favorite,
+      isPremium: data.is_premium,
+      previewImage: data.preview_image,
+      images: data.images,
+      description: data.description,
+      goods: data.goods,
+      price: data.price,
+      rating: data.rating,
+      type: data.type,
+      maxAdults: data.max_adults,
+      bedrooms: data.bedrooms,
+      location: [data.location.latitude, data.location.longitude],
+      host: {
+        avatarUrl: data.host.avatar_url,
+        id: data.host.id,
+        isPro: data.host.is_pro,
+        name: data.host.name,
+      }
+    };
+  },
+
   getCities: (data) => {
     const allCities = data.map((offer) => offer.city);
 

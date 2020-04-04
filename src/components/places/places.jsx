@@ -12,7 +12,7 @@ import {getCurrentOffers} from '../../utils.js';
 import {OfferRenderType} from '../../const.js';
 
 const Places = (props) => {
-  const {offers, city} = props;
+  const {offers, city, isAuth} = props;
   const currentOffers = getCurrentOffers(offers, city);
   const offersCount = currentOffers.length;
   const locations = currentOffers.map((offer) => offer.location);
@@ -24,7 +24,8 @@ const Places = (props) => {
         <SortListWithOpen />
         <OffersListWithSort
           offers={currentOffers}
-          type={OfferRenderType.MAIN}/>
+          type={OfferRenderType.MAIN}
+          isAuth={isAuth}/>
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
@@ -40,7 +41,8 @@ const Places = (props) => {
 
 Places.propTypes = {
   offers: PropTypes.array,
-  city: PropTypes.object.isRequired
+  city: PropTypes.object.isRequired,
+  isAuth: PropTypes.bool
 };
 
 export default Places;

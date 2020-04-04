@@ -141,6 +141,7 @@ it(`Правильное отображение компонента Places`, ()
         <Places
           offers={offers}
           city={city}
+          isAuth={true}
         />
       </Provider>, {
         createNodeMock: () => document.createElement(`div`)
