@@ -10,7 +10,9 @@ import {getSelectedOffer, getCity, getPopupStatus} from '../../reducer/app-reduc
 import {getOffers, getCities} from '../../reducer/data/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
+// import {Operation as DataOperation} from '../../reducer/data/data.js';
 import history from '../../history.js';
+import Favorites from '../favorites/favorites.jsx';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -84,7 +86,7 @@ class App extends React.PureComponent {
             />
           </Route>
           <Route exact path="/favorites">
-
+            <Favorites />
           </Route>
         </Switch>
       </Router>
@@ -121,6 +123,7 @@ const mapDispatchToProps = (dispatch) => ({
 
   login(authData) {
     dispatch(UserOperation.login(authData));
+    // dispatch(DataOperation.loadFavorites());
   }
 });
 

@@ -15,3 +15,7 @@ export const getReviews = (state) => {
 export const getNeighbors = (state) => {
   return state[NameSpace.DATA].neighbors;
 };
+
+export const getFavorites = (state) => {
+  return state[NameSpace.DATA].favorites;
+};

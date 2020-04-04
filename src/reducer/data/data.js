@@ -5,7 +5,8 @@ const initialState = {
   offers: [],
   cities: [],
   reviews: [],
-  neighbors: []
+  neighbors: [],
+  favorites: []
 };
 
 export const ActionType = {
@@ -14,6 +15,7 @@ export const ActionType = {
   LOAD_REVIEWS: `load_reviews`,
   LOAD_NEIGHBORS: `load_neighbors`,
   TOGGLE_FAVORITE: `toggle_favorite`,
+  LOAD_FAVORITES: `load_favorites`
 };
 
 export const ActionCreator = {
@@ -40,6 +42,11 @@ export const ActionCreator = {
   toggleFavorite: (offer) => ({
     type: ActionType.TOGGLE_FAVORITE,
     payload: offer
+  }),
+
+  loadFavorites: (favorites) => ({
+    type: ActionType.LOAD_FAVORITES,
+    payload: favorites
   })
 };
 
@@ -90,6 +97,15 @@ export const Operation = {
       .then((response) => {
         const updatedOffer = Adapter.getOffer(response.data);
         dispatch(ActionCreator.toggleFavorite(updatedOffer));
+        dispatch(Operation.loadFavorites());
+      });
+  },
+
+  loadFavorites: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const favoriteOffers = Adapter.getOffers(response.data);
+        dispatch(ActionCreator.loadFavorites(favoriteOffers));
       });
   }
 };
@@ -122,6 +138,11 @@ export const reducer = (state = initialState, action) => {
 
       return Object.assign({}, state, {
         offers: newOffers
+      });
+
+    case ActionType.LOAD_FAVORITES:
+      return Object.assign({}, state, {
+        favorites: action.payload
       });
   }
 
