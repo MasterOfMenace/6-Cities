@@ -1,6 +1,8 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 import OfferCard from './offer-card.jsx';
 import {OfferRenderType} from '../../const.js';
 
@@ -39,16 +41,17 @@ it(`При наведении курсора на карточку предло�
   const offer = mockOffer;
   const onMouseOver = jest.fn();
   const onMouseLeave = jest.fn();
-  const titleClickHandler = jest.fn();
 
-  const offerCard = shallow(
-      <OfferCard
-        type={OfferRenderType.MAIN}
-        offer={offer}
-        onMouseOver={onMouseOver}
-        onMouseLeave={onMouseLeave}
-        titleClickHandler={titleClickHandler}
-        onFavoriteButtonClick={()=>{}}/>
+  const offerCard = Enzyme.mount(
+      <Router history={history}>
+        <OfferCard
+          type={OfferRenderType.MAIN}
+          offer={offer}
+          onMouseOver={onMouseOver}
+          onMouseLeave={onMouseLeave}
+          onFavoriteButtonClick={()=>{}}
+          isAuth={true}/>
+      </Router>
   );
 
   const card = offerCard.find(`.place-card`);
@@ -59,25 +62,48 @@ it(`При наведении курсора на карточку предло�
   expect(onMouseOver.mock.calls[0][0].id).toBe(offer.id);
 });
 
-it(`При клике на заголовок предложения срабатывает колбэк`, () => {
+it(`В атрибут href ссылки на заголовки оффера попадает правильный адрес`, () => {
   const offer = mockOffer;
   const onMouseOver = jest.fn();
   const onMouseLeave = jest.fn();
-  const titleClickHandler = jest.fn();
 
-  const offerCard = shallow(
-      <OfferCard
-        type={OfferRenderType.MAIN}
-        offer={offer}
-        onMouseOver={onMouseOver}
-        onMouseLeave={onMouseLeave}
-        isAuth={true}
-        titleClickHandler={titleClickHandler}
-        onFavoriteButtonClick={()=>{}}/>
+  const offerCard = Enzyme.mount(
+      <Router history={history}>
+        <OfferCard
+          type={OfferRenderType.MAIN}
+          offer={offer}
+          onMouseOver={onMouseOver}
+          onMouseLeave={onMouseLeave}
+          isAuth={true}
+          onFavoriteButtonClick={()=>{}}/>
+      </Router>
   );
 
   const offerTitleLink = offerCard.find(`.place-card__name a`);
-  offerTitleLink.simulate(`click`);
 
-  expect(titleClickHandler).toHaveBeenCalledTimes(1);
+  expect(offerTitleLink.props().href).toBe(`/offer/${offer.id}`);
+});
+
+it(`При нажатии кнопки добавления предложения в избранное срабатывает колбэк`, () => {
+  const offer = mockOffer;
+  const onMouseOver = jest.fn();
+  const onMouseLeave = jest.fn();
+  const onFavoriteButtonClick = jest.fn();
+
+  const offerCard = Enzyme.mount(
+      <Router history={history}>
+        <OfferCard
+          type={OfferRenderType.MAIN}
+          offer={offer}
+          onMouseOver={onMouseOver}
+          onMouseLeave={onMouseLeave}
+          onFavoriteButtonClick={onFavoriteButtonClick}
+          isAuth={true}/>
+      </Router>
+  );
+
+  const favoriteButton = offerCard.find(`.place-card__bookmark-button`);
+  favoriteButton.simulate(`click`);
+
+  expect(onFavoriteButtonClick).toHaveBeenCalledTimes(1);
 });

@@ -1,5 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 import OfferCard from './offer-card.jsx';
 import {OfferRenderType} from '../../const.js';
 
@@ -29,32 +31,62 @@ const mockOffer = {
   }
 };
 
-it(`Правильное отображение компонента OfferCard с OfferRenderType.MAIN`, () => {
-  const tree = renderer
-    .create(<OfferCard
-      type={OfferRenderType.MAIN}
-      offer={mockOffer}
-      onMouseOver={()=>{}}
-      onMouseLeave={()=>{}}
-      titleClickHandler={()=>{}}
-      onFavoriteButtonClick={()=>{}}
-      isAuth={true}/>)
-    .toJSON();
+describe(`Правильное отображение компонента OfferCard`, () => {
+  it(`с OfferRenderType.MAIN`, () => {
+    const tree = renderer
+      .create(
+          <Router history={history}>
+            <OfferCard
+              type={OfferRenderType.MAIN}
+              offer={mockOffer}
+              onMouseOver={()=>{}}
+              onMouseLeave={()=>{}}
+              titleClickHandler={()=>{}}
+              onFavoriteButtonClick={()=>{}}
+              isAuth={true}/>
+          </Router>
+      )
+      .toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`с OfferRenderType.NEIGHBORHOOD`, () => {
+    const tree = renderer
+      .create(
+          <Router history={history}>
+            <OfferCard
+              type={OfferRenderType.NEIGHBORHOOD}
+              offer={mockOffer}
+              onMouseOver={()=>{}}
+              onMouseLeave={()=>{}}
+              titleClickHandler={()=>{}}
+              onFavoriteButtonClick={()=>{}}
+              isAuth={true}/>
+          </Router>
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`с OfferRenderType.FAVORITES`, () => {
+    const tree = renderer
+      .create(
+          <Router history={history}>
+            <OfferCard
+              type={OfferRenderType.FAVORITES}
+              offer={mockOffer}
+              onMouseOver={()=>{}}
+              onMouseLeave={()=>{}}
+              titleClickHandler={()=>{}}
+              onFavoriteButtonClick={()=>{}}
+              isAuth={true}/>
+          </Router>
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });
 
-it(`Правильное отображение компонента OfferCard с OfferRenderType.NEIGHBORHOOD`, () => {
-  const tree = renderer
-    .create(<OfferCard
-      type={OfferRenderType.NEIGHBORHOOD}
-      offer={mockOffer}
-      onMouseOver={()=>{}}
-      onMouseLeave={()=>{}}
-      titleClickHandler={()=>{}}
-      onFavoriteButtonClick={()=>{}}
-      isAuth={true}/>)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});

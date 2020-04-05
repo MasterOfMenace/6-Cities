@@ -7,7 +7,6 @@ describe(`Корректная работа reducer`, () => {
       city: {},
       currentSortType: `Popular`,
       hoveredOffer: null,
-      selectedOffer: null,
       formIsSending: false,
       isPopupShow: false
     });
@@ -18,7 +17,6 @@ describe(`Корректная работа reducer`, () => {
       city: {},
       currentSortType: `Popular`,
       hoveredOffer: null,
-      selectedOffer: null,
     }, {
       type: ActionType.CHANGE_CITY,
       payload: cities[1]
@@ -26,7 +24,6 @@ describe(`Корректная работа reducer`, () => {
       city: cities[1],
       currentSortType: `Popular`,
       hoveredOffer: null,
-      selectedOffer: null,
     });
   });
 
@@ -35,7 +32,6 @@ describe(`Корректная работа reducer`, () => {
       city: cities[0],
       currentSortType: `Popular`,
       hoveredOffer: null,
-      selectedOffer: null,
     }, {
       type: ActionType.HOVER_OFFER,
       payload: 2
@@ -43,7 +39,6 @@ describe(`Корректная работа reducer`, () => {
       city: cities[0],
       currentSortType: `Popular`,
       hoveredOffer: 2,
-      selectedOffer: null,
     });
   });
 
@@ -52,30 +47,12 @@ describe(`Корректная работа reducer`, () => {
       city: cities[0],
       currentSortType: `Popular`,
       hoveredOffer: 2,
-      selectedOffer: null,
     }, {
       type: ActionType.BLUR_OFFER
     })).toEqual({
       city: cities[0],
       currentSortType: `Popular`,
       hoveredOffer: null,
-      selectedOffer: null,
-    });
-  });
-
-  it(`Reducer должен изменять id selectdOffer в соответствии со значением id hoveredOffer`, () => {
-    expect(reducer({
-      city: cities[0],
-      currentSortType: `Popular`,
-      hoveredOffer: 2,
-      selectedOffer: null,
-    }, {
-      type: ActionType.SELECT_OFFER,
-    })).toEqual({
-      city: cities[0],
-      currentSortType: `Popular`,
-      hoveredOffer: 2,
-      selectedOffer: 2,
     });
   });
 
@@ -140,13 +117,6 @@ describe(`Корректная работа ActionCreator`, () => {
     expect(ActionCreator.blurOffer())
       .toEqual({
         type: ActionType.BLUR_OFFER
-      });
-  });
-
-  it(`ActionCreator.selectOffer возвращает корректный action`, () => {
-    expect(ActionCreator.selectOffer())
-      .toEqual({
-        type: ActionType.SELECT_OFFER
       });
   });
 

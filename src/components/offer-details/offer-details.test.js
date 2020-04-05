@@ -54,7 +54,8 @@ it(`Правильное отображение компонента OfferDetail
             reviews={mockReviews}
             onSubmit={()=>{}}
             isPopupShow={false}
-            onPopupButtonClick={()=>{}}/>
+            onPopupButtonClick={()=>{}}
+            onFavoriteButtonClick={()=>{}}/>
         </Router>
       </Provider>,
       {

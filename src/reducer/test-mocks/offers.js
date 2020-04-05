@@ -268,7 +268,9 @@ export const neighbors = [
       name: `City`,
       location: [52.38333, 4.9]
     },
-    name: `Offer4`,
+    title: `Offer4`,
+    isFavorite: false,
+    isPremium: true,
     previewImage: `img/apartment-01.jpg`,
     images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
     description: `Description`,

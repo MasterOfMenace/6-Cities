@@ -7,7 +7,8 @@ describe(`Корректная работа reducer`, () => {
       offers: [],
       cities: [],
       reviews: [],
-      neighbors: []
+      neighbors: [],
+      favorites: []
     });
   });
 
@@ -56,6 +57,17 @@ describe(`Корректная работа reducer`, () => {
       payload: offers
     })). toEqual({
       neighbors: offers
+    });
+  });
+
+  it(`Reducer должен обновить favorites путем загрузки данных с сервера`, () => {
+    expect(reducer({
+      favorites: [],
+    }, {
+      type: ActionType.LOAD_FAVORITES,
+      payload: offers
+    })). toEqual({
+      favorites: offers
     });
   });
 });

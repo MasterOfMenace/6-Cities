@@ -14,10 +14,41 @@ const OfferCard = (props) => {
     type,
     isAuth
   } = props;
-  const isMain = type === OfferRenderType.MAIN;
+
+  let articleClassName;
+  let imgWrapperClassName;
+  let infoWrapperClassName;
+  let imgWidth;
+  let imgHeight;
+
+  switch (type) {
+    case OfferRenderType.MAIN:
+      articleClassName = `cities__place-card`;
+      imgWrapperClassName = `cities__image-wrapper`;
+      infoWrapperClassName = `place-card__info`;
+      imgWidth = 260;
+      imgHeight = 200;
+      break;
+
+    case OfferRenderType.NEIGHBORHOOD:
+      articleClassName = `near-places__card`;
+      imgWrapperClassName = `near-places__image-wrapper`;
+      infoWrapperClassName = `place-card__info`;
+      imgWidth = 260;
+      imgHeight = 200;
+      break;
+
+    case OfferRenderType.FAVORITES:
+      articleClassName = `favorites__card`;
+      imgWrapperClassName = `favorites__image-wrapper`;
+      infoWrapperClassName = `favorites__card-info place-card__info`;
+      imgWidth = 150;
+      imgHeight = 110;
+      break;
+  }
 
   return (
-    <article className={`${isMain ? `cities__place-card` : `near-places__card`} place-card`}
+    <article className={`${articleClassName} place-card`}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
       {offer.isPremium
@@ -26,12 +57,12 @@ const OfferCard = (props) => {
           <span>Premium</span>
         </div> : ``
       }
-      <div className={`${isMain ? `cities__image-wrapper` : `near-places__image-wrapper`} place-card__image-wrapper`}>
+      <div className={`${imgWrapperClassName} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width={imgWidth} height={imgHeight} alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={infoWrapperClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -70,12 +101,36 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
+  type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD, OfferRenderType.FAVORITES]).isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  offer: PropTypes.object,
-  isAuth: PropTypes.bool,
+  offer: PropTypes.shape({
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number.isRequired),
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  }),
+  isAuth: PropTypes.bool.isRequired,
 };
 
 export default OfferCard;

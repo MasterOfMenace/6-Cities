@@ -17,7 +17,7 @@ const Favorites = (props) => {
     favoriteOffers,
     onMouseLeave,
     onMouseOver,
-    titleClickHandler,
+    // titleClickHandler,
     onFavoriteButtonClick,
   } = props;
 
@@ -58,9 +58,9 @@ const Favorites = (props) => {
                           onMouseLeave={() => {
                             onMouseLeave();
                           }}
-                          titleClickHandler={titleClickHandler}
+                          // titleClickHandler={titleClickHandler}
                           onFavoriteButtonClick={onFavoriteButtonClick}
-                          type={OfferRenderType.NEIGHBORHOOD} // добавить новый тип отрисовки
+                          type={OfferRenderType.FAVORITES}
                           isAuth={isAuth}
                         />
                       ))}
@@ -102,11 +102,11 @@ const mapDispatchToPRops = (dispatch) => ({
     dispatch(AppActionCreator.blurOffer());
   },
 
-  titleClickHandler(id) {
-    dispatch(AppActionCreator.selectOffer());
-    dispatch(DataOperation.loadReviews(id));
-    dispatch(DataOperation.loadNeighbors(id));
-  },
+  // titleClickHandler(id) {
+  //   dispatch(AppActionCreator.selectOffer());
+  //   dispatch(DataOperation.loadReviews(id));
+  //   dispatch(DataOperation.loadNeighbors(id));
+  // },
 
   onFavoriteButtonClick(id, status) {
     dispatch(DataOperation.toggleFavorite(id, status));

@@ -120,10 +120,11 @@ exports[`Правильное отображение компонента OfferD
             </h1>
             <button
               className="property__bookmark-button  button"
+              onClick={[Function]}
               type="button"
             >
               <svg
-                className="property__bookmark-icon"
+                className="property__bookmark-icon place-card__bookmark-icon"
                 height="33"
                 width="31"
               >
@@ -597,7 +598,13 @@ exports[`Правильное отображение компонента OfferD
             onMouseLeave={[Function]}
             onMouseOver={[Function]}
           >
-            
+            <div
+              className="place-card__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
             <div
               className="near-places__image-wrapper place-card__image-wrapper"
             >
@@ -607,9 +614,9 @@ exports[`Правильное отображение компонента OfferD
                 <img
                   alt="Place image"
                   className="place-card__image"
-                  height="200"
+                  height={200}
                   src="img/apartment-01.jpg"
-                  width="260"
+                  width={260}
                 />
               </a>
             </div>
@@ -681,7 +688,9 @@ exports[`Правильное отображение компонента OfferD
                 <a
                   href="/offer/4"
                   onClick={[Function]}
-                />
+                >
+                  Offer4
+                </a>
               </h2>
               <p
                 className="place-card__type"

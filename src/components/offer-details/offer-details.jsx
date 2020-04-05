@@ -15,12 +15,12 @@ import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-r
 import {getPopupStatus, getCity} from '../../reducer/app-reducer/selectors.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import history from '../../history.js';
 import {store} from '../../index.js';
 
 class OfferDetails extends React.PureComponent {
   constructor(props) {
     super(props);
-    // console.log(props);
 
     this.id = Number(props.match.params.id);
 
@@ -38,7 +38,8 @@ class OfferDetails extends React.PureComponent {
       reviews,
       onSubmit,
       isPopupShow,
-      onPopupButtonClick
+      onPopupButtonClick,
+      onFavoriteButtonClick
     } = this.props;
 
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
@@ -78,8 +79,14 @@ class OfferDetails extends React.PureComponent {
                   <h1 className="property__name">
                     {currentOffer.title}
                   </h1>
-                  <button className={`property__bookmark-button ${currentOffer.isFavorite ? `property__bookmark-button--active` : ``} button`} type="button">
-                    <svg className="property__bookmark-icon" width="31" height="33">
+                  <button
+                    className={`property__bookmark-button ${currentOffer.isFavorite ? `place-card__bookmark-button--active` : ``} button`}
+                    type="button"
+                    onClick={isAuth ? () => {
+                      onFavoriteButtonClick(currentOffer.id, currentOffer.isFavorite);
+                    } : () => history.push(`/login`)}
+                  >
+                    <svg className="property__bookmark-icon place-card__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
                     <span className="visually-hidden">To bookmarks</span>
@@ -174,9 +181,57 @@ class OfferDetails extends React.PureComponent {
 OfferDetails.propTypes = {
   city: PropTypes.object,
   id: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-  offers: PropTypes.array,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number.isRequired),
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  })),
   authorizationStatus: PropTypes.string.isRequired,
-  neighbors: PropTypes.array.isRequired,
+  neighbors: PropTypes.arrayOf(PropTypes.shape({
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number.isRequired),
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  })),
   userInfo: PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
@@ -188,6 +243,7 @@ OfferDetails.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isPopupShow: PropTypes.bool.isRequired,
   onPopupButtonClick: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
   match: PropTypes.any
 };
 
@@ -208,6 +264,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   onPopupButtonClick() {
     dispatch(AppActionCreator.changePopupStatus(false));
+  },
+
+  onFavoriteButtonClick(id, status) {
+    dispatch(DataOperation.toggleFavorite(id, status));
   }
 });
 
