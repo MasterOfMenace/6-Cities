@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import configureStore from 'redux-mock-store';
-import {offers as mockOffers, cities, neighbors as mockNeighbors, reviews as mockReviews, userInfo as mockUserInfo} from '../../reducer/test-mocks/offers.js';
+import {offers as mockOffers, cities, neighbors as mockNeighbors, reviews as mockReviews, userInfo as mockUserInfo} from '../../test-mocks/test-mocks.js';
 import NameSpace from '../../reducer/name-space.js';
 import OfferDetails from './offer-details.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';

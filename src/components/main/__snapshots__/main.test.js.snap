@@ -17,7 +17,9 @@ exports[`Правильное отображение компонента Main 1
           className="header__left"
         >
           <a
-            className="header__logo-link header__logo-link--active"
+            className="header__logo-link"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -347,9 +349,7 @@ exports[`Правильное отображение компонента Main 1
                 </h2>
                 <p
                   className="place-card__type"
-                >
-                  Private room
-                </p>
+                />
               </div>
             </article>
           </div>

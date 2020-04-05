@@ -57,9 +57,9 @@ exports[`Правильное отображение компонента Review
       </p>
       <time
         className="reviews__time"
-        dateTime={2019-07-10T00:00:00.000Z}
+        dateTime={Date { NaN }}
       >
-        July 2019
+        undefined NaN
       </time>
     </div>
   </li>
@@ -116,9 +116,9 @@ exports[`Правильное отображение компонента Review
       </p>
       <time
         className="reviews__time"
-        dateTime={2018-04-25T00:00:00.000Z}
+        dateTime={Date { NaN }}
       >
-        April 2018
+        undefined NaN
       </time>
     </div>
   </li>

@@ -10,13 +10,13 @@ export const sortOffers = (offers, sortType) => {
       return offers;
 
     case `Price: low to high`:
-      return offers.sort((a, b) => a.price - b.price);
+      return offers.slice().sort((a, b) => a.price - b.price);
 
     case `Price: high to low`:
-      return offers.sort((a, b) => b.price - a.price);
+      return offers.slice().sort((a, b) => b.price - a.price);
 
     case `Top rated first`:
-      return offers;
+      return offers.slice().sort((a, b) => b.rating - a.rating);
   }
 
   return null;
@@ -29,5 +29,13 @@ export const formatDate = (date) => {
 };
 
 export const formatRating = (rating, starWidth = STAR_WIDTH) => {
-  return rating * starWidth;
+  return Math.round(rating) * starWidth;
+};
+
+export const sortReviews = (reviews) => {
+  return reviews.slice().sort((a, b) => {
+    const aDate = Date.parse(a.date);
+    const bDate = Date.parse(b.date);
+    return bDate - aDate;
+  });
 };

@@ -1,5 +1,5 @@
 import {reducer, ActionType} from './data.js';
-import {offers, cities, reviews} from '../test-mocks/offers.js';
+import {offers, cities, reviews} from '../../test-mocks/test-mocks.js';
 
 describe(`Корректная работа reducer`, () => {
   it(`Reducer без параметров возвращает initialState`, () => {

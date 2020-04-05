@@ -63,7 +63,7 @@ class App extends React.PureComponent {
           <Route exact path="/favorites">
             {isAuth
               ? <Favorites />
-              : <Redirect to={`/`} />
+              : <Redirect to={`/login`} />
             }
 
           </Route>

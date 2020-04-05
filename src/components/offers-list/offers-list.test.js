@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
-import {offers as mockOffers} from '../../reducer/test-mocks/offers.js';
+import {offers as mockOffers} from '../../test-mocks/test-mocks.js';
 import {OffersList} from './offers-list';
 import {OfferRenderType} from '../../const.js';
 import history from '../../history.js';

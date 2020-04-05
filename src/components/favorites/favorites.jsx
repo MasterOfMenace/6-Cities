@@ -9,6 +9,7 @@ import {getUserInfo, getAuthorizationStatus} from '../../reducer/user/selectors.
 import {getFavorites} from '../../reducer/data/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {OfferRenderType} from '../../const.js';
+import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 
 const Favorites = (props) => {
   const {
@@ -17,7 +18,6 @@ const Favorites = (props) => {
     favoriteOffers,
     onMouseLeave,
     onMouseOver,
-    // titleClickHandler,
     onFavoriteButtonClick,
   } = props;
 
@@ -27,53 +27,61 @@ const Favorites = (props) => {
       new Set(favoriteOffers.map((offer) => offer.city.name))
   );
 
-  return (
-    <div className="page">
-      <Header isAuth={isAuth} userInfo={userInfo} />
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {favoritesCities.map((city, index) => {
-                const offersInCity = favoriteOffers.filter((it) => it.city.name === city);
+  const isEmpty = favoriteOffers.length === 0;
 
-                return (
-                  <li key={index} className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <a className="locations__item-link" href="#">
-                          <span>{city}</span>
-                        </a>
+  return (
+    <div className={`page ${isEmpty ? `page--favorites-empty` : null}`}>
+      <Header isAuth={isAuth} userInfo={userInfo} />
+      <main className={`page__main page__main--favorites${isEmpty ? `-empty` : null}`}>
+        <div className="page__favorites-container container">
+          {isEmpty
+            ? <FavoritesEmpty />
+            : <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+                {favoritesCities.map((city, index) => {
+                  const offersInCity = favoriteOffers.filter((it) => it.city.name === city);
+
+                  return (
+                    <li key={index} className="favorites__locations-items">
+                      <div className="favorites__locations locations locations--current">
+                        <div className="locations__item">
+                          <a className="locations__item-link" href="#">
+                            <span>{city}</span>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                    <div className="favorites__places">
-                      {offersInCity.map((offer, i) => (
-                        <OfferCard
-                          key={`favorite-${i}`}
-                          offer={offer}
-                          onMouseOver={() => {
-                            onMouseOver(offer);
-                          }}
-                          onMouseLeave={() => {
-                            onMouseLeave();
-                          }}
-                          // titleClickHandler={titleClickHandler}
-                          onFavoriteButtonClick={onFavoriteButtonClick}
-                          type={OfferRenderType.FAVORITES}
-                          isAuth={isAuth}
-                        />
-                      ))}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+                      <div className="favorites__places">
+                        {offersInCity.map((offer, i) => (
+                          <OfferCard
+                            key={`favorite-${i}`}
+                            offer={offer}
+                            onMouseOver={() => {
+                              onMouseOver(offer);
+                            }}
+                            onMouseLeave={() => {
+                              onMouseLeave();
+                            }}
+                            onFavoriteButtonClick={onFavoriteButtonClick}
+                            type={OfferRenderType.FAVORITES}
+                            isAuth={isAuth}
+                          />
+                        ))}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          }
         </div>
       </main>
+      <footer className="footer">
+        <a className="footer__logo-link" href="main.html">
+          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
+        </a>
+      </footer>
     </div>
-
   );
 };
 
@@ -101,12 +109,6 @@ const mapDispatchToPRops = (dispatch) => ({
   onMouseLeave() {
     dispatch(AppActionCreator.blurOffer());
   },
-
-  // titleClickHandler(id) {
-  //   dispatch(AppActionCreator.selectOffer());
-  //   dispatch(DataOperation.loadReviews(id));
-  //   dispatch(DataOperation.loadNeighbors(id));
-  // },
 
   onFavoriteButtonClick(id, status) {
     dispatch(DataOperation.toggleFavorite(id, status));

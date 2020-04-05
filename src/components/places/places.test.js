@@ -6,7 +6,7 @@ import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import Places from './places.jsx';
 import NameSpace from '../../reducer/name-space.js';
-import {cities, offers as mockOffers} from '../../reducer/test-mocks/offers.js';
+import {cities, offers as mockOffers} from '../../test-mocks/test-mocks.js';
 
 const city = cities[0];
 

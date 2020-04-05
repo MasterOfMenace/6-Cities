@@ -17,7 +17,9 @@ exports[`Правильное отображение компонента OfferD
           className="header__left"
         >
           <a
-            className="header__logo-link header__logo-link--active"
+            className="header__logo-link"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -169,9 +171,7 @@ exports[`Правильное отображение компонента OfferD
           >
             <li
               className="property__feature property__feature--entire"
-            >
-              Private room
-            </li>
+            />
             <li
               className="property__feature property__feature--bedrooms"
             >
@@ -694,9 +694,7 @@ exports[`Правильное отображение компонента OfferD
               </h2>
               <p
                 className="place-card__type"
-              >
-                Apartment
-              </p>
+              />
             </div>
           </article>
         </div>

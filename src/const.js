@@ -4,6 +4,13 @@ export const OfferRenderType = {
   FAVORITES: `favorites`
 };
 
+export const OfferType = {
+  'apartment': `Apartment`,
+  'room': `Private Room`,
+  'house': `House`,
+  'hotel': `Hotel`
+};
+
 export const MonthNames = [
   `January`,
   `February`,

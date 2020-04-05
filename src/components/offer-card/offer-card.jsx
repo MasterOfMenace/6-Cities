@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import history from '../../history';
-import {OfferRenderType} from '../../const.js';
+import {OfferRenderType, OfferType} from '../../const.js';
 import {formatRating} from '../../utils.js';
 import {Link} from 'react-router-dom';
 
@@ -94,7 +94,7 @@ const OfferCard = (props) => {
             {offer.title}
           </Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{OfferType[offer.type]}</p>
       </div>
     </article>
   );

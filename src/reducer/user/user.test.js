@@ -1,12 +1,5 @@
 import {reducer, ActionType, AuthorizationStatus} from './user.js';
-
-const mockUserInfo = {
-  avatarUrl: `/img/1.png`,
-  email: `Oliver.conner@gmail.com`,
-  id: 1,
-  isPro: false,
-  name: `Oliver.conner`
-};
+import {userInfo as mockUserInfo} from '../../test-mocks/test-mocks.js';
 
 describe(`Корректная работа reducer`, () => {
   it(`Reducer без параметров возвращает initialState`, () => {

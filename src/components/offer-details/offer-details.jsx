@@ -7,7 +7,7 @@ import OffersList from '../offers-list/offers-list.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import ErrorPopup from '../error-popup/error-popup.jsx';
 import Header from '../header/header.jsx';
-import {OfferRenderType} from '../../const.js';
+import {OfferRenderType, OfferType} from '../../const.js';
 import {formatRating} from '../../utils.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 import {getNeighbors, getReviews, getOffers} from '../../reducer/data/selectors.js';
@@ -17,6 +17,8 @@ import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import history from '../../history.js';
 import {store} from '../../index.js';
+
+const MAX_GALLERY_IMAGES = 6;
 
 class OfferDetails extends React.PureComponent {
   constructor(props) {
@@ -49,7 +51,7 @@ class OfferDetails extends React.PureComponent {
 
 
     const host = currentOffer.host;
-    const gallery = currentOffer.images;
+    const gallery = currentOffer.images.slice(0, MAX_GALLERY_IMAGES);
 
     return (
       <div className="page">
@@ -101,7 +103,7 @@ class OfferDetails extends React.PureComponent {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {currentOffer.type}
+                    {OfferType[currentOffer.type]}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {currentOffer.bedrooms} Bedrooms
@@ -175,6 +177,15 @@ class OfferDetails extends React.PureComponent {
       </div>
     );
 
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.id = Number(this.props.match.params.id);
+
+      store.dispatch(DataOperation.loadReviews(this.id));
+      store.dispatch(DataOperation.loadNeighbors(this.id));
+    }
   }
 }
 

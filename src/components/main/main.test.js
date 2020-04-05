@@ -7,7 +7,7 @@ import history from '../../history.js';
 import NameSpace from '../../reducer/name-space.js';
 import Main from './main.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {offers as mockOffers, cities, userInfo as mockUserInfo} from '../../reducer/test-mocks/offers.js';
+import {offers as mockOffers, cities, userInfo as mockUserInfo} from '../../test-mocks/test-mocks.js';
 
 const mockStore = configureStore([]);
 

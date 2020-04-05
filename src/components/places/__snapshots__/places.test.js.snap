@@ -182,9 +182,7 @@ exports[`Правильное отображение компонента Places
           </h2>
           <p
             className="place-card__type"
-          >
-            Private room
-          </p>
+          />
         </div>
       </article>
     </div>

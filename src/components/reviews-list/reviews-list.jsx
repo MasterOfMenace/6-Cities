@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Review from '../review/review.jsx';
+import {sortReviews} from '../../utils.js';
 
 const MAX_REVIEWS_COUNT = 10;
-
-const sortReviews = (reviews) => {
-  return reviews.slice().sort((a, b) => {
-    const aDate = Date.parse(a.time);
-    const bDate = Date.parse(b.time);
-    return aDate - bDate;
-  });
-};
 
 const ReviewsList = (props) => {
   const {reviews} = props;
