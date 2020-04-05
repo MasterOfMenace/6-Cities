@@ -156,9 +156,9 @@ ReviewForm.propTypes = {
   formIsSending: PropTypes.bool.isRequired,
 };
 
-const mapStateToPRops = (state) => ({
+const mapStateToProps = (state) => ({
   formIsSending: getFormStatus(state)
 });
 
 export {ReviewForm};
-export default connect(mapStateToPRops, null)(ReviewForm);
+export default connect(mapStateToProps, null)(ReviewForm);

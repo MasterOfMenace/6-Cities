@@ -26,7 +26,8 @@ const store = mockStore({
   [NameSpace.APP]: {
     city,
     hoveredOffer: null,
-    isPopupShow: false
+    isPopupShow: false,
+    formIsSending: false
   },
   [NameSpace.DATA]: {
     offers: mockOffers,

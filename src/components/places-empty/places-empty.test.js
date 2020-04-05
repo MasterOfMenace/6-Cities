@@ -1,11 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PlacesEmpty from './places-empty.jsx';
+import {cities} from '../../test-mocks/test-mocks.js';
 
-const city = {
-  name: `City`,
-  location: [52.38333, 4.9]
-};
+const city = cities[0];
 
 it(`Правильное отображение компонента PlacesEmpty`, () => {
   const tree = renderer

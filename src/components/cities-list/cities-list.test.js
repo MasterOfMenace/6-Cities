@@ -1,23 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import CitiesList from './cities-list.jsx';
+import {cities as mockCities} from '../../test-mocks/test-mocks.js';
 
-const MockCities = [
-  {name: `City1`},
-  {name: `City2`},
-  {name: `City3`}
-];
-
-const currentCity = {
-  name: `City1`,
-  location: [52.38333, 4.9]
-};
+const currentCity = mockCities[0];
 
 it(`Правильное отображение компонента CitiesList`, () => {
   const tree = renderer
     .create(
         <CitiesList
-          cities={MockCities}
+          cities={mockCities}
           currentCity={currentCity}
           cityChangeHandler={()=>{}}
         />

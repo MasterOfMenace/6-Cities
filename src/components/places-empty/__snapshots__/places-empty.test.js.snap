@@ -19,7 +19,7 @@ exports[`Правильное отображение компонента Places
         className="cities__status-description"
       >
         We could not find any property availbale at the moment in 
-        City
+        Amsterdam
       </p>
     </div>
   </section>

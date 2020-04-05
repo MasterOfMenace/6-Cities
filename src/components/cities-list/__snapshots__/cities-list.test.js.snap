@@ -16,7 +16,7 @@ exports[`Правильное отображение компонента Cities
         onClick={[Function]}
       >
         <span>
-          City1
+          Amsterdam
         </span>
       </a>
     </li>
@@ -29,7 +29,7 @@ exports[`Правильное отображение компонента Cities
         onClick={[Function]}
       >
         <span>
-          City2
+          Paris
         </span>
       </a>
     </li>
@@ -42,7 +42,46 @@ exports[`Правильное отображение компонента Cities
         onClick={[Function]}
       >
         <span>
-          City3
+          Cologne
+        </span>
+      </a>
+    </li>
+    <li
+      className="locations__item"
+    >
+      <a
+        className="locations__item-link tabs__item "
+        href="#"
+        onClick={[Function]}
+      >
+        <span>
+          Brussels
+        </span>
+      </a>
+    </li>
+    <li
+      className="locations__item"
+    >
+      <a
+        className="locations__item-link tabs__item "
+        href="#"
+        onClick={[Function]}
+      >
+        <span>
+          Hamburg
+        </span>
+      </a>
+    </li>
+    <li
+      className="locations__item"
+    >
+      <a
+        className="locations__item-link tabs__item "
+        href="#"
+        onClick={[Function]}
+      >
+        <span>
+          Dusseldorf
         </span>
       </a>
     </li>
