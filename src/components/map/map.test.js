@@ -1,13 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Map} from './map.jsx';
+import Map from './map.jsx';
 import {offers as mockOffers, cities} from '../../test-mocks/test-mocks.js';
-
-// const city = {
-//   name: `City`,
-//   location: [52.38333, 4.9],
-//   zoom: 12
-// };
 
 const city = cities[0];
 

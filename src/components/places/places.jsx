@@ -10,9 +10,11 @@ const SortListWithOpen = withOpen(SortList);
 const OffersListWithSort = withSort(OffersList);
 import {getCurrentOffers} from '../../utils.js';
 import {OfferRenderType} from '../../const.js';
+import {getHoveredOffer} from '../../reducer/app-reducer/selectors.js';
+import {connect} from 'react-redux';
 
 const Places = (props) => {
-  const {offers, city, isAuth} = props;
+  const {offers, city, isAuth, currentOfferId} = props;
   const currentOffers = getCurrentOffers(offers, city);
   const offersCount = currentOffers.length;
   const locations = currentOffers.map((offer) => offer.location);
@@ -31,6 +33,7 @@ const Places = (props) => {
         <section className="cities__map map">
           <Map
             offers={currentOffers}
+            currentOfferId={currentOfferId}
             offersLocations={locations}
             city={city}/>
         </section>
@@ -70,7 +73,13 @@ Places.propTypes = {
     location: PropTypes.arrayOf(PropTypes.number).isRequired,
     zoom: PropTypes.number.isRequired
   }),
-  isAuth: PropTypes.bool.isRequired
+  isAuth: PropTypes.bool.isRequired,
+  currentOfferId: PropTypes.number
 };
 
-export default Places;
+const mapStateToProps = (state) => ({
+  currentOfferId: getHoveredOffer(state)
+});
+
+export {Places};
+export default connect(mapStateToProps, null)(Places);

@@ -10,6 +10,8 @@ import {cities, offers as mockOffers} from '../../test-mocks/test-mocks.js';
 
 const city = cities[0];
 
+const hoveredOfferId = 1;
+
 const mockStore = configureStore([]);
 
 const store = mockStore({
@@ -20,7 +22,7 @@ const store = mockStore({
   [NameSpace.APP]: {
     city,
     currentSortType: `Popular`,
-    hoveredOffer: null,
+    hoveredOffer: hoveredOfferId,
     selectedOffer: null
   }
 });

@@ -1,25 +1,37 @@
 import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {getHoveredOffer} from '../../reducer/app-reducer/selectors.js';
 
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this._map = null;
     this._markers = [];
     this._mapContainer = React.createRef();
   }
 
   componentDidMount() {
-    const {offers, offersLocations, city} = this.props;
-    const {currentOfferId} = this.props;
+    const {offers, offersLocations, city, currentOfferId} = this.props;
     const centerCoords = city.location;
     const zoom = city.zoom;
 
-    this._createMap(centerCoords, offersLocations, zoom);
+    this._initializeMap(centerCoords, offersLocations, zoom);
 
+    if (currentOfferId) {
+      const currentOffer = offers.find((offer) => offer.id === currentOfferId);
+      const currentLocation = currentOffer.location;
+      this._addCurrentOfferIcon(currentLocation);
+    }
+  }
+
+  componentDidUpdate() {
+    const {offers, offersLocations, city, currentOfferId} = this.props;
+    const centerCoords = city.location;
+    const zoom = city.zoom;
+
+    this._removeMarkers();
+    this._setView(centerCoords, zoom);
     this._addOffersIcons(offersLocations);
 
     if (currentOfferId) {
@@ -29,32 +41,19 @@ class Map extends React.PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.city !== prevProps.city) {
-      const {offersLocations, city} = this.props;
-      const centerCoords = city.location;
-      const zoom = city.zoom;
-      this._removeMarkers();
-      this._map.remove();
-      this._createMap(centerCoords, offersLocations, zoom);
-      this._addOffersIcons(offersLocations);
-    }
-
-    if (this.props.currentOfferId !== prevProps.currentOfferId) {
-      const {offersLocations, currentOfferId, offers} = this.props;
-      this._removeMarkers();
-      this._addOffersIcons(offersLocations);
-      if (currentOfferId) {
-        const currentOffer = offers.find((offer) => offer.id === currentOfferId);
-        const currentLocation = currentOffer.location;
-        this._addCurrentOfferIcon(currentLocation);
-      }
-    }
+  componentWillUnmount() {
+    this._map = null;
+    this._markers = [];
   }
 
-  componentWillUnmount() {
-    this._map.remove();
-    this._removeMarkers();
+  _setView(location, zoom) {
+    this._map.setView(location, zoom);
+  }
+
+  _initializeMap(cityLocation, offersLocations, zoom) {
+    this._createMap(cityLocation, offersLocations, zoom);
+    this._setView(cityLocation, zoom);
+    this._addOffersIcons(offersLocations);
   }
 
   _createMap(cityLocation, offersLocations, zoom) {
@@ -64,7 +63,6 @@ class Map extends React.PureComponent {
       zoomControl: false,
       marker: true
     });
-    this._map.setView(cityLocation, zoom);
 
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -74,6 +72,11 @@ class Map extends React.PureComponent {
   }
 
   _removeMarkers() {
+    if (this._map) {
+      this._markers.forEach((marker) => {
+        this._map.removeLayer(marker);
+      });
+    }
     this._markers = [];
   }
 
@@ -140,13 +143,7 @@ Map.propTypes = {
     location: PropTypes.arrayOf(PropTypes.number).isRequired,
     zoom: PropTypes.number.isRequired
   }),
-  offersLocations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-  currentOfferLocation: PropTypes.arrayOf(PropTypes.number)
+  offersLocations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
 };
 
-const mapStateToProps = (state) => ({
-  currentOfferId: getHoveredOffer(state)
-});
-
-export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default Map;

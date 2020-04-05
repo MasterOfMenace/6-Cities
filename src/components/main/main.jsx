@@ -17,6 +17,7 @@ const Main = (props) => {
     userInfo,
     isPopupShow
   } = props;
+
   const currentOffers = getCurrentOffers(offers, city);
   const isEmpty = currentOffers.length === 0;
   return (

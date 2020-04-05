@@ -167,6 +167,7 @@ class OfferDetails extends React.PureComponent {
             </div>
             <section className="property__map map">
               <Map
+                currentOfferId={this.id}
                 offers={offers}
                 offersLocations={neighborsLocations}
                 city={city}/>

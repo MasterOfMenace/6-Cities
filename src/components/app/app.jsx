@@ -12,6 +12,7 @@ import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/use
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 import history from '../../history.js';
 import Favorites from '../favorites/favorites.jsx';
+import {store} from '../../index.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -24,6 +25,8 @@ class App extends React.PureComponent {
       userInfo,
       isPopupShow
     } = this.props;
+
+    store.dispatch(AppActionCreator.blurOffer());
 
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
