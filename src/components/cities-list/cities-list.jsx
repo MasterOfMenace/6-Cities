@@ -21,8 +21,16 @@ const CitiesList = ({cities, currentCity, cityChangeHandler}) => {
 
 CitiesList.propTypes = {
   cityChangeHandler: PropTypes.func.isRequired,
-  cities: PropTypes.array.isRequired,
-  currentCity: PropTypes.object.isRequired
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired
+  })),
+  currentCity: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired
+  })
 };
 
 export default CitiesList;

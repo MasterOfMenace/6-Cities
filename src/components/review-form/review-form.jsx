@@ -16,6 +16,16 @@ class ReviewForm extends React.PureComponent {
     this._validateForm = this._validateForm.bind(this);
   }
 
+  componentDidMount() {
+    this._validateForm();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.formIsSending !== this.props.formIsSending) {
+      this._toggleForm(this.props.formIsSending);
+    }
+  }
+
   handleSubmit(evt) {
     const {onSubmit, id} = this.props;
 
@@ -61,16 +71,6 @@ class ReviewForm extends React.PureComponent {
     formElements.forEach((it) => {
       it.disabled = isSending;
     });
-  }
-
-  componentDidMount() {
-    this._validateForm();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.formIsSending !== this.props.formIsSending) {
-      this._toggleForm(this.props.formIsSending);
-    }
   }
 
   render() {
@@ -151,9 +151,9 @@ class ReviewForm extends React.PureComponent {
 }
 
 ReviewForm.propTypes = {
-  id: PropTypes.number,
-  onSubmit: PropTypes.func,
-  formIsSending: PropTypes.bool,
+  id: PropTypes.number.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  formIsSending: PropTypes.bool.isRequired,
 };
 
 const mapStateToPRops = (state) => ({

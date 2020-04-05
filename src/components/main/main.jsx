@@ -49,11 +49,52 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  city: PropTypes.object.isRequired,
-  cities: PropTypes.array.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired
+  }),
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired
+  })),
   cityChangeHandler: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired,
-  userInfo: PropTypes.object,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number.isRequired),
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  })),
+  userInfo: PropTypes.oneOfType([
+    PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }),
+    PropTypes.object
+  ]),
   isAuth: PropTypes.bool.isRequired,
   isPopupShow: PropTypes.bool.isRequired,
 };

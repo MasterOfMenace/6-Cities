@@ -19,7 +19,18 @@ const ReviewsList = (props) => {
 };
 
 ReviewsList.propTypes = {
-  reviews: PropTypes.array.isRequired
+  reviews: PropTypes.arrayOf(PropTypes.shape({
+    author: PropTypes.shape({
+      avatar: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }),
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired
+  })).isRequired
 };
 
 export default ReviewsList;

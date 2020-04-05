@@ -43,8 +43,17 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  isAuth: PropTypes.bool,
-  userInfo: PropTypes.object,
+  isAuth: PropTypes.bool.isRequired,
+  userInfo: PropTypes.oneOfType([
+    PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }),
+    PropTypes.object
+  ])
 };
 
 export default Header;

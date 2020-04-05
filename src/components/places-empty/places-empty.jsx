@@ -17,7 +17,11 @@ const PlacesEmpty = (props) => {
 };
 
 PlacesEmpty.propTypes = {
-  city: PropTypes.object.isRequired
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired
+  })
 };
 
 export default PlacesEmpty;

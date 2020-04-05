@@ -30,6 +30,15 @@ class OfferDetails extends React.PureComponent {
     store.dispatch(DataOperation.loadNeighbors(this.id));
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.id = Number(this.props.match.params.id);
+
+      store.dispatch(DataOperation.loadReviews(this.id));
+      store.dispatch(DataOperation.loadNeighbors(this.id));
+    }
+  }
+
   render() {
     const {
       offers,
@@ -176,21 +185,15 @@ class OfferDetails extends React.PureComponent {
         {isPopupShow ? <ErrorPopup onButtonClick={onPopupButtonClick}/> : null}
       </div>
     );
-
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
-      this.id = Number(this.props.match.params.id);
-
-      store.dispatch(DataOperation.loadReviews(this.id));
-      store.dispatch(DataOperation.loadNeighbors(this.id));
-    }
   }
 }
 
 OfferDetails.propTypes = {
-  city: PropTypes.object,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired
+  }),
   id: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   offers: PropTypes.arrayOf(PropTypes.shape({
     city: PropTypes.shape({
@@ -243,14 +246,28 @@ OfferDetails.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired
   })),
-  userInfo: PropTypes.shape({
-    avatarUrl: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
+  userInfo: PropTypes.oneOfType([
+    PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }),
+    PropTypes.object
+  ]),
+  reviews: PropTypes.arrayOf(PropTypes.shape({
+    author: PropTypes.shape({
+      avatar: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }),
     id: PropTypes.number.isRequired,
-    isPro: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired
-  }),
-  reviews: PropTypes.array.isRequired,
+    rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired
+  })).isRequired,
   onSubmit: PropTypes.func.isRequired,
   isPopupShow: PropTypes.bool.isRequired,
   onPopupButtonClick: PropTypes.func.isRequired,

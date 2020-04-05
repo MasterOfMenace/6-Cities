@@ -32,11 +32,3 @@ export const SortTypes = [
   `Price: high to low`,
   `Top rated first`
 ];
-
-export const AppRoute = {
-  MAIN: `/`,
-  LOGIN: `/login`,
-  FAVORITES: `/favorites`,
-  OFFER: `/offer`
-};
-
