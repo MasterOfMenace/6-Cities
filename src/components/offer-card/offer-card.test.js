@@ -37,7 +37,7 @@ describe(`Правильное отображение компонента Offer
       .create(
           <Router history={history}>
             <OfferCard
-              type={OfferRenderType.MAIN}
+              type={OfferRenderType.MAIN.type}
               offer={mockOffer}
               onMouseOver={()=>{}}
               onMouseLeave={()=>{}}
@@ -56,7 +56,7 @@ describe(`Правильное отображение компонента Offer
       .create(
           <Router history={history}>
             <OfferCard
-              type={OfferRenderType.NEIGHBORHOOD}
+              type={OfferRenderType.NEIGHBORHOOD.type}
               offer={mockOffer}
               onMouseOver={()=>{}}
               onMouseLeave={()=>{}}
@@ -75,7 +75,7 @@ describe(`Правильное отображение компонента Offer
       .create(
           <Router history={history}>
             <OfferCard
-              type={OfferRenderType.FAVORITES}
+              type={OfferRenderType.FAVORITES.type}
               offer={mockOffer}
               onMouseOver={()=>{}}
               onMouseLeave={()=>{}}

@@ -6,7 +6,7 @@ import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
-import {getCity, getPopupStatus} from '../../reducer/app-reducer/selectors.js';
+import {getCity, getPopupStatus, getErrMessage} from '../../reducer/app-reducer/selectors.js';
 import {getOffers, getCities} from '../../reducer/data/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
@@ -23,7 +23,9 @@ class App extends React.PureComponent {
       cityChangeHandler,
       authorizationStatus,
       userInfo,
-      isPopupShow
+      isPopupShow,
+      onPopupButtonClick,
+      errMessage
     } = this.props;
 
     store.dispatch(AppActionCreator.blurOffer());
@@ -39,6 +41,8 @@ class App extends React.PureComponent {
         isAuth={isAuth}
         userInfo={userInfo}
         isPopupShow={isPopupShow}
+        onPopupButtonClick={onPopupButtonClick}
+        errMessage={errMessage}
       />
     );
   }
@@ -126,6 +130,8 @@ App.propTypes = {
     PropTypes.object
   ]),
   isPopupShow: PropTypes.bool.isRequired,
+  onPopupButtonClick: PropTypes.func.isRequired,
+  errMessage: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
@@ -134,7 +140,8 @@ const mapStateToProps = (state) => ({
   city: getCity(state),
   authorizationStatus: getAuthorizationStatus(state),
   userInfo: getUserInfo(state),
-  isPopupShow: getPopupStatus(state)
+  isPopupShow: getPopupStatus(state),
+  errMessage: getErrMessage(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -144,6 +151,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+
+  onPopupButtonClick() {
+    dispatch(AppActionCreator.changePopupStatus(false));
   }
 });
 

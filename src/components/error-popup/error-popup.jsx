@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ErrorPopup = (props) => {
-  const {onButtonClick} = props;
+  const {onButtonClick, message} = props;
   return (
     <div
       className="popup popup-error"
@@ -36,7 +36,8 @@ const ErrorPopup = (props) => {
           }
         }>
         <p className="popup__text">
-          Something went wrong. Try again later
+          {message}
+          {/* Something went wrong. Try again later */}
         </p>
         <button
           className="popup__close-button button"
@@ -56,6 +57,7 @@ const ErrorPopup = (props) => {
 };
 
 ErrorPopup.propTypes = {
+  message: PropTypes.string,
   onButtonClick: PropTypes.func
 };
 

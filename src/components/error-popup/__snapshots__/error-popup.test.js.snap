@@ -36,7 +36,7 @@ exports[`Правильное отображение компонента ErrorP
     <p
       className="popup__text"
     >
-      Something went wrong. Try again later
+      Message
     </p>
     <button
       className="popup__close-button button"

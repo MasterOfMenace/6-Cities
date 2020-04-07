@@ -12,6 +12,7 @@ import {createApi} from './api.js';
 
 const onUnauthorized = () => {
   store.dispatch(UserActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  store.dispatch(AppActionCreator.changePopupStatus(true));
 };
 
 const onError = () => {

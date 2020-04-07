@@ -3,7 +3,8 @@ const initialState = {
   currentSortType: `Popular`,
   hoveredOffer: null,
   formIsSending: false,
-  isPopupShow: false
+  isPopupShow: false,
+  errMessage: null,
 };
 
 export const ActionType = {
@@ -13,7 +14,8 @@ export const ActionType = {
   HOVER_OFFER: `hover_offer`,
   BLUR_OFFER: `blur_offer`,
   CHANGE_FORM_STATUS: `change_form_status`,
-  CHANGE_POPUP_STATUS: `change_popup_status`
+  CHANGE_POPUP_STATUS: `change_popup_status`,
+  CHANGE_ERR_MESSAGE: `change_err_message`
 };
 
 export const ActionCreator = {
@@ -44,6 +46,11 @@ export const ActionCreator = {
   changePopupStatus: (status) => ({
     type: ActionType.CHANGE_POPUP_STATUS,
     payload: status
+  }),
+
+  changeErrMessage: (message) => ({
+    type: ActionType.CHANGE_ERR_MESSAGE,
+    payload: message
   })
 };
 
@@ -79,6 +86,11 @@ export const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_POPUP_STATUS:
       return Object.assign({}, state, {
         isPopupShow: action.payload
+      });
+
+    case ActionType.CHANGE_ERR_MESSAGE:
+      return Object.assign({}, state, {
+        errMessage: action.payload
       });
   }
 

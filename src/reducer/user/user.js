@@ -1,4 +1,6 @@
 import {Adapter} from '../../adapter/adapter.js';
+import {ActionCreator as AppActionCreator} from '../app-reducer/app-reducer.js';
+import {Message} from '../../const.js';
 
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -42,7 +44,8 @@ export const Operation = {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
       .catch((err) => {
-        throw err;
+        const code = err.response.status;
+        dispatch(AppActionCreator.changeErrMessage(Message[code]));
       });
   },
 

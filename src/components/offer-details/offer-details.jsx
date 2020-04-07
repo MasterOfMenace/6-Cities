@@ -12,7 +12,7 @@ import {formatRating} from '../../utils.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 import {getNeighbors, getReviews, getOffers} from '../../reducer/data/selectors.js';
 import {ActionCreator as AppActionCreator} from '../../reducer/app-reducer/app-reducer.js';
-import {getPopupStatus, getCity} from '../../reducer/app-reducer/selectors.js';
+import {getPopupStatus, getCity, getErrMessage} from '../../reducer/app-reducer/selectors.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import history from '../../history.js';
@@ -49,6 +49,7 @@ class OfferDetails extends React.PureComponent {
       reviews,
       onSubmit,
       isPopupShow,
+      errMessage,
       onPopupButtonClick,
       onFavoriteButtonClick
     } = this.props;
@@ -178,12 +179,12 @@ class OfferDetails extends React.PureComponent {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <OffersList
                 offers={neighbors}
-                type={OfferRenderType.NEIGHBORHOOD}
+                type={OfferRenderType.NEIGHBORHOOD.type}
                 isAuth={isAuth}/>
             </section>
           </div>
         </main>
-        {isPopupShow ? <ErrorPopup onButtonClick={onPopupButtonClick}/> : null}
+        {isPopupShow ? <ErrorPopup message={errMessage} onButtonClick={onPopupButtonClick}/> : null}
       </div>
     );
   }
@@ -272,8 +273,9 @@ OfferDetails.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isPopupShow: PropTypes.bool.isRequired,
   onPopupButtonClick: PropTypes.func.isRequired,
+  errMessage: PropTypes.string,
   onFavoriteButtonClick: PropTypes.func.isRequired,
-  match: PropTypes.any
+  match: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
@@ -281,6 +283,7 @@ const mapStateToProps = (state) => ({
   neighbors: getNeighbors(state),
   reviews: getReviews(state),
   isPopupShow: getPopupStatus(state),
+  errMessage: getErrMessage(state),
   authorizationStatus: getAuthorizationStatus(state),
   userInfo: getUserInfo(state),
   city: getCity(state),

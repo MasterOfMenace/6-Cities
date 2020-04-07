@@ -41,7 +41,9 @@ it(`Правильное отображение компонента App`, () =>
           authorizationStatus={AuthorizationStatus.AUTH}
           userInfo={mockUserInfo}
           login={()=>{}}
-          isPopupShow={false}/>
+          isPopupShow={false}
+          onPopupButtonClick={()=>{}}
+          errMessage={null}/>
       </Provider>,
       {
         createNodeMock: () => document.createElement(`div`)

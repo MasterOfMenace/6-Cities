@@ -1,5 +1,6 @@
 import {Adapter} from '../../adapter/adapter.js';
 import {ActionCreator as AppActionCreator} from '../app-reducer/app-reducer.js';
+import {Message} from '../../const.js';
 
 const initialState = {
   offers: [],
@@ -81,6 +82,10 @@ export const Operation = {
         dispatch(ActionCreator.loadReviews(reviews));
         dispatch(AppActionCreator.changeFormStatus(false));
         form.reset();
+      })
+      .catch((err) => {
+        const code = err.response.status;
+        dispatch(AppActionCreator.changeErrMessage(Message[code]));
       });
   },
 
@@ -106,7 +111,8 @@ export const Operation = {
       .then((response) => {
         const favoriteOffers = Adapter.getOffers(response.data);
         dispatch(ActionCreator.loadFavorites(favoriteOffers));
-      });
+      })
+      .catch(()=>{});
   }
 };
 

@@ -45,7 +45,7 @@ it(`При наведении курсора на карточку предло�
   const offerCard = Enzyme.mount(
       <Router history={history}>
         <OfferCard
-          type={OfferRenderType.MAIN}
+          type={OfferRenderType.MAIN.type}
           offer={offer}
           onMouseOver={onMouseOver}
           onMouseLeave={onMouseLeave}
@@ -70,7 +70,7 @@ it(`В атрибут href ссылки на заголовки оффера п�
   const offerCard = Enzyme.mount(
       <Router history={history}>
         <OfferCard
-          type={OfferRenderType.MAIN}
+          type={OfferRenderType.MAIN.type}
           offer={offer}
           onMouseOver={onMouseOver}
           onMouseLeave={onMouseLeave}
@@ -93,7 +93,7 @@ it(`При нажатии кнопки добавления предложени
   const offerCard = Enzyme.mount(
       <Router history={history}>
         <OfferCard
-          type={OfferRenderType.MAIN}
+          type={OfferRenderType.MAIN.type}
           offer={offer}
           onMouseOver={onMouseOver}
           onMouseLeave={onMouseLeave}

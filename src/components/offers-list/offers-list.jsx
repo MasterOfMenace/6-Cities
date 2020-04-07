@@ -15,7 +15,7 @@ const OffersList = (props) => {
     onFavoriteButtonClick,
     isAuth
   } = props;
-  const className = type === OfferRenderType.MAIN ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
+  const className = type === OfferRenderType.MAIN.type ? `cities__places-list places__list tabs__content` : `near-places__list places__list`;
 
   return (
     <div className={className}>
@@ -38,7 +38,7 @@ const OffersList = (props) => {
 };
 
 OffersList.propTypes = {
-  type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD]).isRequired,
+  type: PropTypes.oneOf([OfferRenderType.MAIN.type, OfferRenderType.NEIGHBORHOOD.type]).isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({

@@ -1,4 +1,4 @@
-import {MonthNames} from './const.js';
+import {MonthNames, SortType} from './const.js';
 
 const STAR_WIDTH = 20;
 
@@ -6,16 +6,16 @@ export const getCurrentOffers = (offers, city) => offers.filter((offer) => offer
 
 export const sortOffers = (offers, sortType) => {
   switch (sortType) {
-    case `Popular`:
+    case SortType.POPULAR:
       return offers;
 
-    case `Price: low to high`:
+    case SortType.LOW_TO_HIGH:
       return offers.slice().sort((a, b) => a.price - b.price);
 
-    case `Price: high to low`:
+    case SortType.HIGH_TO_LOW:
       return offers.slice().sort((a, b) => b.price - a.price);
 
-    case `Top rated first`:
+    case SortType.TOP_RATED:
       return offers.slice().sort((a, b) => b.rating - a.rating);
   }
 

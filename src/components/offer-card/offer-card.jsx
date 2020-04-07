@@ -15,40 +15,24 @@ const OfferCard = (props) => {
     isAuth
   } = props;
 
-  let articleClassName;
-  let imgWrapperClassName;
-  let infoWrapperClassName;
-  let imgWidth;
-  let imgHeight;
+  let node;
 
   switch (type) {
-    case OfferRenderType.MAIN:
-      articleClassName = `cities__place-card`;
-      imgWrapperClassName = `cities__image-wrapper`;
-      infoWrapperClassName = `place-card__info`;
-      imgWidth = 260;
-      imgHeight = 200;
+    case OfferRenderType.MAIN.type:
+      node = OfferRenderType.MAIN.node;
       break;
 
-    case OfferRenderType.NEIGHBORHOOD:
-      articleClassName = `near-places__card`;
-      imgWrapperClassName = `near-places__image-wrapper`;
-      infoWrapperClassName = `place-card__info`;
-      imgWidth = 260;
-      imgHeight = 200;
+    case OfferRenderType.NEIGHBORHOOD.type:
+      node = OfferRenderType.NEIGHBORHOOD.node;
       break;
 
-    case OfferRenderType.FAVORITES:
-      articleClassName = `favorites__card`;
-      imgWrapperClassName = `favorites__image-wrapper`;
-      infoWrapperClassName = `favorites__card-info place-card__info`;
-      imgWidth = 150;
-      imgHeight = 110;
+    case OfferRenderType.FAVORITES.type:
+      node = OfferRenderType.FAVORITES.node;
       break;
   }
 
   return (
-    <article className={`${articleClassName} place-card`}
+    <article className={`${node.articleClassName} place-card`}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
       {offer.isPremium
@@ -57,12 +41,12 @@ const OfferCard = (props) => {
           <span>Premium</span>
         </div> : ``
       }
-      <div className={`${imgWrapperClassName} place-card__image-wrapper`}>
+      <div className={`${node.imgWrapperClassName} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width={imgWidth} height={imgHeight} alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width={node.img.width} height={node.img.height} alt="Place image"/>
         </a>
       </div>
-      <div className={infoWrapperClassName}>
+      <div className={node.infoWrapperClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -101,7 +85,7 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  type: PropTypes.oneOf([OfferRenderType.MAIN, OfferRenderType.NEIGHBORHOOD, OfferRenderType.FAVORITES]).isRequired,
+  type: PropTypes.oneOf([OfferRenderType.MAIN.type, OfferRenderType.NEIGHBORHOOD.type, OfferRenderType.FAVORITES.type]).isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,

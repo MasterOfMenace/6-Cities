@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {baseURL} from './const.js';
 
 const Error = {
   BAD_REQUEST: 400,
@@ -7,7 +8,7 @@ const Error = {
 
 export const createApi = (onUnauthorized, onError) => {
   const api = axios.create({
-    baseURL: `https://htmlacademy-react-3.appspot.com/six-cities`,
+    baseURL,
     timeout: 5000,
     withCredentials: true,
   });

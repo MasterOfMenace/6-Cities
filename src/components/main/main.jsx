@@ -15,7 +15,9 @@ const Main = (props) => {
     cityChangeHandler,
     isAuth,
     userInfo,
-    isPopupShow
+    isPopupShow,
+    onPopupButtonClick,
+    errMessage,
   } = props;
 
   const currentOffers = getCurrentOffers(offers, city);
@@ -44,7 +46,7 @@ const Main = (props) => {
             />}
         </div>
       </main>
-      {isPopupShow ? <ErrorPopup onButtonClick={()=>{}}/> : null}
+      {isPopupShow ? <ErrorPopup message={errMessage} onButtonClick={onPopupButtonClick}/> : null}
     </div>
   );
 };
@@ -98,6 +100,8 @@ Main.propTypes = {
   ]),
   isAuth: PropTypes.bool.isRequired,
   isPopupShow: PropTypes.bool.isRequired,
+  onPopupButtonClick: PropTypes.func.isRequired,
+  errMessage: PropTypes.string
 };
 
 export default Main;

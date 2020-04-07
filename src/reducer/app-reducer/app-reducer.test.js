@@ -8,7 +8,8 @@ describe(`Корректная работа reducer`, () => {
       currentSortType: `Popular`,
       hoveredOffer: null,
       formIsSending: false,
-      isPopupShow: false
+      isPopupShow: false,
+      errMessage: null
     });
   });
 
@@ -94,6 +95,17 @@ describe(`Корректная работа reducer`, () => {
       isPopupShow: true
     });
   });
+
+  it(`Reducer должен изменять сообщение об ошибке в соответствии с переданным значением`, () => {
+    expect(reducer({
+      errMessage: null
+    }, {
+      type: ActionType.CHANGE_ERR_MESSAGE,
+      payload: `Message`
+    })).toEqual({
+      errMessage: `Message`
+    });
+  });
 });
 
 describe(`Корректная работа ActionCreator`, () => {
@@ -133,6 +145,14 @@ describe(`Корректная работа ActionCreator`, () => {
       .toEqual({
         type: ActionType.CHANGE_POPUP_STATUS,
         payload: true
+      });
+  });
+
+  it(`ActionCreator.changeErrMessage возвращает корректный action`, () => {
+    expect(ActionCreator.changeErrMessage(`Message`))
+      .toEqual({
+        type: ActionType.CHANGE_ERR_MESSAGE,
+        payload: `Message`
       });
   });
 });

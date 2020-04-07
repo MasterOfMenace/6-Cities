@@ -19,3 +19,7 @@ export const getFormStatus = (state) => {
 export const getPopupStatus = (state) => {
   return state[NameSpace.APP].isPopupShow;
 };
+
+export const getErrMessage = (state) => {
+  return state[NameSpace.APP].errMessage;
+};

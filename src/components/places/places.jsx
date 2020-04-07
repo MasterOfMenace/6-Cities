@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import SortList from '../sort-list/sort-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import withOpen from '../../hocs/with-open/with-open.jsx';
 import withSort from '../../hocs/with-sort/with-sort.jsx';
-
-const SortListWithOpen = withOpen(SortList);
-const OffersListWithSort = withSort(OffersList);
 import {getCurrentOffers} from '../../utils.js';
 import {OfferRenderType} from '../../const.js';
 import {getHoveredOffer} from '../../reducer/app-reducer/selectors.js';
-import {connect} from 'react-redux';
+
+const SortListWithOpen = withOpen(SortList);
+const OffersListWithSort = withSort(OffersList);
 
 const Places = (props) => {
   const {offers, city, isAuth, currentOfferId} = props;
@@ -26,7 +26,7 @@ const Places = (props) => {
         <SortListWithOpen />
         <OffersListWithSort
           offers={currentOffers}
-          type={OfferRenderType.MAIN}
+          type={OfferRenderType.MAIN.type}
           isAuth={isAuth}/>
       </section>
       <div className="cities__right-section">

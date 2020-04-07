@@ -11,7 +11,7 @@ it(`Правильное отображение компонента OffersList 
     .create(
         <Router history={history}>
           <OffersList
-            type={OfferRenderType.MAIN}
+            type={OfferRenderType.MAIN.type}
             offers={mockOffers}
             onMouseOver={()=>{}}
             onMouseLeave={()=>{}}
@@ -30,7 +30,7 @@ it(`Правильное отображение компонента OffersList 
     .create(
         <Router history={history}>
           <OffersList
-            type={OfferRenderType.NEIGHBORHOOD}
+            type={OfferRenderType.NEIGHBORHOOD.type}
             offers={mockOffers}
             onMouseOver={()=>{}}
             onMouseLeave={()=>{}}

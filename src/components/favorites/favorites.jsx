@@ -63,7 +63,7 @@ const Favorites = (props) => {
                               onMouseLeave();
                             }}
                             onFavoriteButtonClick={onFavoriteButtonClick}
-                            type={OfferRenderType.FAVORITES}
+                            type={OfferRenderType.FAVORITES.type}
                             isAuth={isAuth}
                           />
                         ))}

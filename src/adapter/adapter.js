@@ -1,3 +1,5 @@
+import {baseURL} from "../const";
+
 export const Adapter = {
   getOffer: (data) => {
     return {
@@ -73,7 +75,7 @@ export const Adapter = {
 
   getUserInfo: (data) => {
     return {
-      avatarUrl: `https://htmlacademy-react-3.appspot.com/six-cities${data.avatar_url}`,
+      avatarUrl: `${baseURL}${data.avatar_url}`,
       email: data.email,
       id: data.id,
       isPro: data.is_pro,

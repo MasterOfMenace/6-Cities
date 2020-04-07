@@ -22,9 +22,9 @@ exports[`Правильное отображение компонента OfferC
       <img
         alt="Place image"
         className="place-card__image"
-        height={110}
+        height={200}
         src="img/apartment-01.jpg"
-        width={150}
+        width={260}
       />
     </a>
   </div>

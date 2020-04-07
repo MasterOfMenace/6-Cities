@@ -42,7 +42,8 @@ it(`Правильное отображение компонента Main`, () =
             isAuth={true}
             authStatus={AuthorizationStatus.AUTH}
             userInfo={mockUserInfo}
-            isPopupShow={false}/>
+            isPopupShow={false}
+            onPopupButtonClick={()=>{}}/>
         </Router>
       </Provider>,
       {
