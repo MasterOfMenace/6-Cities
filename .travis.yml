@@ -3,5 +3,18 @@ language: node_js
 node_js:
   - "10"
 
-notifications:
-  email: false
+cache:
+  directories:
+    "node_modules"
+
+script:
+  - npm test
+  - npm build
+
+deploy:
+  provider: pages
+  github-token: 
+  skip-cleanup: true
+  keep-history: true
+  on:
+    branch: master
