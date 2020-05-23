@@ -9,12 +9,12 @@ cache:
 
 script:
   - npm test
-  - npm build
+  - npm run build
 
 deploy:
   provider: pages
   github-token: $GH_TOKEN
-  skip-cleanup: true
+  cleanup: true
   keep-history: true
   on:
     branch: master
