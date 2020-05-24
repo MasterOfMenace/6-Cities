@@ -3,5 +3,21 @@ language: node_js
 node_js:
   - "10"
 
-notifications:
-  email: false
+cache:
+  directories:
+    "node_modules"
+
+script:
+  - npm install
+  - npm test
+  - npm run build
+
+deploy:
+  provider: pages
+  github-token: $GH_TOKEN
+  cleanup: true
+  keep-history: true
+  local_dir: public
+  on:
+    branch: master
+
