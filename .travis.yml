@@ -11,7 +11,7 @@ script:
   - npm install
   - npm test
   - npm run build
-
+ 
 deploy:
   provider: pages
   github-token: $GH_TOKEN
@@ -20,4 +20,3 @@ deploy:
   local_dir: public
   on:
     branch: master
-
