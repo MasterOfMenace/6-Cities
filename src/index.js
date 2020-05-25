@@ -30,8 +30,8 @@ export const store = createStore(
     )
 );
 
-store.dispatch(UserOperation.checkAuth());
-store.dispatch(DataOperation.loadFavorites());
+// store.dispatch(UserOperation.checkAuth());
+// store.dispatch(DataOperation.loadFavorites());
 store.dispatch(DataOperation.loadOffers())
   .then(() => {
     ReactDOM.render(
