@@ -53,7 +53,7 @@ class App extends React.PureComponent {
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
     return (
-      <Router history={history}>
+      <Router basename ="/6-Cities" history={history}>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
