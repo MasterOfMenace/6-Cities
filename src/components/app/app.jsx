@@ -53,7 +53,7 @@ class App extends React.PureComponent {
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
     return (
-      <Router basename ={process.env.public_url}>
+      <Router basename ={process.env.public_url}> {/* eslint-disable-line*/}
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
