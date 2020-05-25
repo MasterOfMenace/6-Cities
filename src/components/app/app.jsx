@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, Router, Redirect} from 'react-router-dom';
+import {Switch, Route, BrowserRouter as Router, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
@@ -10,7 +10,7 @@ import {getCity, getPopupStatus, getErrMessage} from '../../reducer/app-reducer/
 import {getOffers, getCities} from '../../reducer/data/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
-import history from '../../history.js';
+// import history from '../../history.js';
 import Favorites from '../favorites/favorites.jsx';
 import {store} from '../../index.js';
 
@@ -53,7 +53,7 @@ class App extends React.PureComponent {
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
     return (
-      <Router basename ="/6-Cities" history={history}>
+      <Router basename ={process.env.public_url}>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
