@@ -147,7 +147,7 @@ class OfferDetails extends React.PureComponent {
                         ${host.isPro ? `property__avatar-wrapper--pro` : ``}
                         user__avatar-wrapper`
                       }>
-                      <img className="property__avatar user__avatar" src={`/${host.avatarUrl}`} width="74" height="74" alt="Host avatar"/>
+                      <img className="property__avatar user__avatar" src={`${host.avatarUrl}`} width="74" height="74" alt="Host avatar"/>
                     </div>
                     <span className="property__user-name">
                       {host.name}

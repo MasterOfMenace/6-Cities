@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter as Router, Redirect} from 'react-router-dom';
+import {Switch, Route, HashRouter as Router, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import OfferDetails from '../offer-details/offer-details.jsx';
@@ -53,7 +53,7 @@ class App extends React.PureComponent {
     const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
     return (
-      <Router basename ={process.env.public_url}> {/* eslint-disable-line*/}
+      <Router basename="/">
         <Switch>
           <Route exact path="/">
             {this._renderApp()}

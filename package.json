@@ -2,14 +2,14 @@
   "name": "six-cities",
   "version": "1.0.0",
   "private": true,
-  "description": "Личный проект «Шесть городов» от HTML Academy",
-  "homepage": "https://masterofmenace.github.io/6-Cities/",
+  "description": "«Шесть городов»",
   "scripts": {
     "eslint": "eslint --ext .jsx --ext .js src/",
     "test": "npm run eslint && npm run test.jest",
     "test.jest": "jest",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "deploy": "gh-pages -d public"
   },
   "devDependencies": {
     "@babel/core": "7.8.4",
@@ -22,6 +22,7 @@
     "eslint": "5.13.0",
     "eslint-config-htmlacademy": "0.5.2",
     "eslint-plugin-react": "7.18.3",
+    "gh-pages": "^2.2.0",
     "jest": "25.1.0",
     "prop-types": "15.7.2",
     "react-test-renderer": "16.12.0",
